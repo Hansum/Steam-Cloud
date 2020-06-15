@@ -1,0 +1,228 @@
+@font-face {
+   font-family: importFontBold;
+   src: url("../fonts/brooklynBold.ttf");
+}
+
+@font-face {
+   font-family: importFont;
+   src: url("../fonts/brooklyn.otf");
+}
+
+#indexbody {
+	background-image: url("../images/bodybg.jpg");
+	background-repeat: repeat;
+}
+
+#form {
+	z-index: 2;
+	padding: 7.5em;
+	position: absolute;
+	top: 30%;
+	background-color: white;
+	border-color: #f5f5f5;
+	border-width: 5px;
+	border-style: solid;
+}
+
+#form-content {
+	padding-top: 7%;
+}
+
+#bg-bar {
+	z-index:1;
+	position:absolute;
+	top:0%;
+	left:0%;
+	background-image: url("../images/bg.jpg");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-size: cover;
+	height:40%;
+	width:100%;
+}
+
+#info2 {
+	padding-top: 5%;
+}
+
+#graph {
+	background-image: url("../images/graph.gif");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-size: cover;
+	height:200px;
+	width:322px;
+	padding:5%;
+}
+
+#research {
+	background-image: url("../images/research.gif");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-size: cover;
+	height:200px;
+	width:322px;
+	padding:5%;
+}
+
+#logo {
+	padding-top:1%;
+	z-index:9;
+	opacity:1;
+}
+
+#logo > img {
+	width:auto;
+	max-width:250px;
+	height:auto;
+}
+
+#title {
+	opacity:1;
+	color:black;
+	font-family: importFontBold;
+	width:auto;
+	max-width:1920px;
+	height:auto;
+}
+
+.gif {
+	height: 75%;
+	width: 75%;
+}
+
+.tech {
+	height:40%;
+	width:40%;
+}
+
+.face {
+	height:auto;
+	max-height:50%;
+	width:auto;
+	max-width:40%;
+	border-radius:100%;
+}
+
+body {
+	font-family: importFont;
+}
+
+#sidebar {
+	position:fixed;
+	height:100%;
+	background-color:#f5f5f5;
+	z-index:999;
+}
+
+#profpic {
+	border-radius:100%;
+	height:auto;
+	width:100%;
+	max-width:100px;
+}
+
+#chedlogo {
+	width:100%;
+	max-width:100px;
+	height:auto;
+}
+
+#list {
+	padding-top:5%;
+}
+
+.icon {
+	padding: 5%;
+}
+
+.sublist > a {
+	background-color: #f5f5f5;
+}
+
+#content {
+    margin-left:17%;
+}
+
+#contentTitle {
+    font-family:importFontBold;
+}
+
+#contentBody {
+	background-color: #f5f5f5;
+    padding: 2%;
+}
+
+.graphContainer {
+    background-color: #5dafaf;
+    margin-top:1%;
+    padding: 2%;
+}
+
+.box {
+    background-color: #5dafaf;
+    height:250px;
+    width:250px;
+}
+
+.dataContainer {
+    margin-top: 1%;
+}
+
+.chart {
+  padding: 5%;
+  background-color: #f5f5f5;
+}
+
+.piechart {
+
+  padding: 5%;
+  background-color: #f5f5f5;
+}
+
+.piechart1 {
+  margin-top: 1%;
+  padding: 5%;
+  background-color: #f5f5f5;
+}
+
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container > h1 {
+  text-align: center;
+  font-size: 45px;
+  font-family: 'Francois One', sans-serif;
+}
+
+.container > p {
+  font-family: 'Patua One', cursive;
+  text-align: center;
+  font-size: 25px;
+}
+
+.container > h3 {
+  font-size: 35px;
+  font-family: 'Francois One', sans-serif;
+  text-align: center;
+}
+
+.picbg {
+	background-color: #f5f5f5;
+	padding:4%;
+}
+
+#institutionLogo {
+	height:auto;
+	width:auto;
+	max-height:15%;
+	max-width:15%;
+}
+
+.rawNumber{
+	margin:15%;
+}

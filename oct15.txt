@@ -1,0 +1,66 @@
+ERRORS AND CONCERN AS OF OCT 8, 2018
+error handling in adding picture(what if malimtan sa user ug add ug picture)(add school from institution director)
+assign school dean(mu error siya(error handling ni jj)
+Assign Department chair(need ba jud nga ipakita or mu choose pa ug school?)(error in reassigning dept chair)
+If dli maka add ug picture kay ma rip ang system(not sure tho kay mao na nahitabo atu pag last)
+Department visualization sa Institution Admin-Average Faculty per department-what if daghan na kaayo ang department dili maguba ang divisions ani?
+Student data visualiztion(wala ko kasabot ngano 1500 nigawas nya akong gi input kay 500 ahahaha)(nya what if lain nga year then lahi nga department unsay mahitabo sa visualization)
+error handling sa change password(all users)
+
+DEPARTMENT CHAIR
+View Program(not yet done)
+View Student(not yet done)
+
+REGULAR FACULTY
+view Program(not done)
+view student record(not done)
+
+CHED ADMIN
+reassigning of institution admin(what if ang faculty dili under ana nga institution)
+
+INSTITUTION ADMIN
+(Luzon acc)
+-Delete Program(ipakita tanan programs maski wala sa institution)\
+-Add program(ig add ug program naay times nga double ang iyang i add)
+-Department Visalization(Number of programs sayop ang count i think)
+-average faculty per school pie graph kay sayop 6 ra ang faculty sa luzon nga insitution pero 2 ra ka faculty ang naay departmentId ang upat wala pa na assign ug departmentId
+-average faculty per department visualization(pie graph) kay sayop asa na gikan ang faculty number
+-faculty age kay i think sayop sad not sure
+-1000 akong gi input sa enrolees pero 2000 ang ibutang sa visualization
+
+
+
+GRAPHS
+//INSTI ADMIN
+
+NEED CHANGES
+
+-AVERAGE FACULTY PER SCHOOL AND DEPARTMENT
+-FACULTY AGE
+-SCHOOL STRUCTURE
+-AVERAGE FACULTY PER INSTITUTION
+-STUDENT DATA FOR EVERY SCHOOL
+
+//DEAN
+- faculty school graduated
+- faculty age structure
+
+//INSTITUION ADMIN
+EDIT STUDENT DATA
+PLS CLARIFY
+app.js line 667
+- SELECT SUM(enrollees) as enrollees, SUM(graduated) as graduated, year,institutionName,departmentName FROM studentdata LEFT JOIN institution ON studentdata.institutionId = institution.institutionId LEFT JOIN department ON studentdata.departmentId = department.departmentId WHERE institution.institutionId = 1 GROUP BY year
+
+-SELECT  enrollees, graduated, year,institutionName,departmentName FROM studentdata LEFT JOIN institution ON studentdata.institutionId = institution.institutionId LEFT JOIN department ON studentdata.departmentId = department.departmentId WHERE institution.institutionId = 1 GROUP BY studentdata.departmentId
+
+SQL HELP
+// student data in admin page
+app.js page 606
+ - SELECT studentdata.institutionId,enrollees, year, departmentName FROM studentdata LEFT JOIN department ON studentdata.departmentId = department.departmentId WHERE studentdata.institutionId = 1 GROUP BY departmentName
+ -(old query) SELECT institution_department.departmentId AS id, department.departmentName AS name, studentdata.year AS year, SUM(studentdata.enrollees) AS enroll, SUM(studentdata.graduated) AS graduate, studentdata.institutionId AS institutionId FROM studentdata JOIN institution_department ON institution_department.departmentId = studentdata.departmentId JOIN department ON institution_department.departmentId = department.departmentId JOIN institution_school ON institution_department.schoolId = institution_school.schoolId JOIN institution ON institution_school.institutionId = institution.institutionId WHERE institution.institutionId = "'+result[0].institutionId+'" GROUP BY year
+ -(new query) SELECT studentdata.departmentId as departmentId,institution.institutionId,SUM(enrollees) as enroll, SUM(graduated) as graduate, year,institutionName,departmentName FROM studentdata LEFT JOIN institution ON studentdata.institutionId = institution.institutionId LEFT JOIN department ON studentdata.departmentId = department.departmentId WHERE institution.institutionId = '+result[0].institutionId+' GROUP BY year
+- (old) SELECT institution_department.departmentId AS id, department.departmentName AS name, studentdata.year AS year, studentdata.enrollees AS enroll, studentdata.graduated AS graduate, studentdata.institutionId AS institutionId FROM studentdata JOIN institution_department ON institution_department.departmentId = studentdata.departmentId JOIN department ON institution_department.departmentId = department.departmentId JOIN institution_school ON institution_department.schoolId = institution_school.schoolId JOIN institution ON institution_school.institutionId = institution.institutionId WHERE institution.institutionId = "1"
+																																		
+//student data graph in dean page
+app.js page 1180
+ - SELECT enrollees, graduated,year FROM studentdata LEFT JOIN institution_department ON studentdata.departmentId = institution_department.departmentId LEFT JOIN school ON institution_department.schoolId = school.schoolId WHERE studentdata.departmentId = 7 GROUP BY year

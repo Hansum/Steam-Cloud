@@ -1,0 +1,4 @@
+ched admin gmail account for nodemailer
+
+username: chedph01
+password: chedadmin1

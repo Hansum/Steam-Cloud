@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/design.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/>
+	<script src='js/jquery.min.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<script src="js/Chart.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+
+	<head>
+		<title>The STEAM Cloud: Data Analytics and Research Module</title>
+		<link rel='icon' href='../images/logo2.png'>
+	</head>
+	<body>
+		<%- include ../views/partials/modals.ejs %>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-2' id='sidebar' >
+					<div class='row'>
+						<div class='col-lg-12 text-center'>
+							<img id='chedlogo' src='../images/logo2.png'>
+						</div>
+						<div id='userInfo' class='col-lg-12'>
+							<hr>
+							<div class='col-lg-6 col-lg-offset-3'>
+								<img id='profpic' src='../images/chedgov.jpg' alt='No image found'>
+							</div>
+							<div class='col-lg-12 text-center'>
+								<h5>Commission on Higher Education</h5>
+							</div>
+							<a class='col-lg-6 text-center icon'  data-toggle="modal" data-target="#support" onclick="showSupTab()">
+								<span class='glyphicon glyphicon-question-sign'></span>
+							</a>
+							<a id='logout' href="/logout" class='col-lg-6 text-center icon'>
+								<span class='glyphicon glyphicon-log-out'></span>
+							</a>
+						</div>
+						<div class='col-lg-12'>
+							<div class='list-group'>
+								<a  id='institution' class="list-group-item">Institution</a>
+									<div id='subinstitution' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addInstitution" onclick="showInTab()"><span class='glyphicon glyphicon-plus'></span> Add Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editInstitution"><span class='glyphicon glyphicon-pencil'></span> Edit Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteInstitution"><span class='glyphicon glyphicon-trash'></span> Delete Institution</a>
+										<a href='#viewinstitution' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View Institutions Visualizations</a>
+										
+									</div>
+									<a  id='region' class="list-group-item">Region</a>
+									<div id='subRegion' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addRegion"><span class='glyphicon glyphicon-plus'></span> Add Region</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editRegion"><span class='glyphicon glyphicon-pencil'></span> Edit Region</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteRegion"><span class='glyphicon glyphicon-trash'></span> Delete Region</a>
+									</div>
+								<a  id='institutionAdmin' class="list-group-item">Institution Administrator</a>
+									<div id='subinstitutionadmin' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addInstitutionAdmin"><span class='glyphicon glyphicon-plus'></span> Assign Institution Administrator</a>
+										
+										<a  class="list-group-item" data-toggle="modal" data-target="#viewInstitutionAdmin"><span class='glyphicon glyphicon-search'></span> View Institution Administrator</a>
+									</div>
+								<a  id='school' class="list-group-item">School</a>
+									<div id='subSchool' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addSchool"><span class='glyphicon glyphicon-plus'></span> Add School</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editSchool"><span class='glyphicon glyphicon-pencil'></span> Edit School</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteSchool"><span class='glyphicon glyphicon-trash'></span> Delete School</a>
+										<a href='#viewschool' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View School Visualizations</a>
+									</div>
+								<a  id='department' class="list-group-item">Department</a>
+									<div id='subDepartment' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addDepartment"><span class='glyphicon glyphicon-plus'></span> Add Department</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editDepartment"><span class='glyphicon glyphicon-pencil'></span> Edit Department</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteDepartment"><span class='glyphicon glyphicon-trash'></span> Delete Department</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#certifyDepartmentDev"><span class='glyphicon glyphicon-bookmark'></span> Certify Department as Center of Development</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#certifyDepartmentEx"><span class='glyphicon glyphicon-bookmark'></span> Certify Department as Center of Excellence</a>
+										<a class="list-group-item" data-toggle="modal" data-target="#deleteCertification"><span class='glyphicon glyphicon-remove'></span> Remove Department Certifications</a>
+										<a href='#viewdepartment' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View Department Visualizations</a>
+									</div>
+								<a id='faculty' class="list-group-item">Faculty</a>
+									<div id='subFaculty' class='sublist list-group'>
+										<a href='#viewfaculty' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View Faculty Visualizations</a>
+									</div>
+								<a id='student' class="list-group-item">Student</a>
+									<div id='subStudent' class='sublist list-group'>
+										<a href='#viewstudent' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View Student Visualizations</a>
+									</div>
+								<a id='program' class="list-group-item">Program</a>
+									<div id='subProgram' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addProgram"><span class='glyphicon glyphicon-plus'></span> Add Program</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editProgram"><span class='glyphicon glyphicon-pencil'></span> Edit Program</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteProgram"><span class='glyphicon glyphicon-trash'></span> Delete Program</a>
+										<a href='#viewprogram2' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View Program Visualizations</a>
+									</div>
+								<a id='publication' class="list-group-item">Publication</a>
+									<div id='subPublication' class='sublist list-group'>
+										<a href='#viewpublications' class="list-group-item"><span class='glyphicon glyphicon-search'></span> View Publications Visualizations</a>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='col-lg-10 row' id='content'>
+					<% if(locals.message == "Success"){ %>
+						    <div class="alert alert-success text-center popup">
+						        <strong> Success!</strong>
+						    </div>
+						<% } %>
+						<% if(locals.message != "Success"){ %>
+						    <div class="alert alert-danger text-center popup">
+						       <strong> <%=message.fail%></strong>
+						    </div>
+						<% } %>
+						
+								<div class='col-lg-12 text-center' id='contentTitle'>
+										<h4>Data Visualizations</h4>
+								</div>
+								<div class='col-lg-10 col-lg-offset-1 row' id='contentBody'>
+										<div class='col-lg-12'>
+												<h3 class='text-center' id='viewinstitution'>INSTITUTIONS  <a href="/print?q=0&p=Institution" class='glyphicon glyphicon-file'></a></h3>
+												 
+										 </div>
+										<div class='col-lg-12 graphContainer'>
+												<div class='col-lg-12 chart'>
+													<canvas id="InstitutionChart"></canvas>
+												</div>
+
+												<div class='col-lg-6 piechart1 padd'>
+													<h3>Total number of institutions:<h2><%= institutioncount[0].institutionNumber%></h2></h3>
+													<h3>Average Number of Institution Per Region:<% averageregion.forEach(function(data){ %>
+													<h2><%=data.regionavg %></h2>
+													<% }); %></h3>
+												</div>
+												
+												<div class="col-lg-12 piechart1">
+													<table id='directorlist' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">Institution Director specialization and degree</h3>
+									                    <thead>
+									                        <tr>
+									                        	<th>Institution</th>
+									                        	<th>Director Name</th>
+									                        	<th>Specialization</th>
+									                            <th>Degree</th>
+									                            
+									                            
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% directortable.forEach(function(data){ %>
+									                        <tr>
+									                        	<td><%= data.institutionName %></td>
+									                        	<td><%= data.lname %>,<%= data.fname %> <%= data.mname %></td>
+									                            <td><%= data.specialization %></td>
+									                            <td><%= data.educationalAttainment %></td>
+									                            
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+												
+												<div class="col-lg-12 piechart1">
+													<table id='institutionList' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">LIST OF INSTITUTIONS</h3>
+									                    <thead>
+									                        <tr>
+									                            <th>Institution Name</th>
+									                            <th>Region</th>
+									                            <th>More Details</th>
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% listinstitute.forEach(function(data){ %>
+									                        <tr>
+									                            <td><%= data.institutionName %></td>
+									                            <td><%= data.region %></td>
+									                            <td class="text-center"><span class='glyphicon glyphicon-search btn btn-success' data-toggle="modal" data-target="#institution<%= data.institutionId %>"> </span></td>
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+
+
+										</div>
+
+										<div class='col-lg-12 dataContainer'>
+												<h3 class='text-center' id='viewschool'>SCHOOLS <a href="/print?q=0&p=School" class='glyphicon glyphicon-file'></a></h3>
+												
+										</div>
+										<div class='col-lg-12 graphContainer'>
+												<div class='col-lg-12 chart'>
+													<canvas id="SchoolChart" ></canvas>
+												</div>
+												<div class='col-lg-12 piechart1'>
+													<canvas id="SchoolaveChart"></canvas>
+												</div>
+												<div class='col-lg-12 piechart1'>
+													<canvas id="FacperSchoolChart"></canvas>
+												</div>
+												<div class='box'>
+
+												</div>
+
+												<div class="col-lg-12 piechart1">
+
+													<table id='schoollists' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">LIST OF SCHOOLS</h3>
+									                    <thead>
+									                        <tr>
+									                            <th>School Name</th>
+									                            <th>Institution Name</th>
+									                            <th>School Dean</th>
+
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% schoolTables.forEach(function(data){ %>
+									                        <tr>
+									                            <td><%= data.schoolName%></td>
+									                            <td><%= data.institutionName %></td>
+									                            <td ><%= data.lname %>, <%= data.fname %></td>
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+										</div>
+										<div class='col-lg-12 dataContainer'>
+												<h3 class='text-center' id='viewdepartment'>DEPARTMENTS <a href="/print?q=0&p=Department" class='glyphicon glyphicon-file'></a></h3>
+												
+										</div>
+										<div class='col-lg-12 graphContainer'>
+												<div class='col-lg-12 chart'>
+													<canvas id="departmentChart"></canvas>
+												</div>
+												<div class='col-lg-12 piechart1'>
+													<canvas id="certificationchart"></canvas>
+												</div>
+												<div class='col-lg-6 piechart1 padd'>
+												
+													<h3>Average Department in Institution:</h3>
+													<% avedepartment.forEach(function(data){ %>
+													<h2><%=data.avedeptint %></h2>
+													<% }); %>
+													<br>
+													<h3>Average Department in School:</h3>
+													<% avedeptschool.forEach(function(data){ %>
+														<h2><%=data.avedeptsch %></h2>
+													<% }); %>
+													
+												</div>
+												
+												
+												<div class='box'>
+
+												 </div>
+												 <div class="col-lg-12 piechart1">
+													<table id='deptlist' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">LIST OF DEPARTMENTS</h3>
+									                    <thead>
+									                        <tr>
+									                        	<th>Institution Name</th>
+									                        	<th>School Name</th>
+									                            <th>Department Name</th>
+									                            <th>Department Chairman</th>
+									                            <th>Center of Development?</th>
+									                            <th>Center of Excellence?</th>
+									                            
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% departmenttables.forEach(function(data){ %>
+									                        <tr>
+									                        	<td><%= data.institutionName %></td>
+									                        	<td><%= data.schoolName %></td>
+									                            <td><%= data.departmentName %></td>
+									                            <td><%= data.fname %>, <%= data.lname %></td>
+									                            <td><%= data.centerOfDevelopment %></td>
+									                            <td><%= data.centerOfExcellence %></td>
+									                            
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+										</div>
+										<div class='col-lg-12 dataContainer'>
+												<h3 class='text-center' id='viewfaculty'>FACULTY <a href="/print?q=0&p=Faculty" class='glyphicon glyphicon-file'></a></h3>
+														
+										</div>
+										<div class='col-lg-12 graphContainer'>
+												<div class='col-lg-12 chart'>
+													<canvas id="facultychart"></canvas>
+												</div>
+												<div class='col-lg-6 piechart1'>
+													<canvas id="facultygenderchart"></canvas>
+												</div>
+												<div class='col-lg-6 piechart1'>
+													<canvas id="facultydegreechart"></canvas>
+												</div>
+												<div class='col-lg-12 piechart1'>
+													<canvas id="facultyaveragechart"></canvas>
+												</div>
+												<div class='col-lg-12 piechart1'>
+													<canvas id="facultylevelchart"></canvas>
+												</div>
+												
+												<div class='col-lg-12 piechart1'>
+													<canvas id="facultyagechart"></canvas>
+												</div>
+												
+												<div class='col-lg-12 piechart1'>
+													<canvas id="facultygraduatechart"></canvas>
+												</div>
+												<div class='box'>
+
+												</div>
+												<div class="col-lg-12 piechart1">
+
+															<table id='faclist' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">LIST OF FACULTY</h3>
+											                    <thead>
+											                        <tr>
+											                        	<th>Institution Name</th>
+											                        	<th>School Name</th>
+											                            <th>Faculty Name</th>
+											                            <th>Position</th>
+											                            <th>More Information</th>
+											                        </tr>
+											                    </thead>
+											                    <tbody>
+											                        <% chedfactables.forEach(function(data){ %>
+											                        <tr>
+											                        	<td><%= data.institutionName %></td>
+											                        	<td><%= data.schoolName%></td>
+											                            <td><%= data.lname %>, <%= data.fname %></td>
+											                            <td><%= data.position %></td>
+											                            <td class="text-center"><span class='glyphicon glyphicon-search btn btn-success' data-toggle="modal" data-target="#faculty<%= data.facultyId %>"> </span></td>
+											                        </tr>
+											                        <% }); %>
+											                    </tbody>
+											                </table>
+												</div>
+										</div>
+										<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='viewstudent'>STUDENTS </h3>
+										</div>
+										<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-12 piechart1'>
+												<canvas id="studentbarchart"></canvas>
+											</div>
+									
+										
+											<div class='col-lg-12 piechart1'>
+												<canvas id="StudentSchoolAverageChart"></canvas>
+											</div>
+										</div>
+
+										<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='viewprogram2'>PROGRAMS <a href="/print?q=0&p=Program" class='glyphicon glyphicon-file'></a></h3>
+										</div>
+										<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-12 piechart1'>
+												<canvas id="programbarchart"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="programavailabilitychart"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="programnotavailablechart"></canvas>
+											</div>
+											<div class='col-lg-12 piechart1'>
+												<table id='programavailabilitytable' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">
+																PROGRAM AVAILABILITY AND POPULATION PER YEAR</h3>
+											                    <thead>
+											                        <tr>
+											                        	<th>Institution Name</th>
+											                        	<th>Program Name</th>
+											                        	<th>Population</th>
+											                            <th>Year</th>
+											                            <th>Availability</th>
+											                        </tr>
+											                    </thead>
+											                    <tbody>
+											                    	<% programtablesql.forEach(function(data){ %>
+											                        <tr>
+											                        	<td><%= data.institutionName %></td>
+											                        	<td><%= data.programName %></td>
+											                        	<td><%= data.population %></td>
+											                            <td><%= data.year %></td>
+											                            <td><%= data.availability %></td>
+											                            
+											                        </tr>
+											                        <% }); %>
+											                    </tbody>
+											                </table>
+											</div>
+										</div>
+
+										<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='viewpublications'>PUBLICATIONS</h3>
+										</div>
+										<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-12 piechart1'>
+												<canvas id="publicationbarchart"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart1"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart2"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart3"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart4"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart5"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart6"></canvas>
+											</div>
+											<div class='col-lg-12 piechart1'>
+												<canvas id="publicationbarchart7"></canvas>
+											</div>
+										</div>
+											
+
+										
+								</div>
+							</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+
+	
+
+	$(document).ready(function(){
+		$(".sublist").hide();
+
+		setTimeout(function() {
+      	$(".popup").fadeOut();
+   		}, 5000);
+			
+		var mydate = new Date();
+		var curr_date = mydate.getDate();
+		var curr_month = mydate.getMonth();
+		var curr_year = mydate.getFullYear();
+
+		var mydatestr = curr_year  + '-' +curr_month + '-' + curr_date;
+		var maxdob = curr_year-20 + '-' +curr_month + '-' + curr_date;
+		
+		$("#dob").attr("max", maxdob);
+		$("#yearGraduated").attr("max", curr_year);
+		$("#DateHired").attr("max", mydatestr);
+		
+		function clean(){
+			$(".sublist").slideUp();
+		}
+
+
+		$("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+
+		$("#faculty").on("click", function(){
+			if($("#subFaculty").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subFaculty").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+		
+		$("#student").on("click", function(){
+			if($("#subStudent").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subStudent").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+  
+		$("#institution").on("click", function(){
+			if($("#subinstitution").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subinstitution").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#region").on("click", function(){
+			if($("#subRegion").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subRegion").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+
+		$("#institutionAdmin").on("click", function(){
+			if($("#subinstitutionadmin").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subinstitutionadmin").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#school").on("click", function(){
+			if($("#subSchool").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subSchool").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#department").on("click", function(){
+			if($("#subDepartment").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subDepartment").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#program").on("click", function(){
+			if($("#subProgram").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subProgram").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#publication").on("click", function(){
+			if($("#subPublication").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subPublication").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#devConfirm").on("click", function(){
+			var ret = confirm("Are you sure you wish to certify this department?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+		$("#exDevConfirm").on("click", function(){
+			var ret = confirm("Are you sure you wish to certify this department?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+		$("#delDevConfirm").on("click", function(){
+			var ret = confirm("Are you sure you wish to delete all certifications of this department?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+		$(".addInAdmin").on("click", function(){
+			var ret = confirm("Are you sure you wish to replace this faculty's institution admin?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+		$("#logout").on("click", function(){
+			var ret = confirm("Would you like to log out?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+
+
+		});
+
+
+
+
+
+		var faculty = "<%= facultycount[0].facultyNumber%>";
+		var school = "<%= schoolcount[0].schoolNumber%>";
+		var department = "<%= departmentcount[0].departmentNumber%>";
+		var program = "<%= programcount[0].programNumber%>";
+		var institution = "<%= institutioncount[0].institutionNumber%>";
+
+
+ // INSTITUTION
+		var instiChart = document.getElementById('InstitutionChart').getContext('2d');
+
+
+		var sampleChart = new Chart(instiChart, {
+			type: 'bar',
+			data: {
+				labels: [ 'Total Number', <% institutionregion.forEach(function(data){ %>
+					'<%= data.region %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<%= institutioncount[0].institutionNumber %>,
+						<% institutionregion.forEach(function(data){ %>
+							'<%= data.InstitutionRegion %>',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Institutions Per Region',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+
+
+
+
+
+
+
+
+//SCHOOL
+		var school1 = document.getElementById('SchoolChart').getContext('2d');
+
+
+		var sampleChart = new Chart(school1, {
+			type: 'horizontalBar',
+			data: {
+				labels:['Total Number of Available Schools', <% grpschool.forEach(function(data){ %>
+						'<%= data.schoolName %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<%=schoolcount[0].schoolNumber%>,
+						<% grpschool.forEach(function(data){ %>
+						'<%= data.numschool %>',
+				<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Institutions Accommodated by each School',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			},
+			axisX:{
+				labelMaxWidth:100
+			}
+		});
+
+
+		//SCHOOL AVERAGE
+
+		var schoolave = document.getElementById('SchoolaveChart').getContext('2d');
+
+
+		var sampleChart = new Chart(schoolave, {
+			type: 'bar',
+			data: {
+				labels:[<% aveschool.forEach(function(data){ %>
+							'<%= data.institutionName %>',
+						<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% aveschool.forEach(function(data){ %>
+							'<%= data.avgschool %>',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of School(s) per Institution',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+
+		//FACULTY PER SCHOOL
+
+		var school1 = document.getElementById('FacperSchoolChart').getContext('2d');
+
+
+		var sampleChart = new Chart(school1, {
+			type: 'horizontalBar',
+			data: {
+				labels:['Total Number of Faculties',<% schoolfaculties.forEach(function(data){ %>
+						'<%= data.schoolName %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<%= facultycount[0].facultyNumber%>,
+						<% schoolfaculties.forEach(function(data){ %>
+						'<%= data.facultyperschool %>',
+				<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Faculty per School',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			},
+			axisX:{
+				labelMaxWidth:100
+			}
+		});
+
+
+//DEPARTMENT
+
+
+		var dep = document.getElementById('departmentChart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			type: 'horizontalBar',
+			data: {
+				labels:['Total Number of Available Departments',<% grpdepartment.forEach(function(data){ %>
+						'<%= data.departmentName %>',
+					<% }); %>],
+				datasets: [{
+					label: 'Number',
+					data:[
+						department,
+						<% grpdepartment.forEach(function(data){ %>
+						'<%= data.numdepartment %>',
+					<% }); %>, 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Institutions Accommodated by each Department',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+		//DEPARTMENT CERTIFICATIONS
+
+		var certificationbar = document.getElementById('certificationchart').getContext('2d');
+		
+		var bar = new Chart(certificationbar, {
+			type: 'doughnut',
+			data: {
+				labels: ['Center of Development', 'Center of Excellence'],
+				datasets: [{
+					label:'xd',
+					data: [
+					<%=certification[0].centerOfDevelopment%>,
+					<%=certification[0].centerOfExcellence%>,
+					0
+					],
+					backgroundColor: ['#233bc4','#B3C2F2'],
+					
+					fill: false
+					
+				}, 
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total number of Certifications Given',
+					fontsize: 10
+				},
+				legend: {
+					display:true,
+					position: 'right'
+				}
+			}
+		});
+
+
+		//AVERAGE DEPARTMENT PER INSTITUTION
+
+		// var avedeptintchart = document.getElementById('avedeptChart').getContext('2d');
+
+
+		// var sampleChart = new Chart(avedeptintchart, {
+		// 	type: 'doughnut',
+		// 	data: {
+		// 		labels:[<% avedepartment.forEach(function(data){ %>
+		// 			'<%= data.institutionName %>',
+		// 		<% }); %> ],
+		// 		datasets: [{
+		// 			label: 'Number',
+		// 			data:[
+		// 				<% avedepartment.forEach(function(data){ %>
+		// 				'<%= data.avedeptint %>',
+		// 		<% }); %>
+		// 				0
+		// 			],
+		// 			backgroundColor: [
+		// 				'rgb(66, 235, 244)',
+		// 				'rgb(244, 66, 95)',
+		// 				'rgb(35, 59, 196)'
+		// 			],
+
+		// 		}]
+		// 	},
+		// 	options: {
+		// 		title: {
+		// 			display: true,
+		// 			text: 'Average Department per Institution Structure',
+		// 			fontsize: 10
+		// 		},
+		// 		legend: {
+		// 			display: true,
+		// 			position: 'right'
+		// 		}
+		// 	}
+		// });
+
+
+
+		//AVERAGE DEPARTMENT PER SCHOOL
+
+		// var avedeptschoolchart = document.getElementById('avedeptschChart').getContext('2d');
+
+
+		// var sampleChart = new Chart(avedeptschoolchart, {
+		// 	type: 'pie',
+		// 	data: {
+		// 		labels:[<% avedeptschool.forEach(function(data){ %>
+		// 			'<%=data.schoolName%>',
+		// 		<% }); %> ],
+		// 		datasets: [{
+		// 			label: 'Number',
+		// 			data:[
+		// 				<% avedeptschool.forEach(function(data){ %>
+		// 				'<%= data.avedeptsch %>',
+		// 		<% }); %>
+		// 				0
+		// 			],
+		// 			backgroundColor: [
+		// 				'rgb(66, 235, 244)',
+		// 				'rgb(244, 66, 95)',
+		// 				'rgb(35, 59, 196)'
+		// 			],
+
+		// 		}]
+		// 	},
+		// 	options: {
+		// 		title: {
+		// 			display: true,
+		// 			text: 'Average Department per School Structure',
+		// 			fontsize: 10
+		// 		},
+		// 		legend: {
+		// 			display: true,
+		// 			position: 'right'
+		// 		}
+		// 	}
+		// });
+
+
+
+//FACULTY CHART
+
+
+
+		var fac = document.getElementById('facultychart').getContext('2d');
+
+
+		var sampleChart = new Chart(fac, {
+			type: 'bar',
+			data: {
+				labels:['Faculty', 'Program(s)'],
+				datasets: [{
+					label: 'Number',
+					data:[
+						faculty,
+						program,
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(26, 215, 165)'
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty and Program Composition',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+		//POSITION
+
+		var piechart = document.getElementById('facultylevelchart').getContext('2d');
+
+
+		var sampleChart = new Chart(piechart, {
+			type: 'horizontalBar',
+			data: {
+				labels:[<% facultylevel.forEach(function(data){ %>
+					'<%= data.position %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% facultylevel.forEach(function(data){ %>
+						'<%= data.FacultyLevel %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+					],
+					
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Institution Faculty Positions',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+
+		//GENDER
+
+		var genderpiechart = document.getElementById('facultygenderchart').getContext('2d');
+
+
+		var sampleChart = new Chart(genderpiechart, {
+			type: 'pie',
+			data: {
+				labels:[<% facultygender.forEach(function(data){ %>
+					'<%= data.gender %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						<% facultygender.forEach(function(data){ %>
+						'<%= data.FacultyGender %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Gender',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right',
+				}
+			}
+		});
+
+		
+		//AGE
+
+
+		var agepiechart = document.getElementById('facultyagechart').getContext('2d');
+
+
+		var sampleChart = new Chart(agepiechart, {
+			
+			type: 'doughnut',
+			data: {
+				labels:['20-30','30-40','40-50','50-60','60-70','70-80','80-70'],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						<%=agerange[0].twentyTothirty%>,
+						<%=agerange[0].thirtyToforty%>,
+						<%=agerange[0].fortyTofifty%>,
+						<%=agerange[0].fiftyTosixty%>,
+						<%=agerange[0].sixtyToseventy%>,
+						<%=agerange[0].seventyToeighty%>,
+						<%=agerange[0].eightyToninety%>,
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Age Groups',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+
+			}
+		});
+
+
+
+		//SPECIALIZATION
+
+		
+				
+
+
+
+
+		//SCHOOL GRADUATED
+
+
+		var schoolgraduatedchart = document.getElementById('facultygraduatechart').getContext('2d');
+
+
+		var sampleChart = new Chart(schoolgraduatedchart, {
+			type: 'horizontalBar',
+			data: {
+				labels:[<% facultyschoolgraduate.forEach(function(data){ %>
+					'<%= data.schoolGraduated %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% facultyschoolgraduate.forEach(function(data){ %>
+						'<%= data.FacultyGraduate %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+					
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Alma mater',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+
+		//DEGREE
+
+
+
+		var degreechart = document.getElementById('facultydegreechart').getContext('2d');
+
+
+		var sampleChart = new Chart(degreechart, {
+			type: 'pie',
+			data: {
+				labels:[<% degree.forEach(function(data){ %>
+					'<%= data.educationalAttainment %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% degree.forEach(function(data){ %>
+						'<%= data.FacultyDegree %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)',
+						'rgb(23, 69, 168)',
+						'rgb(75, 149, 175)'
+					],
+					
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Degree',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+
+
+
+		//AVERAGE FACULTY PER INSTITUTION
+
+		var facavg = document.getElementById('facultyaveragechart').getContext('2d');
+
+
+		var sampleChart = new Chart(facavg, {
+			type: 'bar',
+			data: {
+				labels:[<% averagefaculty.forEach(function(data){ %>
+							'<%= data.institutionName %> ',
+						<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% averagefaculty.forEach(function(data){ %>
+							'<%= data.facavg %> ',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+					fill: false,
+					
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Faculty per Institution ',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+//STUDENT
+
+		var studentbar = document.getElementById('studentbarchart').getContext('2d');
+		
+		var bar = new Chart(studentbar, {
+			type: 'line',
+			data: {
+				labels: [<% studentenrollee.forEach(function(data){ %>
+					'<%= data.year %> ',
+				<% }); %> ],
+				datasets: [{
+					label: 'Population',
+					data: [
+					<% studentenrollee.forEach(function(data){ %>
+					'<%= data.enrollees %> ',
+				<% }); %> 
+					0
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total Student Population per Year',
+					fontsize: 10
+				}
+			}
+		});
+
+		var studChart = document.getElementById('StudentSchoolAverageChart').getContext('2d');
+
+
+		var sampleChart = new Chart(studChart, {
+			type: 'bar',
+			data: {
+				labels: [<% studentPerSchool.forEach(function(data){ %> 
+					'<%= data.schoolName %> ',
+					<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% studentPerSchool.forEach(function(data){ %>
+							'<%= data.enrollAve %>',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#FF3333','#B2FF66','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FFCCFF','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+					],
+							fill: false,
+					
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Student Population Per School',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+//PROGRAM
+
+var programBar = document.getElementById('programbarchart').getContext('2d');
+
+
+		var sampleChart = new Chart(programBar, {
+			type: 'horizontalBar',
+			data: {
+				labels: [ <% programsum.forEach(function(data){ %>
+					'<%= data.programName %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Sum',
+					data:[
+						
+						<% programsum.forEach(function(data){ %>
+							'<%= data.sumpop %>',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total Population per Program',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+
+				},
+				tooltips: {
+					enabled: true
+				},
+				scales:{
+					xAxes:[{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+
+
+		//PROGRAM AVAILABILITY
+
+		var programavailBar = document.getElementById('programavailabilitychart').getContext('2d');
+
+
+		var sampleChart = new Chart(programavailBar, {
+			type: 'bar',
+			data: {
+				labels: [ <% programoffered.forEach(function(data){ %>
+					'<%= data.year %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Available',
+					data:[
+						
+						<% programoffered.forEach(function(data){ %>
+							'<%= data.cava %>',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Programs Offered per Year',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+
+		//program not available
+
+		var programavailBar = document.getElementById('programnotavailablechart').getContext('2d');
+
+
+		var sampleChart = new Chart(programavailBar, {
+			type: 'bar',
+			data: {
+				labels: [ <% programnotoffered.forEach(function(data){ %>
+					'<%= data.year %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Not available',
+					data:[
+						
+						<% programnotoffered.forEach(function(data){ %>
+							'<%= data.notava %>',
+						<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Programs Not Offered per Year',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+
+		//PROGRAM DATA
+
+		
+
+//Publications
+
+var publicationBar = document.getElementById('publicationbarchart').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar, {
+			type: 'bar',
+			data: {
+				labels: [ 
+					'Books','Research','Journals','Thesis',
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[				
+							'<%= pubCount[0].bId %>','<%= pubCount[0].rId %>','<%= pubCount[0].jId %>','<%= pubCount[0].tId %>',
+						0
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total Number of Publications for Each Type',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+var publicationBar1 = document.getElementById('publicationbarchart1').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar1, {
+			type: 'pie',
+			data: {
+				labels: [ 
+					<% category.forEach(function(data){ %>
+						"<%= data.category %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% category.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Books per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+var publicationBar2 = document.getElementById('publicationbarchart2').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar2, {
+			type: 'pie',
+			data: {
+				labels: [ 
+					<% journalcategory.forEach(function(data){ %>
+						"<%= data.category %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% journalcategory.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Journals per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+var publicationBar3 = document.getElementById('publicationbarchart3').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar3, {
+			type: 'pie',
+			data: {
+				labels: [ 
+					<% researchcategory.forEach(function(data){ %>
+						"<%= data.category %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% researchcategory.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Research per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+var publicationBar4 = document.getElementById('publicationbarchart4').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar4, {
+			type: 'doughnut',
+			data: {
+				labels: [ 
+					<% thesiscategory.forEach(function(data){ %>
+						"<%= data.topic %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% thesiscategory.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Thesis per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+var publicationBar5 = document.getElementById('publicationbarchart5').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar5, {
+			type: 'bar',
+			data: {
+				labels: [
+					'1900-1950',
+					'1950-2000',
+					'2000-2020'
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<%=yearbook[0].fifty%>,
+						<%=yearbook[0].twthou%>,
+						<%=yearbook[0].latest%>,
+						0
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Books Year Range',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+var publicationBar6 = document.getElementById('publicationbarchart6').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar6, {
+			type: 'bar',
+			data: {
+				labels: [
+					'1900-1950',
+					'1950-2000',
+					'2000-2020'
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<%=yearjournal[0].fifty%>,
+						<%=yearjournal[0].twthou%>,
+						<%=yearjournal[0].latest%>,
+						0
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Journals Year Range',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+var publicationBar7 = document.getElementById('publicationbarchart7').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar7, {
+			type: 'bar',
+			data: {
+				labels: [
+					'1900-1950',
+					'1950-2000',
+					'2000-2020'
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<%=yearresearch[0].fifty%>,
+						<%=yearresearch[0].twthou%>,
+						<%=yearresearch[0].latest%>,
+						0
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Research Year Range',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+
+
+
+
+
+$('#institutionList').DataTable();
+$('#schoollists').DataTable();
+$('#deptlist').DataTable();
+$('#faclist').DataTable();
+$('#departmentList').DataTable();
+$('#exDepartmentList').DataTable();
+$('#delDepartmentList').DataTable();
+$('#facultyAdminTable').DataTable();
+$('#programavailabilitytable').DataTable();
+$('#directorlist').DataTable();
+		
+
+
+	});
+
+
+
+function showInTab()
+{
+	$('#tab1').tab('show');
+}
+
+function showSupTab()
+{
+	$('#supTab').tab('show');
+}
+
+
+</script>
+
+<!-- <script type="text/javascript">
+  $(document).on('click', '#addIn',function(){
+      $('#tab1').tab('show');
+  });
+ </script> -->

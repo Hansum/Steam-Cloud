@@ -1,0 +1,1444 @@
+<!-- INSTITUTION --!>
+<script src="js/Chart.js" charset="utf-8"></script>
+
+
+<div id="addInstitution" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Institution</h4>
+			</div>
+			<div class="modal-body">
+			 <ul id="myTab" class="nav nav-tabs">
+                <li><a href="#basicInfo" data-toggle="tab" role="tab" id="tab1">Basic Information</a></li>
+                <li><a href="#adminInfo" data-toggle="tab">Institution Admin Information</a></li>
+            </ul>
+			<form encType="multipart/form-data" class="form-horizontal" action="/addInstitution" method="POST">
+
+            	<div id="myTabContent" class="tab-content" id="tab1">
+            	<br>
+             	 <div class="tab-pane fade" id="basicInfo" >
+					<div class="form-group">
+						<label class="control-label col-lg-4">Institution Logo:</label>
+						<div class="col-lg-8">
+							<input type="file" class="form-control" name="institutionLogo" accept=".jpg" title='Only .jpg files' required>
+						</div><br><br>
+					
+						<label class="control-label col-lg-4">Name:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" placeholder="Enter name" name="institutionName" required>
+						</div><br><br>
+						<label class="control-label col-lg-4">Address:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" placeholder="Enter address" name="institutionAddress" required>
+						</div><br><br>
+						<label class="control-label col-lg-4 text-center">Region:</label>
+						<div class="col-lg-8">
+							<select class='form-control' name='region_id'>
+								<% regName.forEach(function(data){ %>
+									<option value='<%= data.region_id %>'><%= data.regionName %></option>
+								<% }); %>
+							</select>
+
+						</div>
+					</div>
+						
+					
+			  	 </div>
+			  	 <div class="tab-pane fade" id="adminInfo">
+			  	 <br>
+			  	  <div class="form-group">
+			  	 	<label class="control-label col-lg-3">Profile Image:</label>
+						<div class='col-lg-9'>
+						<input type='file' class='form-control' name='profileImage' accept=".jpg" title='Only .jpg files' required>
+						</div><br><br>
+
+						<label class="control-label col-lg-3">First Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required>
+						</div><br><br>
+						<label class="control-label col-lg-3">Last Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Middle Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" id="mname" name="mname" placeholder="Middle Name">
+							</div><br><br>
+						<label class="control-label col-lg-3 text-center">Position:</label>
+						<div class="col-lg-9">
+            				<select class="form-control" name="position">
+              						
+					              <option value="Registrar">Registrar</option>
+					           		
+				            </select>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Degree:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='educationalAttainment'>
+								<option value='Associate'>Associate</option>
+								<option value='Bachelor'>Bachelor</option>
+								<option value='Master'>Master</option>
+								<option value='Doctorate'>Doctorate</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Program:</label>
+						<div class="col-lg-9">
+							<input list='programList' class='form-control' name="programGraduated" placeholder="Program Graduated" required>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">School Graduated:</label>
+						<div class="col-lg-9">
+							<input list='schoolList' class='form-control' name="schoolGraduated" placeholder="School Graduated" required>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Year Graduated:</label>
+						<div class="col-lg-9">
+							<input type="number" min="1940" max="2020" class="form-control" id="yearGraduated" name="yearGraduated" placeholder="Year Graduated" class="dateInput" required>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Gender:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='gender'>
+								<option value='Male'>Male</option>
+								<option value='Female'>Female</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">Date of Birth:</label>
+						<div class="col-lg-9">
+								<input type="date" id="dob" name="dob" class='form-control' min="1910-01-01" required>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Faculty Type:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='facultyType'>
+								<option value='Full-time'>Full-time</option>
+								<option value='Part-time'>Part-time</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">Date Hired:</label>
+						<div class="col-lg-9">
+								<input type="date" id="DateHired" name="dateHired" class='form-control' min="1910-01-01" required>
+						</div><br><br>
+						<label class="control-label col-lg-3">Email:</label>
+						<div class="col-lg-9">
+							<input type="email" class="form-control" name="email" placeholder="Email" required>
+						</div><br><br>
+						<label class="control-label col-lg-3">Password:</label>
+						<div class="col-lg-9">
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern=".{8,}" required title="Minimum of 8 characters">
+						</div><br><br>
+						<div class="col-lg-9 col-lg-offset-3">
+							<p class="bg-light text-dark fontsize2">Note:  Password should be atleast 8 characters</p>
+						</div>
+						</div>
+					</div>
+			  	 </div>
+			    
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editInstitution" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Institution</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/editInstitutionChed" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Old Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='institutionId'>
+								<% data.forEach(function(data){ %>
+									<option value='<%= data.institutionId %>'><%= data.institutionName %></option>
+								<% }); %>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">New Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter name" name="institutionName" required>
+						</div><br><br>
+						<label class="control-label col-lg-3">Address:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter address" name="institutionAddress" required>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Region:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='institutionRegion'>
+								<% regName.forEach(function(data){ %>
+									<option value='<%= data.region_id %>'><%= data.regionName %></option>
+								<% }); %>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">        
+						<div class="col-lg-12 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteInstitution" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete Institution</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/deleteInstitution" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='institutionId'>
+								<% data.forEach(function(data){ %>
+									<option value='<%= data.institutionId %>'><%= data.institutionName %></option>
+								<% }); %>
+							</select>
+						</div><br><br>
+					</div>
+					
+				
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+
+<!--LIST OF INSTITUTIONS MODALS--!>
+
+<% institutiondata.forEach(function(data){ %>
+<div id="institution<%= data.institutionId %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	<div class="modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Institution Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class='row picbg'>
+					<div class='col-lg-6 col-lg-offset-3 text-center'>
+						<img class='face' src='../images/institution<%= data.institutionId %>.jpg'>
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName--!>
+				<div class='row'>
+					<div class='col-lg-4 text-center'>
+						Institution Name:
+					</div>
+					<div class='col-lg-8'>
+						<%= data.institutionName %> 
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						Address:
+					</div>
+					<div class='col-lg-8'>
+						<%= data.address %>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						Institution Admin:
+					</div>
+					<div class='col-lg-8'>
+						<%= data.fname %> - <%= data.lname %>
+					</div><br><br>
+
+					<br>
+					<div class='col-lg-4 text-center'>Certification</div>
+					<% institutioncert.forEach(function(cdata){%>						
+							<% if( cdata.institutionId == data.institutionId ){ %>
+								<div class='col-lg-8 '>
+									Center(s) of Development: <%= cdata.centerOfDevelopment %><br>
+									Center(s) of Excellence: <%= cdata.centerOfExcellence %>
+								</div><br><br>
+							<% } %>
+					<% }); %>
+
+					<hr><br>
+					<h4 style="text-align:center;">GRAPH</h4>
+					<% distinctinstitution.forEach(function(cdata){%>						
+							<% if( cdata.institutionId == data.institutionId ){ %>
+								<div class='col-lg-12'>
+									<canvas id="populationChart<%= cdata.institutionId %>"></canvas>
+								</div>
+							<% } %>
+					<% }); %>
+					
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+
+
+
+
+<!-- INSTITUTION ADMIN --!>
+
+<div id="addInstitutionAdmin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Assign Institution Administrator</h4>
+			</div>
+			<div class="modal-body">
+
+			<table id='facultyAdminTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Institution Name</th>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
+							<th>Assign</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% faculty.forEach(function(data){ %>
+						<tr>
+							<td><%= data.institutionName %></td>
+							<td><%= data.fname %></td>
+							<td><%= data.lname %></td>
+							<td><%= data.email %></td>
+							<td> <a href="/addInstitutionAdmin?facultyId=<%= data.facultyId %>&institutionId=<%= data.institutionId %>" class="addInAdmin"><span class='btn btn-success glyphicon glyphicon-plus'></span></a></td>
+						</tr>
+						<% }); %>
+					</tbody>
+			</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editInstitutionAdmin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Institution Administrator</h4>
+			</div>
+			<div class="modal-body">
+				EDIT INSTITUTION ADMINISTRATOR
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="viewInstitutionAdmin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">View Institution Administrators</h4>
+			</div>
+			<div class="modal-body">
+				<table id='adminTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Faculty ID</th>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% alladmin.forEach(function(data){ %>
+						<tr>
+							<td><%= data.facultyId %></td>
+							<td><%= data.fname %></td>
+							<td><%= data.lname %></td>
+							<td><%= data.email %></td>
+							<td><span class='glyphicon glyphicon-search btn btn-success' data-toggle="modal" data-target="#admin<%= data.facultyId %>"> </span> </td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Admin Data Modals --!>
+
+<% alladmin.forEach(function(data){ %>
+<div id="admin<%= data.facultyId %>" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class='row'>
+					<div class='col-lg-6 col-lg-offset-3 text-center'>
+						<img class='face' src='../images/faculty<%= data.facultyId %>.jpg'>
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email --!>
+				<div class='row'>
+					<div class='col-lg-4 text-center'>
+						<h4>Name:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.fname %> <%= data.mname %> <%= data.lname %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Email:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.email %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Position:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.position %> - <%= data.facultyType %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Educational Attainment:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.educationalAttainment %> - <%= data.specialization %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>School Graduated:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.schoolGraduated %> - <%= data.yearGraduated %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Gender:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.gender %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Date Hired:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.dateHired %></h4>
+					</div><br><br>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<datalist id='schoolList'>
+	<option value="University of San Carlos">
+	<option value="University of Southern Philippines Foundation">
+	<option value="Cebu Doctor's University">
+	<option value="University of the Philippines - Diliman">
+	<option value="Southwestern University">
+	<option value="Cebu Technological University">
+	<option value="Cebu Institute of Technology">
+	<option value="University of Cebu">
+	<option value="University of the Visayas">
+</datalist>
+<datalist id="programList">
+	<option value="Information Technology">
+	<option value="Computer Science">
+	<option value="Information and Communication Technology">
+	<option value="Social Psychology">
+	<option value="Clinical Psychology">
+	<option value="Counseling Psychology">
+	<option value="Law">
+	<option value="Accountancy">
+	<option value="Computer Engineering">
+	<option value="Civil Engineeering">
+	<option value="Mechanical Engineering">
+	<option value="Chemical Engineering">
+	<option value="Industrial Engineering">
+</datalist>
+
+<!-- DEPARTMENT --!>
+
+
+<div id="certifyDepartmentDev" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Certify Department as Center Of Development</h4>
+			</div>
+			<div class="modal-body">
+			      
+		      	<table id='departmentList' class='table table-striped'>
+					<h3 class="text-center" style="margin-bottom: 3%;">List of Departments</h3>
+						<thead>
+							<tr>
+							   	<th>Institution</th>
+							 	<th>Department</th>
+							 	<th>Region</th>
+								<th>Certify</th>
+							 </tr>
+						 </thead>
+						<tbody>
+							<% cod.forEach(function(data){ %>
+								<tr>
+									<td><%= data.institutionName %></td>
+									<td><%= data.departmentName %></td>
+									<td><%= data.region %></td>
+									<td class="text-center"><a href="/certifyDepartmentDev?departmentId=<%= data.departmentId %>&institutionId=<%= data.institutionId %>" id="devConfirm"><span class='btn btn-success glyphicon glyphicon-plus'></span></a></td>
+								</tr>
+							<% }); %>
+						</tbody>
+				</table>
+	
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="certifyDepartmentEx" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Certify Department as Center Of Exellence</h4>
+			</div>
+			<div class="modal-body">
+				<table id='exDepartmentList' class='table table-striped'>
+					<h3 class="text-center" style="margin-bottom: 3%;">List of Departments</h3>
+						<thead>
+							<tr>
+							   	<th>Institution</th>
+							 	<th>Department</th>
+							 	<th>Region</th>
+								<th>Certify</th>
+							 </tr>
+						 </thead>
+						<tbody>
+							<% coe.forEach(function(data){ %>
+								<tr>
+									<td><%= data.institutionName %></td>
+									<td><%= data.departmentName %></td>
+									<td><%= data.region %></td>
+									<td class="text-center"><a href="/certifyDepartmentEx?departmentId=<%= data.departmentId %>&institutionId=<%= data.institutionId %>" id="exDevConfirm"><span class='btn btn-success glyphicon glyphicon-plus'></span></a></td>
+								</tr>
+							<% }); %>
+						</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteCertification" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Remove Department Certifications</h4>
+			</div>
+			<div class="modal-body">
+				<table id='delDepartmentList' class='table table-striped'>
+						<thead>
+							<tr>
+							   	<th>Institution</th>
+							 	<th>Department</th>
+							 	<th>Region</th>
+							 	<th>Center of Development</th>
+							 	<th>Center of Excellence</th>
+								<th>Delete</th>
+							 </tr>
+						 </thead>
+						<tbody>
+							<% delc.forEach(function(data){ %>
+								<tr>
+									<td><%= data.institutionName %></td>
+									<td><%= data.departmentName %></td>
+									<td><%= data.region %></td>
+									<td><%= data.centerOfDevelopment %></td>
+									<td><%= data.centerOfExcellence %></td>
+									<td class="text-center"><a href="/deleteDepartmentCertification?departmentId=<%= data.departmentId %>&institutionId=<%= data.institutionId %>" id="delDevConfirm"><span class='btn btn-danger glyphicon glyphicon-trash'></span></a></td>
+								</tr>
+							<% }); %>
+						</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+			   
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="addDepartment" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Department</h4>
+			</div>
+			
+			<div class="modal-body">
+	
+				<form encType="multipart/form-data" class="form-horizontal" action="/chedAddDepartment" method="POST">
+				<br>
+					<div class="form-group">
+						<label class="control-label col-lg-3" >Department Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control"  placeholder="Enter name" name="departmentName" required>
+						</div>
+					</div>
+			</div>
+			
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+</div>
+
+<div id="editDepartment" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Department</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/editDepartment" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3" >Current Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='departmentId'>
+								<% allDept.forEach(function(data){ %>
+									<option value='<%= data.departmentId %>'><%= data.departmentName %></option>
+								<% }); %>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3" >New Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter name" name="departmentName" required>
+						</div>
+					</div>
+				
+			</div>
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteDepartment" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete School</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/deleteDepartment" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='departmentId'>
+								<% allDept.forEach(function(data){ %>
+									<option value='<%= data.departmentId %>'><%= data.departmentName %></option>
+								<% }); %>
+							</select>
+						</div>
+					</div>
+					
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- REGION --!>
+<div id="addRegion" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Region</h4>
+			</div>
+			
+			<div class="modal-body">
+	
+				<form encType="multipart/form-data" class="form-horizontal" action="/chedAddRegion" method="POST">
+				<br>
+					<div class="form-group">
+						<label class="control-label col-lg-3" >Region Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control"  placeholder="Enter Region" name="regionname" required>
+						</div>
+					</div>
+			</div>
+
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		
+			
+			
+		</div>
+	</div>
+</div>
+
+
+<!--EDIT REGION--!>
+<div id="editRegion" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Region</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/chedEditRegion" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Current Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='region_id'>
+								<% regName.forEach(function(data){ %>
+									<option value='<%= data.region_id %>'><%= data.regionName %></option>
+								<% }); %>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3" >New Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter name" name="regionName" required>
+						</div>
+					</div>
+					
+			</div>
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--DELETE REGION--!>
+
+<div id="deleteRegion" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete Region</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/chedDeleteRegion" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='region_id'>
+								<% regName.forEach(function(data){ %>
+									<option value='<%= data.region_id %>'><%= data.regionName %></option>
+								<% }); %>
+							</select>
+						</div>
+					</div>
+					
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- SCHOOL --!>
+
+<div id="addSchool" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add School</h4>
+			</div>
+			
+			<div class="modal-body">
+	
+				<form encType="multipart/form-data" class="form-horizontal" action="/chedAddSchool" method="POST">
+				<br>
+					<div class="form-group">
+						<label class="control-label col-lg-3" >School Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control"  placeholder="Enter name" name="schoolName" required>
+						</div>
+					</div>
+			</div>
+
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		
+			
+			
+		</div>
+	</div>
+</div>
+
+
+
+<div id="editSchool" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit School</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/editSchool" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Current Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='schoolId'>
+								<% allSchool.forEach(function(data){ %>
+									<option value='<%= data.schoolId %>'><%= data.schoolName %></option>
+								<% }); %>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3" >New Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter name" name="schoolName" required>
+						</div>
+					</div>
+					
+			</div>
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteSchool" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete School</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/deleteSchool" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='schoolId'>
+								<% allSchool.forEach(function(data){ %>
+									<option value='<%= data.schoolId %>'><%= data.schoolName %></option>
+								<% }); %>
+							</select>
+						</div>
+					</div>
+					
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--- PROGRAM ---!>
+
+<div id="addProgram" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Program</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/chedAddProgram" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<input type='text' class='form-control' name='programName' placeholder='Enter name' required>
+						</div>
+					</div>
+
+
+				
+			</div>
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editProgram" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Program</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/editProgram" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3" >Current Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='programId'>
+								<% allProgram.forEach(function(data){ %>
+									<option value='<%= data.programId %>'><%= data.programName %></option>
+								<% }); %>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3" for="programName">New Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter name" name="programName" required>
+						</div>
+					</div>
+					
+				
+			</div>
+			<div class="modal-footer">							
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteProgram" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete School</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="/deleteProgram" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='programId'>
+								<% allProgram.forEach(function(data){ %>
+									<option value='<%= data.programId %>'><%= data.programName %></option>
+								<% }); %>
+							</select>
+						</div>
+					</div>
+					
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="support" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-lg">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+					<h4 class="modal-title">Support and Guides</h4>
+				</div>
+				<div class="modal-body">
+				 <ul id="myTab" class="nav nav-tabs">
+	                <li><a href="#help1" data-toggle="tab" role="tab" id="supTab">Institution</a></li>
+	                <li><a href="#help2" data-toggle="tab">Institution Administrator</a></li>
+	                <li><a href="#help3" data-toggle="tab">School</a></li>
+	                <li><a href="#help4" data-toggle="tab">Department</a></li>
+	                <li><a href="#help5" data-toggle="tab">Program</a></li>
+	                <li><a href="#help6" data-toggle="tab">Contact Us</a></li>
+
+	            </ul>
+				
+
+	            	<div id="myTabContent" class="tab-content" id="supTab">
+
+	            		<div class="tab-pane fade" id="help1">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add Institution</h3>
+	            							<p class="lead">Adds an institution and an admin.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Add Institution button<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>Edit Institution</h3>
+	            							<p class="lead">Edits an institution's name, island group, etc.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Edit Institution button<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>Delete Institution</h3>
+	            							<p class="lead">Deletes an institution along with it's faculty, departments, schools, and research.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Delete Institution button<br>3. Select institution to delete<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>View Institution Visualizations</h3>
+	            							<p class="lead">View data visualizations for all institution related data. </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on View Institution Visualizations button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help2">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Assign Institution Administrator</h3>
+	            							<p class="lead">Assign a new admin to an institution.</p>
+	            							<br>
+	            							<p class="lead">(Current institution's admin must first add the next admin to the institution as a regular faculty before he is legible to be assigned as admin.) </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution Administrator tab in the sidebar<br>2. Click on Assign Institution Administrator button<br>3. Select newly assigned Institution Administrator by clicking on the "+" icon<br>4. Confirm action</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View Institution Administrators Information</h3>
+	            							<p class="lead">Displays all current admins. </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution Administrator tab in the sidebar<br>2. Click on View Institution Administrator button<br>3. Click on the magnifier icon aligned with the user information you desire to view</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help3">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add School</h3>
+	            							<p class="lead">Adds a school that institutions can choose to add to their own list of schools. </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on Add School<br>3. Input school's name<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Edit School</h3>
+	            							<p class="lead">Edits a school's name.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on Edit School<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Delete School</h3>
+	            							<p class="lead">Deletes school from CHEd. School will also be deleted from all institutions that accomodated it.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on Delete School<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View School Visualizations</h3>
+	            							<p class="lead">View data visualizations for all school related data.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on View School Visualizations button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help4">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add Department</h3>
+	            							<p class="lead">Adds a department that institutions can choose to add to their own list of departments. </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Add Department<br>3. Input department's name<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Edit Department</h3>
+	            							<p class="lead">Edits a department's name </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Edit Department<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Delete Department</h3>
+	            							<p class="lead">Deletes department from CHEd. Department will also be deleted from all institutions that accomodated it.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Delete Department<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Certify Department</h3>
+	            							<p class="lead">Choose to certify an institution's department either as a Center of Development or as a Center of Excellence.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Certify Department as Center of Development or Center of Excellence depending on level of certification desired<br>3. Click on "+" icon aligned with the department you desire to certify<br>4. Confirm Action</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Remove Department Certification</h3>
+	            							<p class="lead">Removes all certifications from chosen institution's department.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on the trash icon aligned with the department you desire to remove certification<br>4. Confirm Action</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View Department Visualizations</h3>
+	            							<p class="lead">View data visualizations for all departments related data.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on View Department Visualizations button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help5">
+	            		<br>
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add Program</h3>
+	            							<p class="lead">Adds a program that institutions can choose to add to their own list of programs. </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on Add Program<br>3. Input program's name<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Edit Program</h3>
+	            							<p class="lead">Edits a program's name </p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on Edit Program<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Delete Program</h3>
+	            							<p class="lead">Deletes program from CHEd. Program will also be deleted from all institutions that accomodated it.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on Delete Program<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View Program Visualizations</h3>
+	            							<p class="lead">View data visualizations for all program related data.</p>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on View Program Visualizations button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help6">
+	            		<br>
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h2>Something Wrong?</h2>
+	            							<p class="lead">Contact the developers!</p>
+	            								<div class="form-group">
+			            							<form encType="multipart/form-data" class="form-horizontal" action="/emailUsChed" method="POST">
+			            							<br>
+			            							<input type="text" class="form-control" name="person" placeholder="Name" required>
+													<input type="text" class="form-control" name="email" placeholder="Email" required>
+													<br>
+													<textarea name="contents" placeholder="Write here..........." id="email" rows="6" cols="115" required></textarea>
+													
+													<br><br>
+													<button type="submit" class="btn btn-primary">Submit</button>
+													</form>
+												</div>
+
+	            						</div>
+
+	            						
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- FACULTY MODAL --!>
+
+<% chedfactables.forEach(function(data){ %>
+<div id="faculty<%= data.facultyId %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	<div class="modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class='row picbg'>
+					<div class='col-lg-6 col-lg-offset-3 text-center'>
+						<img class='face' src='../images/faculty<%= data.facultyId %>.jpg'>
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName--!>
+				<div class='row'>
+				<div class='col-lg-4 text-center'>
+						<h4>Name:</h4>
+					</div>
+					<div class='col-lg-8 '>
+						<h4><%= data.fname %> <%= data.mname %> <%= data.lname %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Email:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.email %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Position:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.position %> - <%= data.facultyType %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Educational Attainment:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.educationalAttainment %> </h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Specialization:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4> <%= data.specialization %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>School Graduated:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.schoolGraduated %> - <%= data.yearGraduated %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Gender:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.gender %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Date Hired:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.dateHired %></h4>
+					</div><br><br>
+					<br>
+
+					<div class='col-lg-12 text-center'>
+						<h2>Publication</h2><br>
+						<h3>Book</h3>
+						<h4>
+						<% bookfac.forEach(function(cdata){%>						
+							<% if( cdata.facultyId == data.facultyId && cdata.bookVerificationLevel == 1 ){ %>
+								<%= cdata.bookTitle %>, <%= cdata.bookEdition %> Edition - <%= cdata.bookYear %> ISBN: <%= cdata.ISBN %><br>
+							<% } %>
+						<% }); %>
+						<br>
+						</h4>
+						<h3>Journal</h3>
+						<h4>
+						<% journalfac.forEach(function(adata){%>						
+							<% if( adata.facultyId == data.facultyId && adata.journalVerificationLevel == 1 ){ %>
+								<%= adata.journalTitle %>, Volume -<%= adata.journalVolume %>, Link: <%= adata.journalLink %><br>
+							<% } %>
+						<% }); %>
+						</h4>
+						<br>
+						<h3>Research</h3>
+						<h4>
+						<% researchfac.forEach(function(bdata){%>						
+							<% if( bdata.facultyId == data.facultyId && bdata.researchVerificationLevel == 1 ){ %>
+								<%= bdata.researchName %> - <%= bdata.researchDescription %>, Co-researchers: <%= bdata.coresearchers %>, Collab.: <%= bdata.collaborations %>, STATUS: <%= bdata.researchStatus %><br>
+							<% } %>
+						<% }); %>
+						</h4>
+					</div>
+					
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<script>
+<% distinctinstitution.forEach(function(zdata){ %>
+var populationLine<%= zdata.institutionId %> = document.getElementById('populationChart<%= zdata.institutionId %>').getContext('2d');
+		
+		var bar = new Chart(populationLine<%= zdata.institutionId %>, {
+			type: 'line',
+			data: {
+				labels: [ 0, <% linePopulation.forEach(function(data){ %>
+
+					<% if(data.institutionId == zdata.institutionId){ %>
+					'<%= data.year %> ',
+					<% } %>
+				<% }); %> ],
+				datasets: [{
+					label: 'Enrollees',
+					data: [
+					0,
+					<% linePopulation.forEach(function(data){ %>
+					<% if(data.institutionId == zdata.institutionId){ %>
+					'<%= data.population %> ',
+					<% } %>
+				<% }); %> 
+					
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Student Records',
+					fontsize: 10
+				}
+			}
+		});
+<% }); %>
+</script>

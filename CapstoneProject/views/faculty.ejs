@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/design.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/>
+	<script src='js/jquery.min.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<script src="js/Chart.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+
+	<head>
+		<title>The STEAM Cloud: Data Analytics and Research Module</title>
+		<link rel='icon' href='../images/logo2.png'>
+	</head>
+	<body>
+		<%- include ../views/partials/facultymodal.ejs %>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-2' id='sidebar' >
+					<div class='row'>
+						<div class='col-lg-12 text-center'>
+							<img id='chedlogo' src='../images/logo2.png'>
+						</div>
+						<div id='userInfo' class='col-lg-12'>
+							<hr>
+							<div class='col-lg-6 col-lg-offset-3'>
+								<img id='profpic' src='../images/faculty<%= result[0].facultyId %>.jpg' alt='No image found'>
+							</div>
+							<div class='col-lg-12 text-center'>
+								<h5><%= data[0].lname %>, <%= data[0].fname %> <%= data[0].mname %></h5>
+								<h6><%= data[0].position %></h6>
+							</div>
+							<a  class='col-lg-6 text-center icon'  data-toggle="modal" data-target="#editProfile">
+								<span class='glyphicon glyphicon-edit'></span>
+							</a>
+							<a id='logout' href="/logout" class='col-lg-6 text-center icon'>
+								<span class='glyphicon glyphicon-log-out'></span>
+							</a>
+						</div>
+						<div class='col-lg-12'>
+							<a  id='program' class="list-group-item">Program</a>
+									<div id='subprogram' class='sublist list-group'>
+										<a href='#viewprog' class="list-group-item" data-toggle="modal" data-target="#viewProgram"><span class='glyphicon glyphicon-search'></span> View Program Visualizations</a>
+									</div>
+							<a  id='student' class="list-group-item">Student Record</a>
+									<div id='substudent' class='sublist list-group'>
+										<a href='#viewstud' class="list-group-item" data-toggle="modal" data-target="#viewStudent"><span class='glyphicon glyphicon-search'></span> View Student Visualizations</a>
+									</div>
+							<a  id='journal' class="list-group-item">Publication</a>
+									<div id='subjournal' class='sublist list-group'>
+										<a  id='drop' class="list-group-item"><span class='glyphicon glyphicon-plus'></span>  Add Publication</a>
+											<div id='subsubjournal' class='sublist list-group'>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#addBook">Add Book</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#addJournal">Add Journal</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#addResearch">Add Research</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#addPresentation">Add Presentation</a></center>
+											</div>
+										<a  id='drop2' class="list-group-item" data-target="#editJournal"><span class='glyphicon glyphicon-pencil'></span> Edit/Delete Publication</a>
+											<div id='subsubjournal2' class='sublist list-group'>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#editBook1">Edit Book</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#editJournal">Edit Journal</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#editResearch">Edit Research</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#editPresentation">Edit Presentation</a></center>
+											</div>
+										<a  id='drop3' class="list-group-item" data-target="#editJournal"><span class='glyphicon glyphicon-search'></span> View Publications</a>
+											<div id='subsubjournal3' class='sublist list-group'>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewBook">My Books</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewJournal">My Journals</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewResearch">My Researches</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewPresentation">My Presentation</a></center>
+											</div>
+									</div>
+
+									<div id='subbook' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addBook"><span class='glyphicon glyphicon-search'></span> Add Book</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editBook"><span class='glyphicon glyphicon-search'></span> Edit Book</a>
+									</div>
+							<a  class="list-group-item" data-toggle="modal" data-target="#changePassword">Change Password</a>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class='col-lg-10 row' id='content' >
+					<% if(locals.message == "Success"){ %>
+						    <div class="alert alert-success text-center popup">
+						        <strong> Success!</strong>
+						    </div>
+						<% } %>
+						<% if(locals.message != "Success"){ %>
+						    <div class="alert alert-danger text-center popup">
+						       <strong> <%=message.fail%></strong>
+						    </div>
+						<% } %>
+					
+					<div class='col-lg-12 text-center' id='contentTitle'>
+								<img src='../images/institution<%= data[0].institutionId %>.jpg' id='institutionLogo'>
+							<h1><%= data[0].institutionName%></h1>
+							<h3><%=data[0].departmentName%></h3>
+							<br><br>
+							<h4>Data Visualizations</h4>
+					</div>
+					<div class='col-lg-10 col-lg-offset-1 row' id='contentBody'>
+						<div class='col-lg-12 dataContainer'>
+								<h3 class='text-center'>PROGRAMS</h3>
+										
+						</div>
+						<div class='col-lg-12 graphContainer'>
+								<div class='col-lg-12 chart'>
+									<canvas id="departmentprogCountandAveChart"></canvas>
+								</div>
+								<div class='col-lg-12 piechart1'>
+									<table id='proglist' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;" id="viewprog">PROGRAM'S AVAILABILITY AND POPULATION </h3>
+									                    <thead>
+									                        <tr>
+									                            <th>Program Name</th>
+									                            <th>Availability</th>
+									                        	<th>Population</th>
+									                            <th>year</th>
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% programdepartment.forEach(function(data){ %>
+									                        <tr>
+									                            <td><%= data.programName %></td>
+									                            <td><%= data.availability %></td>
+									                            <td><%= data.population %></td>
+								                           		<td><%= data.year %></td>
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+								</div>
+						</div>
+					</div>
+					<div class='col-lg-10 col-lg-offset-1 row' id='contentBody'>
+						<div class='col-lg-12 dataContainer'>
+								<h3 class='text-center' id="viewstud">STUDENTS</h3>
+						</div>
+						<div class='col-lg-12 graphContainer'>
+							<div class="col-lg-12 chart">
+								<canvas id='facgraph'></canvas>
+							</div>
+								
+						</div>
+								<div class='col-lg-10 col-lg-offset-1 row' id='contentBody'>
+									 <div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='viewpublications'>PUBLICATIONS</h3>
+									</div>
+								</div>
+									
+
+							 <div class='col-lg-12 graphContainer'>
+							 	<div class='col-lg-12 piechart1'>
+															<table id='allbooks' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">DEPARTMENT'S BOOKS</h3>
+																<thead>
+																	<tr>
+																		<th>Author</th>
+																		<th>Title</th>
+																		<th>ISBN</th>
+																		<th>Edition</th>
+																		<th>Year</th>
+																		<th>Category</th>
+																		<th>Status</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<% allbooks.forEach(function(data){ %>
+																	<tr>
+																		<td><%= data.lname %>, <%= data.fname %></td> 
+																		<td><%= data.title %></td>
+																		<td><%= data.ISBN %></td>
+																		<td><%= data.edition %></td>
+																		<td><%= data.year %></td>
+																		<td><%= data.category %></td>
+																		<td>
+																			<% if( data.bookVerificationLevel == '1' && data.denyStatus == '0'){ %>
+																				Approved
+																			<% }else if(data.bookVerificationLevel == '0' && data.denyStatus == '1'){ %>
+																				Denied
+																			<% }else if(data.bookVerificationLevel == '0' && data.denyStatus == '0'){ %>
+																				Pending
+																			<% } %>
+																		</td>
+																	</tr>
+																	<% }); %>
+																</tbody>
+															</table>
+														</div>
+														<div class='col-lg-12 piechart1'>
+															<table id='alljournal' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">DEPARTMENT'S JOURNALS</h3>
+																<thead>
+																	<tr>
+																		<th>Author</th>
+																		<th>Title</th>
+																		<th>Link</th>
+																		<th>Year</th>
+																		<th>Volume</th>
+																		<th>Category</th>
+																		<th>Status</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<% alljournals.forEach(function(data){ %>
+																	<tr>
+																		<td><%= data.lname %>, <%= data.fname %></td>
+																		<td><%= data.title %></td>
+																		<td><%= data.link %></td>
+																		<td><%= data.year %></td>
+																		<td><%= data.volume %></td>
+																		<td><%= data.category %></td>
+																		<td>
+																			<% if( data.journalVerificationLevel == '1' && data.journalDenyStatus == '0'){ %>
+																				Approved
+																			<% }else if(data.journalVerificationLevel == '0' && data.journalDenyStatus == '1'){ %>
+																				Denied
+																			<% }else if(data.journalVerificationLevel == '0' && data.journalDenyStatus == '0'){ %>
+																				Pending
+																			<% } %>
+																		</td>
+																	</tr>
+																	<% }); %>
+																</tbody>
+															</table>
+														</div>
+
+														<div class='col-lg-12 piechart1'>
+															<table id='allres' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">DEPARTMENT'S RESEARCH</h3>
+															<thead>
+																<tr>
+																	<th>Author</th>
+																	<th>Name</th>
+																	<th>Status</th>
+																	<th>Collaborations</th>
+																	<th>Description</th>
+																	<th>Coresearchers</th>
+																	<th>Category</th>
+																	<th>Year</th>
+																	<th> Status</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% allresearch.forEach(function(data){ %>
+																<tr>
+																	<td><%= data.lname %>, <%= data.fname %></td>
+																	<td><%= data.name %></td>
+																	<td><%= data.status %></td>
+																	<td><%= data.collaborations %></td>
+																	<td><%= data.description %></td>
+																	<td><%= data.coresearchers %></td>
+																	<td><%= data.category %></td>
+																	<td><%= data.year %></td>
+																	<td>
+																		<% if( data.researchVerificationLevel == '1' && data.reserchDenyStatus == '0'){ %>
+																			Approved
+																		<% }else if(data.researchVerificationLevel == '0' && data.reserchDenyStatus == '1'){ %>
+																			Denied
+																		<% }else if(data.researchVerificationLevel == '0' && data.reserchDenyStatus == '0'){ %>
+																			Pending
+																		<% } %>
+																	</td>
+																</tr>
+																<% }); %>
+															</tbody>
+														</table>
+														</div>
+
+														<div class='col-lg-12 piechart1'>
+															<table id='allthes' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">DEPARTMENT'S THESIS</h3>
+															<thead>
+																<tr>
+																	<th>Adviser</th>
+																	<th>Title</th>
+																	<th>Date Defended</th>
+																	<th>Publication Status</th>
+																	<th>Topic</th>
+																	<th>StudentAuthor</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% allthesis.forEach(function(data){ %>
+																<tr>
+																	<td><%= data.lname %>, <%= data.fname %></td>
+																	<td><%= data.title %></td>
+																	<td><%= data.dateDefended %></td>
+																	<td><%= data.publicationStatus %></td>
+																	<td><%= data.topic %></td>
+																	<td><%= data.student_author %></td>
+																</tr>
+																<% }); %>
+															</tbody>
+															</table>
+														</div>
+
+														<div class='col-lg-12 piechart1'>
+															<table id='allpres' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">DEPARTMENT'S PRESENTATION</h3>
+															<thead>
+																<tr>
+																	<th>Faculty</th>
+																	<th>Presentation Name</th>
+																	<th>Paper name</th>
+																	<th>Date</th>
+																	<th>Status</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% allpres.forEach(function(data){ %>
+																<tr>
+																	<td><%= data.lname %>, <%= data.fname %></td>
+																	<td><%= data.presentationName %></td>
+																	<td><%= data.paperName %></td>
+																	<td><%= data.date %></td>
+																	<td>
+																			<% if( data.presentVerificationLevel == '1' && data.presentDenyStatus == '0'){ %>
+																				Approved
+																			<% }else if(data.presentVerificationLevel == '0' && data.presentDenyStatus == '1'){ %>
+																				Denied
+																			<% }else if(data.presentVerificationLevel == '0' && data.presentDenyStatus == '0'){ %>
+																				Pending
+																			<% } %>
+																	</td>
+																</tr>
+																<% }); %>
+															</tbody>
+															</table>
+														</div>
+
+														
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+	</body>
+</html>
+<script>
+
+	function showSupTab()
+{
+	$('#supTab').tab('show');
+}
+
+
+	$(document).ready(function(){
+		$(".sublist").hide();
+		$("#error1").hide();
+		$('#studlist').DataTable();
+		$('#proglist').DataTable();
+
+		setTimeout(function() {
+      	$(".popup").fadeOut();
+   		}, 5000);
+
+		var mydate = new Date();
+		var curr_date = mydate.getDate();
+		var curr_month = mydate.getMonth();
+		var curr_year = mydate.getFullYear();
+
+		var mydatestr = curr_year  + '-' +curr_month + '-' + curr_date;
+		var maxdob = curr_year-20 + '-' +curr_month + '-' + curr_date;
+		
+		$(".datebirth").attr("max", maxdob);
+		$(".yeargrad").attr("max", curr_year);
+		$(".DateHired").attr("max", mydatestr);
+		
+		$("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+
+
+		function clean(){
+			$(".sublist").slideUp();
+		}
+
+		$("#program").on("click", function(){
+			if($("#subprogram").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subprogram").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#journal").on("click", function(){
+			if($("#subjournal").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subjournal").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#drop").on("click", function(){
+			$("#subsubjournal").slideToggle();
+		});
+
+		$("#drop2").on("click", function(){
+			$("#subsubjournal2").slideToggle();
+		});
+
+		$("#drop3").on("click", function(){
+			$("#subsubjournal3").slideToggle();
+		});
+
+		$("#book").on("click", function(){
+			if($("#sub").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#sub").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#student").on("click", function(){
+			if($("#substudent").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#substudent").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#logout").on("click", function(){
+			var ret = confirm("Would you like to log out?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+
+		$("#bookTable").DataTable();
+		$("#presTable").DataTable();
+		$("#bookpendingTable").DataTable();
+		$("#journalpendingTable").DataTable();
+		$("#researchpendingTable").DataTable();
+		$("#journalTable").DataTable();
+		$("#researchTable").DataTable();
+		$("#allbooks").DataTable();
+		$("#alljournal").DataTable();
+		$("#allres").DataTable();
+		$("#allthes").DataTable(); 
+		$("#allpres").DataTable(); 
+
+//PROGRAM
+
+var program = "<%= programcount[0].Program%>";
+
+
+var studentbar = document.getElementById('facgraph').getContext('2d');
+		
+		var bar = new Chart(studentbar, {
+			type: 'line',
+			data: {
+				labels: [0,<% studentgraph.forEach(function(data){ %>
+					'<%= data.year %> ',
+				<% }); %> ],
+				datasets: [{
+					label: 'Enrollees',
+					data: [0,
+					<% studentgraph.forEach(function(data){ %>
+					'<%= data.enrollees %> ',
+				<% }); %> 
+					
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}, {
+					label: 'Graduates',
+					data: [0,
+					<% studentgraph.forEach(function(data){ %>
+					'<%= data.graduated %> ',
+				<% }); %> 
+					
+					],
+					backgroundColor: 'rgb(244, 66, 95)',
+					borderColor: 'rgb(244, 66, 95)',
+					fill: false
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total number of Enrollees and Graduates of <%=data[0].departmentName%> per Year',
+					fontsize: 10
+				}
+			}
+		});
+
+
+		var dep = document.getElementById('departmentprogCountandAveChart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			type: 'horizontalBar',
+			data: {
+				labels:['Average Program',<% progcount.forEach(function(data){ %>
+					'<%= data.depName %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<%= programave[0].avetemp %>,
+						<% progcount.forEach(function(data){ %>
+					'<%= data.temp %>',
+				<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Program Count and Total Count per Department Accommodated by the Institution',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+	});
+</script>

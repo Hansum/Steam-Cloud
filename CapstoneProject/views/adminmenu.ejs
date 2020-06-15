@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/design.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/>
+	<script src='js/jquery.min.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<script src="js/Chart.js" charset="utf-8"></script>
+	<script src="js/palette.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<head>
+		<title>The STEAM Cloud: Data Analytics and Research Module</title>
+		<link rel='icon' href='../images/logo2.png'>
+	</head>
+	<body>
+		<%- include ../views/partials/adminmodals.ejs %>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-2' id='sidebar' >
+					<div class='row'>
+						<div class='col-lg-12 text-center'>
+							<img id='chedlogo' src='../images/logo2.png'>
+						</div>
+						<div id='userInfo' class='col-lg-12'>
+							<hr>
+							<div class='col-lg-6 col-lg-offset-3'>
+								<img id='profpic' src='../images/faculty<%= result[0].facultyId %>.jpg' alt='No image found'>
+							</div>
+							<div class='col-lg-12 text-center'>
+								<h5><%= result[0].lname %>, <%= result[0].fname %> <%= result[0].mname %></h5>
+								<h6><%= result[0].position %></h6>
+							</div>
+							 <a class='col-lg-4 text-center icon'  data-toggle="modal" data-target="#support" onclick="showSupTab()">
+								<span class='glyphicon glyphicon-question-sign'></span>
+							</a>
+							 <a href='#' class='col-lg-4 text-center icon'  data-toggle="modal" data-target="#editProfile">
+								<span class='glyphicon glyphicon-edit'></span>
+							</a>
+							<a id='logout' href="/logout" class='col-lg-4 text-center icon'>
+								<span class='glyphicon glyphicon-log-out'></span>
+							</a>
+						</div>
+						<div class='col-lg-12'>
+							<div class='list-group'>
+								<a  id='institution' class="list-group-item">Institution</a>
+									<div id='subinstitution' class='sublist list-group'>
+										<a href='#' class="list-group-item" data-toggle="modal" data-target="#editInstitution"><span class='glyphicon glyphicon-pencil'></span> Edit Institution</a>
+										<a href='#' class="list-group-item" data-toggle="modal" data-target="#editInstitutionDirector"><span class='glyphicon glyphicon-user'></span> Assign Institution Director</a>
+									</div>
+								<a  id='school' class="list-group-item">School</a>
+									<div id='subschool' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addSchool"  onclick="showInTab()"><span class='glyphicon glyphicon-plus'></span> Adapt School to Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteSchool"><span class='glyphicon glyphicon-trash'></span> Delete School From Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addSchoolDean"><span class='glyphicon glyphicon-user'></span> Assign School Dean</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addFacultyToSchool"><span class='glyphicon glyphicon-user'></span> Assign Faculty to School</a>
+										<a href='#schoolchartscroll' class="list-group-item"  id="scrollschool"><span class='glyphicon glyphicon-eye-open'></span> View School Visualizations</a>
+									</div>
+								<a  id='department' class="list-group-item">Department</a>
+									<div id='subdepartment' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addDepartment" onclick="showInTab2()"><span class='glyphicon glyphicon-plus'></span> Adapt Department to Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteDepartment"><span class='glyphicon glyphicon-trash'></span> Delete Department From Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addDepartmentChair"><span class='glyphicon glyphicon-user'></span> Assign Department Chairman</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addFacultyToDepartment"><span class='glyphicon glyphicon-user'></span> Assign Faculty to Department</a>
+										<a href='#deptchartscroll' class="list-group-item"  id="scrolldept"><span class='glyphicon glyphicon-eye-open'></span> View Department Visualizations</a>
+									</div>
+								<a  id='program' class="list-group-item">Program</a>
+									<div id='subprogram' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addProgram"><span class='glyphicon glyphicon-plus'></span> Adapt Program to Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteProgram"><span class='glyphicon glyphicon-trash'></span> Delete Program From Institution</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addProgramData"><span class='glyphicon glyphicon-plus'></span> Add Program Data</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editProgramData"><span class='glyphicon glyphicon-pencil'></span> Edit Program Data</a>
+										<a href='#programchartscroll' class="list-group-item"  id="scrollprog"><span class='glyphicon glyphicon-eye-open'></span> View Program Visualizations</a>
+									</div>
+								<a  id='faculty' class="list-group-item">Faculty</a>
+									<div id='subfaculty' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#addFaculty"><span class='glyphicon glyphicon-plus'></span> Add Faculty</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editFaculty"><span class='glyphicon glyphicon-pencil'></span> Edit Faculty</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#deleteFaculty"><span class='glyphicon glyphicon-trash'></span> Delete Faculty</a>
+										<a href='#facultychartscroll' class="list-group-item"  id="scrollfac"><span class='glyphicon glyphicon-eye-open'></span> View Faculty Visualizations</a>
+									</div>
+								<a  id='student' class="list-group-item">Student</a>
+									<div id='substudent' class='sublist list-group'>
+										<!-- <a  class="list-group-item" data-toggle="modal" data-target="#addStudentData"><span class='glyphicon glyphicon-plus'></span> Add Student Data</a>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editStudentData"><span class='glyphicon glyphicon-pencil'></span> Edit Student Data</a> -->
+										<a href='#studentchartscroll' class="list-group-item"  id="scrollstuds"><span class='glyphicon glyphicon-eye-open'></span> View Student Visualizations</a>
+
+									</div>
+								<a  class="list-group-item" data-toggle="modal" data-target="#changePassword">Change Password</a>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class='col-lg-10 row' id='content'>
+						 
+						<% if(locals.message == "Success"){ %>
+						    <div class="alert alert-success text-center popup">
+						        <strong> Success!</strong>
+						    </div>
+						<% } %>
+						<% if(locals.message != "Success"){ %>
+						    <div class="alert alert-danger text-center popup">
+						       <strong> <%=message.fail%></strong>
+						    </div>
+						<% } %>
+
+						<!-- <div class="alert alert-danger text-center" id='errorschool'>
+ 							Error in chosen school!
+						</div>
+						<div class="alert alert-danger text-center" id='errorschool2'>
+ 							Error in chosen department!
+						</div>
+						<div class="alert alert-danger text-center" id='errorschool3'>
+ 							Invalid email or inputted data!
+						</div>
+						<div class="alert alert-danger text-center" id='errorschool4'>
+ 							The email is not valid!
+						</div>
+						<div class="alert alert-danger text-center" id='errorschool5'>
+ 							The email already exists!
+						</div> -->
+                            <div class='col-lg-12 text-center' id='contentTitle'>
+								<img src='../images/institution<%= data[0].institutionId %>.jpg' id='institutionLogo'>
+                                <h1><%= data[0].institutionName %></h1>
+                                <h4>Data Visualizations</h4>
+                            </div>
+                            <div class='col-lg-10 col-lg-offset-1 row' id='contentBody'>
+                               
+ 
+                                <div class='col-lg-12 dataContainer'>
+                                    <h3 class='text-center' id="schoolchartscroll">SCHOOLS <a href="/print?q=1&p=School" class='glyphicon glyphicon-file'></a></h3>
+									
+                                </div>	
+                                <div class='col-lg-12 graphContainer'>
+                                    <div class='col-lg-12 chart'>
+									<canvas id="SchoolChart"></canvas>
+                                    </div>
+                                    <div class='col-lg-6 piechart1 padd'>
+										
+											<h3>Number of schools in the institution:</h3>
+											<% numberschool.forEach(function(data){ %>
+												<h2><%=data.Schoolnum%></h2>
+											<% }); %>
+											<h3>Average Faculty Per School:</h3>
+											<% avefacschool.forEach(function(data){ %>
+											<h2><%=data.AverageFacultySch %></h2>
+
+										<% }); %>
+										
+									</div>
+                                    <div class='box'>
+
+                                    </div>
+
+											<div class="col-lg-12 piechart1">
+
+													<table id='schoollists' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">LIST OF SCHOOLS</h3>
+									                    <thead>
+									                        <tr>
+									                            <th>School Id</th>
+									                            <th>School Name</th>
+									                            <th>School Dean</th>
+
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% schooltableinfo.forEach(function(data){ %>
+									                        <tr>
+									                            <td><%= data.schoolId %></td>
+									                            <td><%= data.schoolName %></td>
+									                            <td><%= data.lname %>, <%= data.fname %></td>
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+								</div>
+								
+                                <div class='col-lg-12 dataContainer'>
+                                    <h3 class='text-center' id="deptchartscroll">DEPARTMENT<a href="/print?q=1&p=Department" class='glyphicon glyphicon-file'></a></h3>
+                                  
+                                </div>
+                                <div class='col-lg-12 graphContainer'>
+                                    
+                                    <div class='col-lg-12 chart'>
+										<canvas id="certificationchart"></canvas>
+                                    </div>
+                                    <div class='col-lg-6 piechart1 padd'>
+										
+											<h3>Number of departments in the institution:</h3>
+											<% deptnumber.forEach(function(data){ %>
+												<h2><%=data.Deptnum%></h2>
+											<% }); %>
+											<h3>Average Faculty Per Department:</h3>
+											<% avefacdepartment.forEach(function(data){ %>
+											<h2><%=data.AverageFacultyDep %></h2>
+										<% }); %>
+										
+									</div>
+                                    
+                                    <div class='box'>
+
+                                     </div>
+                                     <div class="col-lg-12 piechart1">
+
+													<table id='deptlist' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">LIST OF DEPARTMENTS</h3>
+									                    <thead>
+									                        <tr>
+
+									                            <th>School Name</th>
+									                            <th>Department Name</th>
+									                            <th>Department Chairman</th>
+
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% depttableinstitution.forEach(function(data){ %>
+									                        <tr>
+									                            <td><%= data.schoolName %></td>
+									                            <td><%= data.departmentName %></td>
+									                            <td><%= data.lname %>,<%= data.fname %></td>
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+									
+                                </div>
+									
+                                <div class='col-lg-12 dataContainer'>
+                                    <h3 class='text-center' id="facultychartscroll">FACULTY<a href="/print?q=1&p=Faculty" class='glyphicon glyphicon-file'></a></h3>
+                                        
+                                </div>
+                                <div class='col-lg-12 graphContainer'>
+                                    <div class='col-lg-12 chart'>
+										<canvas id="facultychart"></canvas>
+                                    </div>
+                                    <div class='col-lg-6 piechart1'>
+										<canvas id="facultydegreepiechart"></canvas>
+									</div>
+									<div class='col-lg-6 piechart1'>
+										<canvas id="facultygenderpiechart"></canvas>
+									</div>
+									<div class='col-lg-12 piechart1'>
+										<canvas id="facultyagechart"></canvas>
+									</div>
+									
+									
+                                    <div class='box'>
+
+                                    </div>
+                                    <div class="col-lg-12 piechart1">
+
+													<table id='faclist' class='table table-striped'>
+														<h3 class="text-center" style="margin-bottom: 3%;">LIST OF FACULTY</h3>
+									                    <thead>
+									                        <tr>
+									                        	<th>School Name</th>
+									                            <th>Faculty Name</th>
+									                            <th>Position</th>
+									                            <th>More information</th>
+									                        </tr>
+									                    </thead>
+									                    <tbody>
+									                        <% facultylist.forEach(function(data){ %>
+									                        <tr>
+									                        	<td><%= data.schoolName%></td>
+									                            <td><%= data.lname %>, <%= data.fname %></td>
+									                            <td><%= data.position %></td>
+									                             <td class="text-center"><span class='glyphicon glyphicon-search btn btn-success' data-toggle="modal" data-target="#faculty<%= data.facultyId %>"> </span></td>
+									                        </tr>
+									                        <% }); %>
+									                    </tbody>
+									                </table>
+												</div>
+                                </div>
+                                 <div class='col-lg-12 dataContainer'>
+                                    <h3 class='text-center' id="studentchartscroll">STUDENTS</h3>
+                                </div>
+                                <div class="col-lg-12 graphContainer">
+                                	<div class='col-lg-12 chart'>
+										<canvas id="studentbarchart"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='programchartscroll'>PROGRAMS<a href="/print?q=1&p=Program" class='glyphicon glyphicon-file'></a></h3>
+										</div>
+										<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-12 chart'>
+												<canvas id="departmentprogCountandAveChart"></canvas>
+		                                    </div>
+											<div class="col-lg-12 piechart1">
+												<table id='proglist' class='table table-striped'>
+													<h3 class="text-center" style="margin-bottom: 3%;">LIST OF PROGRAMS</h3>
+								                    <thead>
+								                        <tr>
+								                        	<th>School Name</th>
+								                        	<th>Department Name</th>
+								                            <th>Program Name</th>							                            
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+								                        <% institutionprogram.forEach(function(data){ %>
+								                        <tr>
+								                        	<td><%= data.schoolName %></td>
+								                        	<td><%= data.departmentName %></td>
+								                            <td><%= data.programName %></td>
+								                            
+								                        </tr>
+								                        <% }); %>
+								                    </tbody>
+									            </table>
+											</div>
+
+											<div class="col-lg-12 piechart1">
+												<table id='progdatalist' class='table table-striped'>
+													<h3 class="text-center" style="margin-bottom: 3%;">Program Availability and Population per Year</h3>
+								                    <thead>
+								                        <tr>
+								                        	<th>Program Name</th>
+								                        	<th>Availability</th>
+								                        	<th>Population</th>
+								                            <th>year</th>		                            
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+								                        <% progdatatable.forEach(function(data){ %>
+								                        <tr>
+								                        	<td><%= data.programName %></td>
+								                        	<td><%= data.availability %></td>
+								                        	<td><%= data.population %></td>
+								                            <td><%= data.year %></td>
+								                        </tr>
+								                        <% }); %>
+								                    </tbody>
+									            </table>
+											</div>
+										</div>
+                            </div>
+					</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+
+function showInTab()
+{
+	$('#tab1').tab('show');
+}
+
+function showInTab2()
+{
+	$('#tab2').tab('show');
+}
+
+function showSupTab()
+{
+	$('#supTab').tab('show');
+}
+
+
+		$("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+
+	$(document).ready(function(){
+		$(".sublist").hide();
+		
+		setTimeout(function() {
+      	$(".popup").fadeOut();
+   		}, 5000);
+				
+		function clean(){
+			$(".sublist").slideUp();
+		}
+
+		var mydate = new Date();
+		var curr_date = mydate.getDate();
+		var curr_month = mydate.getMonth();
+		var curr_year = mydate.getFullYear();
+
+		var mydatestr = curr_year  + '-' +curr_month + '-' + curr_date;
+		var maxdob = curr_year-20 + '-' +curr_month + '-' + curr_date;
+		
+		$(".datebirth").attr("max", maxdob);
+		$(".yeargrad").attr("max", curr_year);
+		$(".DateHired").attr("max", mydatestr);
+		$(".progYear").attr("max", curr_year);
+
+		$("#institution").on("click", function(){
+			if($("#subinstitution").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subinstitution").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+			//$("#subinstitution").slideToggle();
+		});
+
+		$("#school").on("click", function(){
+			if($("#subschool").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subschool").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#department").on("click", function(){
+			if($("#subdepartment").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subdepartment").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#program").on("click", function(){
+			if($("#subprogram").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subprogram").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#faculty").on("click", function(){
+			if($("#subfaculty").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subfaculty").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#student").on("click", function(){
+			if($("#substudent").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#substudent").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#logout").on("click", function(){
+			var ret = confirm("Would you like to log out?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+
+	$("#delProgramData").on("click", function(){
+			var ret = confirm("Would you like to delete this program data?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+	$("#delStudentData").on("click", function(){
+			var ret = confirm("Would you like to delete this student data?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+
+
+
+		
+		var school = "<%= schoolcount[0].School%>";
+		var department = "<%= departmentcount[0].Department%>";
+		var program = "<%= programcount[0].Program%>";
+		
+
+ // INSTITUTION
+		
+
+
+
+
+
+
+
+
+
+
+//SCHOOL
+		var school1 = document.getElementById('SchoolChart').getContext('2d');
+
+
+		var sampleChart = new Chart(school1, {
+			type: 'bar',
+			data: {
+				labels:[<% numSchool.forEach(function(data){ %>
+								'<%= data.schoolName %>',
+						<% }); %>],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% numSchool.forEach(function(data){ %>
+								'<%= data.facultyId %>',
+						<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Faculty in <%= data[0].institutionName%> per School',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+
+		//AVERAGE FACULTY PER SCHOOL
+
+		// var schoolfacave = document.getElementById('SchoolFacultyAverageChart').getContext('2d');
+
+
+		// var sampleChart = new Chart(schoolfacave, {
+		// 	type: 'doughnut',
+		// 	data: {
+		// 		labels:[<% avefacschool.forEach(function(data){ %>
+		// 			'<%=data.schoolName%>',
+		// 		<% }); %>],
+
+		// 		datasets: [{
+		// 			label: 'Number',
+		// 			data:[
+		// 				<% avefacschool.forEach(function(data){ %>
+		// 			'<%= data.AverageFacultySch %> ',
+		// 				<% }); %>
+		// 				0
+		// 			],
+		// 			backgroundColor: [
+		// 				'rgb(66, 235, 244)',
+
+		// 			],
+		// 		}]
+		// 	},
+		// 	options: {
+		// 		title: {
+		// 			display: true,
+		// 			text: 'Average Faculty per school ',
+		// 			fontsize: 10
+		// 		},
+		// 		legend: {
+		// 			display: true,
+		// 			position: 'right'
+		// 		}
+		// 	}
+		// });
+
+
+//DEPARTMENT
+
+		
+
+				//AVERAGE FACULTY PER DEPARTMENT
+
+
+		// var depfacave = document.getElementById('DepartmentFacultyAverageChart').getContext('2d');
+
+
+		// 		var sampleChart = new Chart(depfacave, {
+		// 			type: 'doughnut',
+		// 			data: {
+		// 				labels:[<% avefacdepartment.forEach(function(data){ %>
+		// 							'<%= data.departmentName %> ',
+		// 						<% }); %> ],
+		// 				datasets: [{
+		// 					label: 'Number',
+		// 					data:[
+		// 						<% avefacdepartment.forEach(function(data){ %>
+		// 							'<%= data.AverageFacultyDep %> ',
+		// 						<% }); %> 
+		// 						0
+		// 					],
+		// 					backgroundColor: [
+		// 						'rgb(66, 235, 244)',
+
+		// 					],
+		// 				}]
+		// 			},
+		// 			options: {
+		// 				title: {
+		// 					display: true,
+		// 					text: 'Average Faculty per Department ',
+		// 					fontsize: 10
+		// 				},
+		// 				legend: {
+		// 					display: true,
+		// 					position: 'top'
+		// 				}
+		// 			}
+		// 		});
+
+
+
+
+				//DEPARTMENT CERTIFICATION
+
+				var certificationbar = document.getElementById('certificationchart').getContext('2d');
+		
+		var bar = new Chart(certificationbar, {
+			type: 'bar',
+			data: {
+				labels: [],
+				datasets: [{
+					label: 'Center of Development',
+					data: [
+					<% departmentDevelopment.forEach(function(data){ %>
+					'<%= data.centerOfDevelopment %> ',
+				<% }); %> 
+					0
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}, {
+					label: 'Center of Excellence',
+					data: [
+					<% departmentExcellence.forEach(function(data){ %>
+					'<%= data.centerOfExcellence %> ',
+				<% }); %> 
+					0
+					],
+					backgroundColor: 'rgb(244, 66, 95)',
+					borderColor: 'rgb(244, 66, 95)',
+					fill: false
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total number of Certifications Given',
+					fontsize: 10
+				},
+				legend: {
+					position: 'right'
+				}
+			}
+		});
+
+
+
+//FACULTY CHART
+
+	//FACULTY POSITION
+
+		var fac = document.getElementById('facultychart').getContext('2d');
+
+
+		var sampleChart = new Chart(fac, {
+			type: 'bar',
+			data: {
+				labels:[<% facultycount.forEach(function(data){ %>
+					'<%= data.position %>',
+				<% }); %>],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% facultycount.forEach(function(data){ %>
+						'<%= data.FacultyLevel %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+		//FACULTY DEGREE
+
+
+		var piechart = document.getElementById('facultydegreepiechart').getContext('2d');
+
+
+		var sampleChart = new Chart(piechart, {
+			type: 'doughnut',
+			data: {
+				labels:[<% facultydegree.forEach(function(data){ %>
+					'<%= data.educationalAttainment %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% facultydegree.forEach(function(data){ %>
+						'<%= data.facdegree %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Degree ',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+		//FACULTY GENDER
+
+
+		var genderpiechart = document.getElementById('facultygenderpiechart').getContext('2d');
+
+
+		var sampleChart = new Chart(genderpiechart, {
+			type: 'pie',
+			data: {
+				labels:[<% genderfac.forEach(function(data){ %>
+					'<%= data.gender %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						<% genderfac.forEach(function(data){ %>
+						'<%= data.FacultyGender %>',
+				<% }); %>
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Gender ',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+
+		//FACULTY AGE
+
+
+		var agepiechart = document.getElementById('facultyagechart').getContext('2d');
+
+
+		var sampleChart = new Chart(agepiechart, {
+			
+			type: 'doughnut',
+			data: {
+				labels:['20-30','30-40','40-50','50-60','60-70','70-80','80-70'],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						<%=adminfacage[0].twentyTothirty%>,
+						<%=adminfacage[0].thirtyToforty%>,
+						<%=adminfacage[0].fortyTofifty%>,
+						<%=adminfacage[0].fiftyTosixty%>,
+						<%=adminfacage[0].sixtyToseventy%>,
+						<%=adminfacage[0].seventyToeighty%>,
+						<%=adminfacage[0].eightyToninety%>,
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Age Groups',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+
+			}
+		});
+
+
+
+
+
+		//STUDENT ENROLLEES AND GRADUATED
+
+		var studentbar = document.getElementById('studentbarchart').getContext('2d');
+		
+		var bar = new Chart(studentbar, {
+			type: 'line',
+			data: {
+				labels: [0,<% studentenrollee.forEach(function(data){ %>
+					'<%= data.year %> ',
+				<% }); %> ],
+				datasets: [{
+					label: 'Population',
+					data: [0,<% studentenrollee.forEach(function(data){ %>
+					'<%= data.population %> ',
+				<% }); %> 
+					
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total Population of <%=data[0].institutionName%> Students per Year',
+					fontsize: 10
+				}
+			}
+		});
+
+
+		//FACULTY SPECIALIZATION
+
+		
+
+		//PROGRAM
+
+		var dep = document.getElementById('departmentprogCountandAveChart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			type: 'horizontalBar',
+			data: {
+				labels:['Average Program',<% countprog.forEach(function(data){ %>
+					'<%= data.depName %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<%= averageprograms[0].avetemp %>,
+						<% countprog.forEach(function(data){ %>
+					'<%= data.temp %>',
+				<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Program Count and Total Count per Department Accommodated',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+
+		
+
+
+
+		//AVERAGE FACULTY PER SCHOOL AND DEPARTMENT
+
+
+		
+
+	
+		$("#facultyTable").DataTable();
+		$("#programDataTable").DataTable();
+		$("#proglist").DataTable();
+		$("#schoollists").DataTable();
+		$("#deptlist").DataTable();
+		$("#studentDataTable").DataTable();
+		$("#faclist").DataTable();
+		$("#progdatalist").DataTable();
+
+
+
+	});
+</script>
+

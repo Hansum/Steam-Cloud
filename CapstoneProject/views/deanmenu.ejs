@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/design.css">
+	<script src='js/jquery.min.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/>
+	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<script src="js/Chart.js" charset="utf-8"></script>
+	<head>
+		<title>The STEAM Cloud: Data Analytics and Research Module</title>
+		<link rel='icon' href='../images/logo2.png'>
+	</head>
+	<body>
+		<%- include ../views/partials/deanmodals.ejs %>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-2' id='sidebar' >
+					<div class='row'>
+						<div class='col-lg-12 text-center'>
+							<img id='chedlogo' src='../images/logo2.png'>
+						</div>
+						<div id='userInfo' class='col-lg-12'>
+							<hr>
+							<div class='col-lg-6 col-lg-offset-3'>
+								<img id='profpic' src='../images/faculty<%= data[0].facultyId %>.jpg' alt='No image found'>
+							</div>
+							<div class='col-lg-12 text-center'>
+								<h5><%= data[0].lname %>, <%= data[0].fname %> <%= data[0].mname %></h5>
+								<h6><%= data[0].position %></h6>
+							</div>
+							
+							<a  class='col-lg-6 text-center icon'  data-toggle="modal" data-target="#editProfile">
+								<span class='glyphicon glyphicon-edit'></span>
+							</a>
+							<a id='logout' href="/logout" class='col-lg-6 text-center icon'>
+								<span class='glyphicon glyphicon-log-out'></span>
+							</a>
+						</div>
+						<div class='col-lg-12'>
+							<a  id='department' name="scrolldep" class="list-group-item">Department</a>
+									<div id='subdepartment' class='sublist list-group'>
+										<a href='#deptscroll' class="list-group-item" data-toggle="modal" data-target="#viewFaculty"><span class='glyphicon glyphicon-search'></span> View Department Visualizations</a>
+									</div>
+							<a  id='program' name="scrollprog" class="list-group-item">Program</a>
+									<div id='subprogram' class='sublist list-group'>
+										<a href='#progscroll' class="list-group-item" data-toggle="modal" data-target="#viewProgram"><span class='glyphicon glyphicon-eye-open'></span> View Program Visualizations</a>
+									</div>
+							<a  id='modalfaculty' name="scrollfac" class="list-group-item">Faculty</a>
+									<div id='submodalfaculty' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#editFaculty"><span class='glyphicon glyphicon-pencil'></span> Edit Faculty</a>
+										<a href='#facultychartscroll' class="list-group-item" data-toggle="modal" data-target="#viewFaculty" id="scrollfaculty"><span class='glyphicon glyphicon-eye-open'></span> View Faculty Visualizations</a>
+									</div>
+							<a  id='student' name="scrollstud" class="list-group-item">Student</a>
+									<div id='substudent' class='sublist list-group'>
+										<a href='#progstudent' class="list-group-item" data-toggle="modal" data-target="#viewStudent"><span class='glyphicon glyphicon-eye-open'></span> View Student Visualizations</a>
+									</div>
+							<a  id='journal' class="list-group-item">Publication</a>
+							<div id='subjournal' class='sublist list-group'>
+										<a id='drop' class="list-group-item"><span class='glyphicon glyphicon-plus'></span>  Add Publication</a>
+											<div id='subsubjournal' class='sublist list-group'>
+												<center><a  class="list-group-item" data-toggle="modal" data-target="#addBook">Book</a></center>
+												<center><a  class="list-group-item" data-toggle="modal" data-target="#addJournal">Journal</a></center>
+												<center><a  class="list-group-item" data-toggle="modal" data-target="#addResearch">Research</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#addPresentation">Presentation</a></center>
+											</div>
+										<a  id='drop2' class="list-group-item" data-target="#editJournal"><span class='glyphicon glyphicon-pencil'></span> Edit/Delete Publication</a>
+											<div id='subsubjournal2' class='sublist list-group'>
+												<center><a  class="list-group-item" data-toggle="modal" data-target="#editBook1">Edit Book</a></center>
+												<center><a  class="list-group-item" data-toggle="modal" data-target="#editJournal">Edit Journal</a></center>
+												<center><a  class="list-group-item" data-toggle="modal" data-target="#editResearch">Edit Research</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#editPresentation">Edit Presentation</a></center>
+											</div>
+										<a  id='drop3' class="list-group-item" data-target="#editJournal"><span class='glyphicon glyphicon-search'></span> View Publications</a>
+											<div id='subsubjournal3' class='sublist list-group'>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewBook">My Books</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewJournal">My Journals</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewResearch">My Researches</a></center>
+												<center><a href='#' class="list-group-item" data-toggle="modal" data-target="#viewPresentation">My Presentation</a></center>
+											</div>
+									</div>
+
+							<a  id='verification' class="list-group-item">Verification</a>
+									<div id='subverification' class='sublist list-group'>
+										<a  class="list-group-item" data-toggle="modal" data-target="#unverifiedAccounts"><span class='glyphicon glyphicon-wrench'></span> View Verifications</a>
+									</div>
+							<a  class="list-group-item" data-toggle="modal" data-target="#changePassword">Change Password</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class='col-lg-10 row' id='content' >
+					<% if(locals.message == "Success"){ %>
+						    <div class="alert alert-success text-center popup">
+						        <strong> Success!</strong>
+						    </div>
+						<% } %>
+						<% if(locals.message != "Success"){ %>
+						    <div class="alert alert-danger text-center popup">
+						       <strong> <%=message.fail%></strong>
+						    </div>
+						<% } %>
+									<div class='col-lg-12 text-center' id='contentTitle'>
+											<img src='../images/institution<%= institutename[0].institutionId %>.jpg' id='institutionLogo'>
+											<h1><%= institutename[0].institutionName%></h1>
+											<h3><%= data[0].schoolName%></h3>
+											<br><br>
+											<h4>Data Visualizations</h4>
+									</div>
+									<div class='col-lg-10 col-lg-offset-1 row' id='contentBody'>
+									
+									
+									<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='deptscroll'>DEPARTMENTS<a href="/print?q=3&p=Department" class='glyphicon glyphicon-file'></a></h3>
+											
+									</div>
+									<div class='col-lg-12 graphContainer'>
+											
+											<div class='col-lg-12 chart'>
+												<canvas id="certificationchart"></canvas>
+											</div>
+											<div class='col-lg-12 piechart1'>
+												<canvas id="deptChart"></canvas>
+											</div>
+											<div class='box'>
+
+											 </div>
+											 <div class="col-lg-12 piechart1">
+												<table id='departmentlist' class='table table-striped'>
+													<h3 class="text-center" style="margin-bottom: 3%;">LIST OF DEPARTMENTS</h3>
+								                    <thead>
+								                        <tr>
+								                            <th>Department Name</th>
+								                            <th>Department Chairman</th>
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+								                        <% departmentschoolTables.forEach(function(data){ %>
+								                        <tr>
+								                            <td><%= data.departmentName %></td>
+								                            <td><%= data.lname %>,<%= data.fname %></td>
+								                        </tr>
+								                        <% }); %>
+								                    </tbody>
+									            </table>
+											</div>
+									</div>
+									<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id="facultychartscroll">FACULTY<a href="/print?q=3&p=Faculty" class='glyphicon glyphicon-file'></a></h3>
+													
+									</div>
+									<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-6 chart'>
+												<canvas id="facultychart"></canvas>
+											</div>
+											<div class='col-lg-6 chart'>
+												<canvas id="facultygenderchart"></canvas>
+											</div>
+											
+											<div class='col-lg-12 piechart1'>
+												<canvas id="facultygraduatechart"></canvas>
+											</div>
+											<div class='col-lg-12 piechart1'>
+												<canvas id="facultyagechart"></canvas>
+											</div>
+											<div class='box'>
+
+											</div>
+											<div class="col-lg-12 piechart1">
+
+												<table id='faclist' class='table table-striped'>
+													<h3 class="text-center" style="margin-bottom: 3%;">LIST OF FACULTY</h3>
+								                    <thead>
+								                        <tr>
+								                        	<th>Department Name</th>
+								                            <th>Faculty Name</th>
+								                            <th>Position</th>
+								                            <th>More information</th>
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+								                        <% listoffaculty.forEach(function(data){ %>
+								                        <tr>
+								                        	<td><%= data.departmentName %></td>
+								                            <td><%= data.lname %>, <%= data.fname %></td>
+								                            <td><%= data.position %></td>
+								                            <td class="text-center"><span class='glyphicon glyphicon-search btn btn-success' data-toggle="modal" data-target="#faculty<%= data.facultyId %>"> </span></td>
+								                        </tr>
+								                        <% }); %>
+								                    </tbody>
+								                </table>
+										</div>
+									</div>
+
+									<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='progstudent'>STUDENTS</h3>
+										</div>
+										<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-12 chart'>
+												<canvas id="studentbarchart"></canvas>
+											</div>
+										</div>
+
+										<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='progscroll'>PROGRAMS<a href="/print?q=3&p=Program" class='glyphicon glyphicon-file'></a></h3>
+										</div>
+										<div class='col-lg-12 graphContainer'>
+											<div class='col-lg-12 chart'>
+												<canvas id="departmentprogCountandAveChart"></canvas>
+											</div>
+											<div class="col-lg-12 piechart1">
+												<table id='proglist' class='table table-striped'>
+													<h3 class="text-center" style="margin-bottom: 3%;">LIST OF PROGRAMS</h3>
+								                    <thead>
+								                        <tr>
+								                            <th>Program Name</th>
+								                            <th>Department Name</th>
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+								                        <% schoolprogram.forEach(function(data){ %>
+								                        <tr>
+								                            <td><%= data.programName %></td>
+								                            <td><%= data.departmentName %></td>
+								                        </tr>
+								                        <% }); %>
+								                    </tbody>
+									            </table>
+											</div>
+
+											<div class="col-lg-12 piechart1">
+												<table id='progdatalist' class='table table-striped'>
+													<h3 class="text-center" style="margin-bottom: 3%;">Program Availability and Population per Year</h3>
+								                    <thead>
+								                        <tr>
+								                        	<th>Program Name</th>
+								                        	<th>Availability</th>
+								                        	<th>Population</th>
+								                            <th>year</th>
+								                            							                            
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+								                        <% programschooldata.forEach(function(data){ %>
+								                        <tr>
+								                        	<td><%= data.programName %></td>
+								                        	<td><%= data.availability %></td>
+								                        	<td><%= data.population %></td>
+								                            <td><%= data.year %></td>
+								                        </tr>
+								                        <% }); %>
+								                    </tbody>
+									            </table>
+											</div>
+										</div>
+
+
+										<div class='col-lg-12 dataContainer'>
+											<h3 class='text-center' id='viewpublications'>PUBLICATIONS</h3>
+										</div>
+
+										 <div class='col-lg-12 graphContainer'>
+											<div class='col-lg-6 piechart1'>
+												<canvas id="publicationbarchart"></canvas>
+											</div>
+											<div class='col-lg-6 piechart1'>
+															<canvas id="publicationbarchart2"></canvas>
+														</div>
+											<div class='col-lg-6 piechart1'>
+															<canvas id="publicationbarchart3"></canvas>
+														</div>
+											<div class='col-lg-6 piechart1'>
+															<canvas id="publicationbarchart4"></canvas>
+														</div>
+											<div class='col-lg-12 piechart1'>
+															<table id='allbooks' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">SCHOOL'S BOOKS</h3>
+																<thead>
+																	<tr>
+																		<th>Author</th>
+																		<th>Title</th>
+																		<th>ISBN</th>
+																		<th>Edition</th>
+																		<th>Year</th>
+																		<th>Category</th>
+																		<th>Status</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<% allbooks.forEach(function(data){ %>
+																	<tr>
+																		<td><%= data.lname %>, <%= data.fname %></td> 
+																		<td><%= data.title %></td>
+																		<td><%= data.ISBN %></td>
+																		<td><%= data.edition %></td>
+																		<td><%= data.year %></td>
+																		<td><%= data.category %></td>
+																		<td>
+																			<% if( data.bookVerificationLevel == '1' && data.denyStatus == '0'){ %>
+																				Approved
+																			<% }else if(data.bookVerificationLevel == '0' && data.denyStatus == '1'){ %>
+																				Denied
+																			<% }else if(data.bookVerificationLevel == '0' && data.denyStatus == '0'){ %>
+																				Pending
+																			<% }else if(data.bookVerificationLevel == '1' && data.denyStatus == '1'){ %>
+																				Deleted
+																			<% } %>
+																		</td>
+																	</tr>
+																	<% }); %>
+																</tbody>
+															</table>
+														</div>
+											<div class='col-lg-12 piechart1'>
+															<table id='alljournal' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">SCHOOL'S JOURNALS</h3>
+																<thead>
+																	<tr>
+																		<th>Author</th>
+																		<th>Title</th>
+																		<th>Link</th>
+																		<th>Year</th>
+																		<th>Volume</th>
+																		<th>Category</th>
+																		<th>Status</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<% alljournals.forEach(function(data){ %>
+																	<tr>
+																		<td><%= data.lname %>, <%= data.fname %></td>
+																		<td><%= data.title %></td>
+																		<td><%= data.link %></td>
+																		<td><%= data.year %></td>
+																		<td><%= data.volume %></td>
+																		<td><%= data.category %></td>
+																		<td>
+																			<% if( data.journalVerificationLevel == '1' && data.journalDenyStatus == '0'){ %>
+																				Approved
+																			<% }else if(data.journalVerificationLevel == '0' && data.journalDenyStatus == '1'){ %>
+																				Denied
+																			<% }else if(data.journalVerificationLevel == '0' && data.journalDenyStatus == '0'){ %>
+																				Pending
+																			<% }else if(data.journalVerificationLevel == '1' && data.journalDenyStatus == '1'){ %>
+																				Deleted
+																			<% } %>
+																		</td>
+																	</tr>
+																	<% }); %>
+																</tbody>
+															</table>
+														</div>
+											<div class='col-lg-12 piechart1'>
+															<table id='allres' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">DEPARTMENT'S RESEARCH</h3>
+															<thead>
+																<tr>
+																	<th>Author</th>
+																	<th>Name</th>
+																	<th>Status</th>
+																	<th>Collaborations</th>
+																	<th>Description</th>
+																	<th>Coresearchers</th>
+																	<th>Category</th>
+																	<th>Year</th>
+																	<th> Status</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% allresearch.forEach(function(data){ %>
+																<tr>
+																	<td><%= data.lname %>, <%= data.fname %></td>
+																	<td><%= data.name %></td>
+																	<td><%= data.status %></td>
+																	<td><%= data.collaborations %></td>
+																	<td><%= data.description %></td>
+																	<td><%= data.coresearchers %></td>
+																	<td><%= data.category %></td>
+																	<td><%= data.year %></td>
+																	<td>
+																		<% if( data.researchVerificationLevel == '1' && data.reserchDenyStatus == '0'){ %>
+																			Approved
+																		<% }else if(data.researchVerificationLevel == '0' && data.reserchDenyStatus == '1'){ %>
+																			Denied
+																		<% }else if(data.researchVerificationLevel == '0' && data.reserchDenyStatus == '0'){ %>
+																			Pending
+																		<% }else if(data.researchVerificationLevel == '1' && data.reserchDenyStatus == '1'){ %>
+																			Deleted
+																		<% } %>
+																	</td>
+																</tr>
+																<% }); %>
+															</tbody>
+														</table>
+														</div>
+											<div class='col-lg-12 piechart1'>
+															<table id='allthes' class='table table-striped'>
+																<h3 class="text-center" style="margin-bottom: 3%;">SCHOOL'S THESIS</h3>
+															<thead>
+																<tr>
+																	<th>Adviser</th>
+																	<th>Title</th>
+																	<th>Date Defended</th>
+																	<th>Publication Status</th>
+																	<th>Topic</th>
+																	<th>StudentAuthor</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% allthesis.forEach(function(data){ %>
+																<tr>
+																	<td><%= data.lname %>, <%= data.fname %></td>
+																	<td><%= data.title %></td>
+																	<td><%= data.dateDefended %></td>
+																	<td><%= data.publicationStatus %></td>
+																	<td><%= data.topic %></td>
+																	<td><%= data.student_author %></td>
+																</tr>
+																<% }); %>
+															</tbody>
+															</table>
+														</div>
+
+										</div>
+								</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+
+	function showSupTab()
+{
+	$('#supTab').tab('show');
+}
+
+	$(document).ready(function(){
+		$(".sublist").hide();
+
+		setTimeout(function() {
+      	$(".popup").fadeOut();
+   		}, 5000);
+
+		$('#deanfacultyTable').DataTable();
+		$('#proglist').DataTable();
+		$('#departmentlist').DataTable();
+		$('#faclist').DataTable();
+		$("#bookpendingTable").DataTable();
+		$("#journalpendingTable").DataTable();
+		$("#researchpendingTable").DataTable();
+		$("#allbooks").DataTable();
+		$("#alljournal").DataTable();
+		$("#allres").DataTable();
+		$("#allthes").DataTable(); 
+		$("#resall").DataTable(); 
+		$("#progdatalist").DataTable();
+		
+		var mydate = new Date();
+		var curr_date = mydate.getDate();
+		var curr_month = mydate.getMonth();
+		var curr_year = mydate.getFullYear();
+
+		var mydatestr = curr_year  + '-' +curr_month + '-' + curr_date;
+		var maxdob = curr_year-20 + '-' +curr_month + '-' + curr_date;
+		
+		$(".datebirth").attr("max", maxdob);
+		$(".yeargrad").attr("max", curr_year);
+		$(".DateHired").attr("max", mydatestr);
+		
+		function clean(){
+			$(".sublist").slideUp();
+		}
+
+
+		$("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+ 
+
+		$("#verification").on("click", function(){
+			if($("#subverification").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subverification").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#department").on("click", function(){
+			if($("#subdepartment").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subdepartment").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#program").on("click", function(){
+			if($("#subprogram").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subprogram").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#faculty").on("click", function(){
+			if($("#subfaculty").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subfaculty").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#student").on("click", function(){
+			if($("#substudent").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#substudent").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+		$("#modalfaculty").on("click", function(){
+			if($("#submodalfaculty").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#submodalfaculty").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+		$("#journal").on("click", function(){
+			if($("#subjournal").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subjournal").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#drop").on("click", function(){
+			$("#subsubjournal").slideToggle();
+		});
+
+		$("#drop2").on("click", function(){
+			$("#subsubjournal2").slideToggle();
+		});
+
+		$("#drop3").on("click", function(){
+			$("#subsubjournal3").slideToggle();
+		});
+
+		$("#book").on("click", function(){
+			if($("#sub").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#sub").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#logout").on("click", function(){
+			var ret = confirm("Would you like to log out?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+		});
+
+
+
+
+		
+
+
+		//SCHOOL
+
+		
+// DEPARTMENT
+		
+
+
+		//DEPARTMENT CERTIFICATION
+
+		var certificationbar = document.getElementById('certificationchart').getContext('2d');
+		
+		var bar = new Chart(certificationbar, {
+			type: 'horizontalBar',
+			data: {
+				labels: [],
+				datasets: [{
+					label: 'Center of Development',
+					data: [
+					<% departmentcenterdevelopment.forEach(function(data){ %>
+					'<%= data.centerOfDevelopment %> ',
+				<% }); %> 
+					0
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}, {
+					label: 'Center of Excellence',
+					data: [
+					<% departmentcenterExcellence.forEach(function(data){ %>
+					'<%= data.centerOfExcellence %> ',
+				<% }); %> 
+					0
+					],
+					backgroundColor: 'rgb(244, 66, 95)',
+					borderColor: 'rgb(244, 66, 95)',
+					fill: false
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total number of Certifications Given',
+					fontsize: 10
+				},
+				legend: {
+					position: 'top'
+				}
+			}
+		});
+
+
+
+// FACULTY
+
+
+var fac = document.getElementById('facultychart').getContext('2d');
+
+
+var sampleChart = new Chart(fac, {
+	type: 'bar',
+	data: {
+		labels:[<% facultyschool.forEach(function(data){ %>
+						'<%= data.position %>',
+				<% }); %>],
+		datasets: [{
+			label: 'Number',
+			data:[
+				<% facultyschool.forEach(function(data){ %>
+						'<%= data.FacultyLevel %>',
+				<% }); %>
+				0
+			],
+			backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+			],
+			borderWidth:1,
+			hoverBorderWidth:3,
+			hoverBorderColor:'#000'
+		}]
+	},
+	options: {
+		title: {
+			display: true,
+			text: 'Faculty Structure',
+			fontsize: 10
+		},
+		legend: {
+			display: false
+		}
+	}
+});
+
+
+
+	//FACULTY GRADUATE
+		var facspecgraduate = document.getElementById('facultygraduatechart').getContext('2d');
+
+
+		var sampleChart = new Chart(facspecgraduate, {
+			type: 'horizontalBar',
+			data: {
+				labels:[<% facultygraduate.forEach(function(data){ %>
+								'<%= data.schoolGraduated %>',
+						<% }); %>],
+				datasets: [{
+					label: 'DEPARTMENT',
+					data:[
+						<% facultygraduate.forEach(function(data){ %>
+								'<%= data.FacultyGraduate %>',
+						<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Alma Mater',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+
+				}
+			}
+		});
+		
+
+
+
+		//FACULTY SPECIALIZATION
+
+		
+
+
+		//FACULTY AGE
+
+		var dep = document.getElementById('facultyagechart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			
+			type: 'doughnut',
+			data: {
+				labels:['20-30','30-40','40-50','50-60','60-70','70-80','80-70'],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						<%=facultyage[0].twentyTothirty%>,
+						<%=facultyage[0].thirtyToforty%>,
+						<%=facultyage[0].fortyTofifty%>,
+						<%=facultyage[0].fiftyTosixty%>,
+						<%=facultyage[0].sixtyToseventy%>,
+						<%=facultyage[0].seventyToeighty%>,
+						<%=facultyage[0].eightyToninety%>,
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Age Groups',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+
+			}
+		});
+
+		//FACULTY GENDER
+		var dep = document.getElementById('facultygenderchart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			type: 'doughnut',
+			data: {
+				labels:[<% facultygender.forEach(function(data){ %>
+						'<%= data.gender %>',
+					<% }); %>],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% facultygender.forEach(function(data){ %>
+						'<%= data.FacGender %>',
+					<% }); %>
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(26, 215, 165)'
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty gender',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+		var studentdata = document.getElementById('studentbarchart').getContext('2d');
+		
+		var bar = new Chart(studentdata, {
+			type: 'line',
+			data: {
+				labels: [0,<% studentenrollee.forEach(function(data){ %>
+					'<%= data.year %> ',
+				<% }); %> ],
+				datasets: [{
+					label: 'Enrollees',
+					fill: false,
+					data: [0,<% studentenrollee.forEach(function(data){ %>
+					'<%= data.enrollees %> ',
+				<% }); %> 
+					
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)'
+					
+					
+				}, {
+					label: 'Graduates',
+					data: [0,<% studentenrollee.forEach(function(data){ %>
+					'<%= data.graduated %> ',
+				<% }); %> 
+					
+					],
+					backgroundColor: 'rgb(244, 66, 95)',
+					borderColor: 'rgb(244, 66, 95)',
+					fill: false
+					
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total number of Enrollees and Graduates under of <%=data[0].schoolName%> per year',
+					fontsize: 10
+				}
+			}
+		});
+
+
+		//NUMBER OF FACULTY PER DEPARTMENT
+		var school1 = document.getElementById('deptChart').getContext('2d');
+
+
+		var sampleChart = new Chart(school1, {
+			type: 'bar',
+			data: {
+				labels:[<% departmentcountfac.forEach(function(data){ %>
+								'<%= data.departmentName %>',
+						<% }); %>],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<% departmentcountfac.forEach(function(data){ %>
+								'<%= data.facultyId %>',
+						<% }); %>
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Faculty per department under of <%= data[0].schoolName%>',
+					fontsize: 10
+				},
+				legend: {
+					display: false,
+					position: 'right'
+				}
+			}
+		});
+
+
+		
+
+	});
+
+
+		//Publications
+
+var publicationBar = document.getElementById('publicationbarchart').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar, {
+			type: 'pie',
+			data: {
+				labels: [ 
+					<% category.forEach(function(data){ %>
+						"<%= data.category %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% category.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Books per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+var publicationBar2 = document.getElementById('publicationbarchart2').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar2, {
+			type: 'pie',
+			data: {
+				labels: [ 
+					<% journalcategory.forEach(function(data){ %>
+						"<%= data.category %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% journalcategory.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Journals per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+var publicationBar3 = document.getElementById('publicationbarchart3').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar3, {
+			type: 'pie',
+			data: {
+				labels: [ 
+					<% researchcategory.forEach(function(data){ %>
+						"<%= data.category %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% researchcategory.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Research per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+var publicationBar4 = document.getElementById('publicationbarchart4').getContext('2d');
+
+
+		var sampleChart = new Chart(publicationBar4, {
+			type: 'doughnut',
+			data: {
+				labels: [ 
+					<% thesiscategory.forEach(function(data){ %>
+						"<%= data.topic %>",
+					<% }); %>
+				 ],
+				datasets: [{
+					label: 'Sum',
+					data:[			
+						<% thesiscategory.forEach(function(data){ %>
+							<%= data.number %>,
+						<% }); %>
+					],
+					backgroundColor: [
+						'#FFB266','#FF66B2','#FFFFCC','#FF8000','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#FF8000','#B2FF66','#FF66B2','#FFB266','#FFFFCC',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF','#003333','#CCFFE5','#0000CC',
+						'#3399FF','#B266FF','#B2FF66','#FFB266','#FF66B2','#FFFFCC','#FF8000',
+						'#FF3333','#00FF00','#FFCCFF','#7F00FF',
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Number of Approved Thesis per Category',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+
+	});
+
+
+		var dep = document.getElementById('departmentprogCountandAveChart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			type: 'horizontalBar',
+			data: {
+				labels:['Average Program',<% countofprograms.forEach(function(data){ %>
+					'<%= data.depName %>',
+				<% }); %> ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						<%= averageofprograms[0].avetemp %>,
+						<% countofprograms.forEach(function(data){ %>
+					'<%= data.temp %>',
+				<% }); %> 
+						0
+					],
+					backgroundColor: [
+						'#42ebf4','#f4425f','#233bc4','#73BFB8','#FF4D80','#C4A287','#44633F',
+						'#7D84B2','#8FA6CB','#F3C969','#7F9C96','#9BC53D','#C2948A','#D30C7B',
+						'#310D20','#F0803C','#F8C0C8','#EDD382','#C6D8FF','#D6F49D','#EC9DED',
+						'#D3BDB0','#A9FDAC','#32A287','#C4C6E7','#9D6381','#505A5B','#BE8A60',
+						'#EEE4E1','#084C61','#282F44','#E6F8B2','#8AA2A9','#FFAF87','#AA1155',
+						'#FADF63','#F5AC72','#60AFFF','#388659','#C3979F','#A8AEC1','#88A09E',
+						'#BCEDF6','#5A0001','#B5446E','#C7DBE6','#B3C2F2','#DB5461','#94A187',
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Program Count and Total Count per Department Accommodated by the Institution',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+</script>

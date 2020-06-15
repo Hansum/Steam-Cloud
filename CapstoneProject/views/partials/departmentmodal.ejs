@@ -1,0 +1,2143 @@
+<!-- DEPARTMENT HEAD --!>
+
+
+
+<div id="addProgram" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Program</h4>
+			</div>
+			<div class="modal-body">
+				ADD PROGRAM
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editProgram" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit PROGRAM</h4>
+			</div>
+			<div class="modal-body">
+				EDIT PROGRAM
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteProgram" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete Program </h4>
+			</div>
+			<div class="modal-body">
+				DELETE PROGRAM
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<!-----FACULTY--------!>
+
+
+
+
+<!----STUDENT----!>
+
+
+
+<!----EDIT DEPT HEAD PROFILE----!>
+
+
+<div id="editProfile" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Profile</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/editProfile" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-4">First Name:</label>
+						<div class="col-lg-8">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId'>
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+							<input type="text" class="form-control" id="fname" name="fname" placeholder="<%= data[0].fname%>" required>
+						</div><br><br>
+						<label class="control-label col-lg-4">Last Name:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" id="lname" name="lname" placeholder="<%= data[0].lname%>" required>
+							</div><br><br>
+						<label class="control-label col-lg-4">Middle Name:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" id="mname" name="mname" placeholder="<%= data[0].mname%>" required>
+							</div><br><br>
+						
+						<label class="control-label col-lg-4 text-center">Educational Attainment:</label>
+						<div class="col-lg-8">
+							<select class='form-control' name='educationalAttainment'>
+								<option value='Associate'>Associate</option>
+								<option value='Bachelor'>Bachelor</option>
+								<option value='Master'>Master</option>
+								<option value='Doctorate'>Doctorate</option>
+							</select>	
+						</div><br><br>
+						
+						<label class="control-label col-lg-4 text-center">Specialization:</label>
+						<div class="col-lg-8">
+							<input list='programList' class='form-control' name="specialization" placeholder="<%= data[0].specialization%>" required>
+						</div><br><br>
+						
+						<label class="control-label col-lg-4 text-center">School Graduated:</label>
+						<div class="col-lg-8">
+							<input list='schoolList' class='form-control' name="schoolGraduated" placeholder="<%= data[0].schoolGraduated %>" required>
+						</div><br><br>
+						
+						<label class="control-label col-lg-4 text-center">Year Graduated:</label>
+						<div class="col-lg-8">
+							<input type="number" class="form-control yeargrad" name="yearGraduated" placeholder="<%= data[0].yearGraduated%>" required>
+						</div><br><br>
+						
+						<label class="control-label col-lg-4 text-center">Date of Birth:</label>
+						<div class="col-lg-8">
+							<input type="date" class="form-control datebirth" name="dateOfBirth" placeholder="<%= data[0].dateOfBirth%>" required>
+						</div><br><br>
+					</div>
+					
+							
+						
+				
+
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+
+<!-----CHANGE PASSWORD----!>
+
+<div id="changeHeadPassword" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Change Password</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/changePassword" method="POST">
+					<div class="form-group">
+
+						<div class="col-lg-9">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId' >
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+
+						</div><br><br>
+						<label class="control-label col-lg-3">Old Password:</label>
+							<div class="col-lg-9">
+								<input type="password" class="form-control" id="oldPassword" name="oldPassword" required title="Must match old password">
+							</div><br><br>
+						<label class="control-label col-lg-3">New Password:</label>
+							<div class="col-lg-9">
+								<input type="password" class="form-control" id="password" name="password" pattern=".{8,}" required title="Minimum of 8 characters">
+							</div><br><br>
+							<div class="col-lg-9 col-lg-offset-3">
+								<p class="bg-light text-dark fontsize2">Note:  Password should be atleast 8 characters</p>
+							</div>
+					</div>
+					
+							
+						
+				
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+<!-- Verifications Modal --!>
+
+<div id="unverifiedAccounts" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<th>Firstname</th>
+						<th>Middlename</th>
+						<th>Lastname</th>
+						<th>Email</th>
+						<th>Options</th>
+					</thead>
+					<tbody>
+						<% unverifiedAccounts.forEach(function(data){ %>
+							<tr>
+								<td><%= data.fname %></td>
+								<td><%= data.mname %></td>
+								<td><%= data.lname %></td>
+								<td><%= data.email %></td>
+								<td><a href='/deptChairVerifyAccount?facultyId=<%= data.facultyId %>'><span class='glyphicon glyphicon-ok btn btn-success'></span/a></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="editFaculty" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Faculty</h4>
+			</div>
+			<div class="modal-body">
+				<table id='departmentfacultyTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Faculty ID</th>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% departmentfaculty.forEach(function(data){ %>
+						<tr>
+							<td><%= data.facultyId %></td>
+							<td><%= data.fname %></td>
+							<td><%= data.lname %></td>
+							<td><%= data.email %></td>
+							<td><span class='glyphicon glyphicon-search btn btn-success' data-toggle="modal" data-target="#faculty<%= data.facultyId %>"> </span> <span class='glyphicon glyphicon-cog btn btn-warning' data-toggle="modal" data-target="#editFaculty<%= data.facultyId %>"></span></td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Unverified Books ---!>
+
+<div id="unverifiedBooks" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<tr>
+						<th>Author</th>
+						<th>Title</th>
+						<th>ISBN</th>
+						<th>Edition</th>
+						<th>Year</th>
+						<th>Category</th>
+						<th>Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% book.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.title %></td>
+								<td><%= data.ISBN %></td>
+								<td><%= data.edition %></td>
+								<td><%= data.year %></td>
+								<td><%= data.category %></td>
+								<td><a href='/deptChairVerifyBooks?bookId=<%= data.bookId %>'><span class='glyphicon glyphicon-ok btn btn-success'></span/a>     <a href='/deptChairDenyBooks?bookId=<%= data.bookId %>'><span class='glyphicon glyphicon-remove btn btn-danger'></span/a></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Unverified Journals---!>
+
+<div id="unverifiedJournals" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<th>Author</th>
+						<th>Title</th>
+						<th>Link</th>
+						<th>Year</th>
+						<th>Volume</th>
+						<th>Category</th>
+						<th>Options</th>
+					</thead>
+					<tbody>
+						<% journal.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.title %></td>
+								<td><%= data.link %></td>
+								<td><%= data.year %></td>
+								<td><%= data.volume %></td>
+								<td><%= data.category %></td>
+								<td><a href='/deptChairVerifyJournal?journalId=<%= data.journalId %>'><span class='glyphicon glyphicon-ok btn btn-success'><a href='/deptChairDenyJournal?journalId=<%= data.journalId %>'><span class='glyphicon glyphicon-remove btn btn-danger'></span/a></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Unverified Reseacrch ---!>
+
+<div id="unverifiedResearch" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<th>Author</th>
+						<th>Name</th>
+						<th>Status</th>
+						<th>Collaborations</th>
+						<th>Description</th>
+						<th>Coreseachers</th>
+						<th>Category</th>
+						<th>Year</th>
+						<th>Options</th>
+					</thead>
+					<tbody>
+						<% research.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.name %></td>
+								<td><%= data.status %></td>
+								<td><%= data.collaborations %></td>
+								<td><%= data.description %></td>
+								<td><%= data.coresearchers %></td>
+								<td><%= data.category %></td>
+								<td><%= data.year %></td>
+								<td><a href='/deptChairVerifyResearch?researchId=<%= data.researchId %>'><span class='glyphicon glyphicon-ok btn btn-success'> <a href='/deptChairDenyResearch?researchId=<%= data.researchId %>'><span class='glyphicon glyphicon-remove btn btn-danger'></span/a></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Faculty Data Modals --!>
+
+<% departmentfaculty.forEach(function(data){ %>
+<div id="faculty<%= data.facultyId %>" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class='row picbg'>
+					<div class='col-lg-6 col-lg-offset-3 text-center'>
+						<img class='face' src='../images/faculty<%= data.facultyId %>.jpg'>
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email --!>
+				<div class='row'>
+					<div class='col-lg-4 text-center'>
+						<h4>Name:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.fname %> <%= data.mname %> <%= data.lname %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Email:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.email %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Position:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.position %> - <%= data.facultyType %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Educational Attainment:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.educationalAttainment %> - <%= data.specialization %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>School Graduated:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.schoolGraduated %> - <%= data.yearGraduated %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Gender:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.gender %></h4>
+					</div><br><br>
+
+					<div class='col-lg-4 text-center'>
+						<h4>Date Hired:</h4>
+					</div>
+					<div class='col-lg-8'>
+						<h4><%= data.dateHired %></h4>
+					</div><br><br>
+					
+					<div class='col-lg-12 text-center'>
+						<h2>Publication</h2><br>
+						<h3>Book</h3>
+						<h4>
+						<% facultyBook.forEach(function(cdata){%>						
+							<% if( cdata.facultyId == data.facultyId && cdata.bookVerificationLevel == 1 ){ %>
+								<%= cdata.bookTitle %>, <%= cdata.bookEdition %> Edition - <%= cdata.bookYear %> ISBN: <%= cdata.ISBN %><br>
+							<% } %>
+						<% }); %>
+						</h4>
+						<h3>Journal</h3>
+						<h4>
+						<% facultyJournal.forEach(function(adata){%>
+							<% if( adata.facultyId == data.facultyId && adata.journalVerificationLevel == 1 ){ %>
+								<%= adata.journalTitle %>, <%= adata.journalVolume %> Volume, Link: <%= adata.journalLink %><br>
+							<% } %>
+						<% }); %>
+						</h4>
+						<h3>Research</h3>
+						<h4>
+						<% facultyResearch.forEach(function(bdata){%>
+							<% if( bdata.facultyId == data.facultyId && bdata.researchVerificationLevel == 1 ){ %>
+								<%= bdata.researchName %> - <%= bdata.researchDescription %>, Co-researchers: <%= bdata.coresearchers %>, Collab.: <%= bdata.collaborations %>, STATUS: <%= bdata.researchStatus %><br>
+							<% } %>
+						<% }); %>
+						</h4>
+					</div>
+					
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<% departmentfaculty.forEach(function(data){ %>
+<div id="editFaculty<%= data.facultyId %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class='row picbg'>
+					<div class='col-lg-6 col-lg-offset-3 text-center'>
+						<img class='face' src='../images/faculty<%= data.facultyId %>.jpg'>
+					</div>
+				</div><br><br>
+				<div class='row'>
+					<form class="form-horizontal" action="/editFaculty" method="POST">
+						<div class="form-group">
+							<input type='hidden' name='facultyId' value='<%= data.facultyId %>'>
+							<label class="control-label col-lg-4 text-center">Fullname:</label>
+							<div class="col-lg-3">
+								<input type='text' class='form-control' placeholder='<%= data.fname %>' name='fname' required>
+							</div>
+							<div class="col-lg-2">
+								<input type='text' class='form-control' placeholder='<%= data.mname %>' name='mname' required>
+							</div>
+							<div class="col-lg-3">
+								<input type='text' class='form-control' placeholder='<%= data.lname %>' name='lname' required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Email:</label>
+							<div class="col-lg-8">
+								<input type="email" class="form-control"  placeholder="<%= data.email %>" name="email" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Position:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" placeholder="<%= data.position %>" name="position" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Specialization:</label>
+							<div class="col-lg-8">
+								<input list='programList' class='form-control' name="specialization" placeholder="<%= data.specialization%>" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Faculty Type:</label>
+							<div class="col-lg-8">
+								<select class='form-control' name='facultyType'>
+									<option value='Full-time'>Full-time</option>
+									<option value='Part-time'>Part-time</option>
+								</select>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Educational Attainment:</label>
+							<div class="col-lg-8">
+								<select class='form-control' name='educationalAttainment'>
+									<option value='Associate'>Associate</option>
+									<option value='Bachelor'>Bachelor</option>
+									<option value='Master'>Master</option>
+									<option value='Doctorate'>Doctorate</option>
+								</select>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">School Graduated:</label>
+							<div class="col-lg-8">
+								<input list='schoolList' class='form-control' name="schoolGraduated" placeholder="<%= data.schoolGraduated%>" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Year Graduated:</label>
+							<div class="col-lg-8">
+								<input type="number" class="form-control yeargrad" placeholder="<%= data.yearGraduated %>" name="yearGraduated" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Date of Birth:</label>
+							<div class="col-lg-8">
+								<input type="date" class="form-control datebirth" placeholder="<%= data.dateOfBirth %>" name="dateOfBirth" min="1910-01-01" required>
+							</div><br><br>
+
+						</div>
+						
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<datalist id='schoolList'>
+	<option value="University of San Carlos">
+	<option value="University of Southern Philippines Foundation">
+	<option value="Cebu Doctor's University">
+	<option value="University of the Philippines - Diliman">
+	<option value="Southwestern University">
+	<option value="Cebu Technological University">
+	<option value="Cebu Institute of Technology">
+	<option value="University of Cebu">
+	<option value="University of the Visayas">
+</datalist>
+<datalist id="programList">
+	<option value="Information Technology">
+	<option value="Computer Science">
+	<option value="Information and Communication Technology">
+	<option value="Social Psychology">
+	<option value="Clinical Psychology">
+	<option value="Counseling Psychology">
+	<option value="Law">
+	<option value="Accountancy">
+	<option value="Computer Engineering">
+	<option value="Civil Engineeering">
+	<option value="Mechanical Engineering">
+	<option value="Chemical Engineering">
+	<option value="Industrial Engineering">
+</datalist>
+
+<!----ADD JOURNAL----!>
+
+<div id="addJournal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Journal</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/addJournalDept" method="POST">
+					<div class="form-group">
+
+						<div class="col-lg-9">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId' >
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+						</div><br><br>
+						<label class="control-label col-lg-3">Title:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name="title1" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Link:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="link1" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Year:</label>
+							<div class="col-lg-9">
+								<input type="number" min="1900" class="form-control yeargrad"  name="year" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Volume:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="volume" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Category:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='category'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+						</div><br><br>
+					</div>
+					
+				
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+
+<!----ADD BOOK----!>
+
+<div id="addBook" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Book</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/addBookDept" method="POST">
+					<div class="form-group">
+
+						<div class="col-lg-9">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId' >
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+						</div><br><br>
+						<label class="control-label col-lg-3">Title:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name="title1" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">ISBN:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="ISBN" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Edition:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="edition" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Year:</label>
+							<div class="col-lg-9">
+								<input type="number" min="1900" class="form-control yeargrad" name="year" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Category:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='category'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+						</div><br><br>
+					</div>
+					
+							
+					
+				
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+<!----ADD RESEARCH----!>
+
+<div id="addResearch" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Research</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/addResearchDept" method="POST">
+					<div class="form-group">
+
+						<div class="col-lg-9">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId' >
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+						</div><br><br>
+						<label class="control-label col-lg-3">Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="name1" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Status:</label>
+							<div class="col-lg-9">
+								<select class='form-control' name='status'>
+									<option value='Ongoing'>Ongoing</option>
+									<option value='Completed'>Completed</option>
+								</select>
+							</div><br><br>
+						<label class="control-label col-lg-3">Collaborations:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name="collaborations" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Description:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name="description" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Co-Researchers:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="coresearchers" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Category:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='category'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">Year:</label>
+							<div class="col-lg-9">
+								<input type="number" min="1900" class="form-control yeargrad"  name="year" required>
+							</div><br><br>
+					</div>
+				
+				
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+<!---EDIT PUBLICATION----!>
+
+<div id="editBook1" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Book</h4>
+			</div>
+			<div class="modal-body">
+				<table id='bookTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Book ID</th>
+							<th>Title</th>
+							<th>ISBN</th>
+							<th>Edition</th>
+							<th>Year</th>
+							<th>Category</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% books.forEach(function(data){ %>
+						<tr>
+							<td><%= data.bookId %></td>
+							<td><%= data.title %></td>
+							<td><%= data.ISBN %></td>
+							<td><%= data.edition %></td>
+							<td><%= data.year %></td>
+							<td><%= data.category %></td>
+							<td><span class='glyphicon glyphicon-cog btn btn-warning' data-toggle="modal" data-target="#editBook<%= data.value1 %><%= data.value2 %>"></span><a href='/deleteBook?bookId=<%= data.bookId %>'><span class='glyphicon glyphicon-trash btn btn-danger'></span/a>	</td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!----EDIT Journal----!>
+
+<div id="editJournal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Journal</h4>
+			</div>
+			<div class="modal-body">
+				<table id='journalTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Book ID</th>
+							<th>Title</th>
+							<th>Link</th>
+							<th>Year</th>
+							<th>Volume</th>
+							<th>Category</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% journals.forEach(function(data){ %>
+						<tr>
+							<td><%= data.journalId %></td>
+							<td><%= data.title %></td>
+							<td><%= data.link %></td>
+							<td><%= data.year %></td>
+							<td><%= data.volume %></td>
+							<td><%= data.category %></td>
+							<td><span class='glyphicon glyphicon-cog btn btn-warning' data-toggle="modal" data-target="#editJournals<%= data.value1 %><%= data.value2 %>"></span><a href='/deletejournals?journalId=<%= data.journalId %>'><span class='glyphicon glyphicon-trash btn btn-danger'></span/a></td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!----EDIT Research----!>
+
+<div id="editResearch" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Research</h4>
+			</div>
+			<div class="modal-body">
+				<table id='researchTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Research ID</th>
+							<th>Name</th>
+							<th>Status</th>
+							<th>Collaborations</th>
+							<th>Description</th>
+							<th>Coresearchers</th>
+							<th>Category</th>
+							<th>Year</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% researches.forEach(function(data){ %>
+						<tr>
+							<td><%= data.researchId %></td>
+							<td><%= data.name %></td>
+							<td><%= data.status %></td>
+							<td><%= data.collaborations %></td>
+							<td><%= data.description %></td>
+							<td><%= data.coresearchers %></td>
+							<td><%= data.category %></td>
+							<td><%= data.year %></td>
+							<td><span class='glyphicon glyphicon-cog btn btn-warning' data-toggle="modal" data-target="#editResearch2<%= data.value1 %><%= data.value2 %>"></span><a href='/deleteresearch?researchId=<%= data.researchId %>'><span class='glyphicon glyphicon-trash btn btn-danger'></span/a></td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---edit book ----!>
+
+<% books.forEach(function(data){ %>
+<div id="editBook<%= data.value1 %><%= data.value2 %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Book Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class='row'>
+					<form encType="multipart/form-data" class="form-horizontal" action="/editBook" method="POST">
+						<div class="form-group">
+							<input type='hidden' name='value1' value='<%= data.value1 %>'>
+							<input type='hidden' name='value2' value='<%= data.value2 %>'>
+
+							<label class="control-label col-lg-4 text-center">Title:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control"  value="<%= data.title %>" name="title1" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">ISBN:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.ISBN %>" name="ISBN" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Edition:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.edition %>" name="edition" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Year:</label>
+							<div class="col-lg-8">
+								<input type="number" class="form-control yeargrad" min="1900" value="<%= data.year %>" name="year" required>
+							</div><br><br>
+							<label class="control-label col-lg-4 text-center">Category:</label>
+							<div class="col-lg-8">
+							<select class='form-control' name='category'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+							</div><br><br>
+
+
+						</div>
+						
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<!---edit journal ----!>
+
+<% journals.forEach(function(data){ %>
+<div id="editJournals<%= data.value1 %><%= data.value2 %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Journal Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class='row'>
+					<form encType="multipart/form-data" class="form-horizontal" action="/editJournal" method="POST">
+						<div class="form-group">
+							<input type='hidden' name='value1' value='<%= data.value1 %>'>
+							<input type='hidden' name='value2' value='<%= data.value2 %>'>
+
+							<label class="control-label col-lg-4 text-center">Title:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control"  value="<%= data.title %>" name="title1" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Link:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.link %>" name="link" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Year:</label>
+							<div class="col-lg-8">
+								<input type="number" class="form-control yeargrad" min="1900" value="<%= data.year %>" name="year" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Volume:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.volume %>" name="volume" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Category:</label>
+							<div class="col-lg-8">
+							<select class='form-control' name='category'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+							</div><br><br>
+
+
+						</div>
+						
+								
+							
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<!---edit research ----!>
+
+<% researches.forEach(function(data){ %>
+<div id="editResearch2<%= data.value1 %><%= data.value2 %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Research Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class='row'>
+					<form encType="multipart/form-data" class="form-horizontal" action="/editResearch" method="POST">
+						<div class="form-group">
+							<input type='hidden' name='value1' value='<%= data.value1 %>'>
+							<input type='hidden' name='value2' value='<%= data.value2 %>'>
+
+							<label class="control-label col-lg-4 text-center">Name:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control"  value="<%= data.name %>" name="name1" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Status:</label>
+							<div class="col-lg-8">
+								<select class='form-control' name='status'>
+									<option value='Ongoing'>Ongoing</option>
+									<option value='Completed'>Completed</option>
+							</select>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Collaborations:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.collaborations %>" name="collaborations" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Description:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.description %>" name="description" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Coresearchers:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.coresearchers %>" name="coresearchers" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Category:</label>
+							<div class="col-lg-8">
+							<select class='form-control' name='category'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+							</div><br><br>
+
+
+						</div>
+						
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<!----ADD THESIS----!>
+
+<div id="addThesis" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Thesis</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/addThesis" method="POST">
+					<div class="form-group">
+
+						<div class="col-lg-9">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId' >
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+						</div><br><br>
+						<label class="control-label col-lg-3">Title:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name="title1" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Student Author:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="author" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Adviser:</label>
+							<div class="col-lg-9">
+								<select class='form-control' name='adviser'>
+									<% fat.forEach(function(data){ %>
+										<option value='<%= data.facultyId %>'><%= data.lname %>, <%= data.fname %></option>
+									<% }); %>
+								</select>
+							</div><br><br>
+						<label class="control-label col-lg-3">Date Defended:</label>
+							<div class="col-lg-9">
+								<input type="date" class="form-control DateHired" name="year" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Topic Area:</label>
+						<div class="col-lg-9">
+							<select class='form-control' name='topic'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Status:</label>
+							<div class="col-lg-9">
+								<select class='form-control' name='status'>
+									<option value='Published'>Published</option>
+									<option value='Unpublished'>Not Published</option>
+							</select>
+							</div><br><br>
+					</div>
+					
+							
+						
+				
+
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+
+<!----EDIT Thesis----!>
+
+<div id="editThesis" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Thesis</h4>
+			</div>
+			<div class="modal-body">
+				<table id='thesisTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Thesis ID</th>
+							<th>Adviser</th>
+							<th>Title</th>
+							<th>Date Defended</th>
+							<th>Publication Status</th>
+							<th>Topic</th>
+							<th>Student Author</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% fat2.forEach(function(data){ %>
+						<tr>
+							<td><%= data.thesisId %></td>
+							<td><%= data.lname %></td>
+							<td><%= data.title %></td>
+							<td><%= data.dateDefended %></td>
+							<td><%= data.publicationStatus %></td>
+							<td><%= data.topic %></td>
+							<td><%= data.student_author %></td>
+							<td><span class='glyphicon glyphicon-cog btn btn-warning' data-toggle="modal" data-target="#editThesis2<%= data.value1 %><%= data.value2 %>"></span></td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!---edit research ----!>
+
+<% fat2.forEach(function(data){ %>
+<div id="editThesis2<%= data.value1 %><%= data.value2 %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Thesis Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class='row'>
+					<form encType="multipart/form-data" class="form-horizontal" action="/editThesis" method="POST">
+						<div class="form-group">
+							<input type='hidden' name='value1' value='<%= data.value1 %>'>
+							<input type='hidden' name='value2' value='<%= data.value2 %>'>
+
+							<label class="control-label col-lg-4 text-center">Title:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control"  value="<%= data.title %>" name="name1" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Date Defended:</label>
+							<div class="col-lg-8">
+								<input type="date" class="form-control" name="dateDefended" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Publication Status:</label>
+							<div class="col-lg-8">
+								<select class='form-control' name='status'>
+									<option value='Published'>Published</option>
+									<option value='Unpublished'>Not Published</option>
+								</select>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Topic:</label>
+							<div class="col-lg-8">
+							<select class='form-control' name='topic'>
+									<option value='Arts and Music'>Arts and Music</option>
+									<option value='Biographies'>Biographies</option>
+									<option value='Business'>Business</option>
+									<option value='Computers and Technology'>Computers and Technology</option>
+									<option value='Cooking'>Cooking</option>
+									<option value='Educational & References'>Educational & References</option>
+									<option value='Health and Fitness'>Health and Fitness</option>
+									<option value='Literature'>Literature</option>
+									<option value='Medical'>Medical</option>
+									<option value='Social Science'>Social Science</option>
+									<option value='Religion'>Religion</option>
+									<option value='Science and Math'>Science and Math</option>
+									<option value='Others'>Others...</option>
+							</select>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Student Author:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.student_author %>" name="student_author" required>
+							</div><br><br>
+
+
+						</div>
+						
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<div id="support" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+					<h4 class="modal-title">Support and Guides</h4>
+				</div>
+				<div class="modal-body">
+				 <ul id="myTab" class="nav nav-tabs">
+	                <li><a href="#help1" data-toggle="tab" role="tab" id="supTab">Institution</a></li>
+	                <li><a href="#help2" data-toggle="tab">Institution Administrator</a></li>
+	                <li><a href="#help3" data-toggle="tab">School</a></li>
+	                <li><a href="#help4" data-toggle="tab">Department</a></li>
+	                <li><a href="#help5" data-toggle="tab">Program</a></li>
+
+	            </ul>
+				
+
+	            	<div id="myTabContent" class="tab-content" id="supTab">
+
+	            		<div class="tab-pane fade" id="help1">
+	            		<br>
+	            			
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add Institution</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Add Institution button<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>Edit Institution</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Edit Institution button<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>Delete Institution</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Delete Institution button<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>Delete Institution</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on Delete Institution button<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+	            						<div class='jumbotron help'>
+	            							<h3>View Institution Information</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution tab in the sidebar<br>2. Click on View Institution button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help2">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Assign Institution Administrator</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution Administrator tab in the sidebar<br>2. Click on Assign Institution Administrator button<br>3. Select newly assigned Institution Administrator by clicking on the "+" icon<br>4. Confirm action</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View Institution Administrator Information</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Institution Administrator tab in the sidebar<br>2. Click on View Institution Administrator button<br>3. Click on the magnifier icon aligned with the user information you desire to view</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help3">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add School</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on Add School<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Edit School</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on Edit School<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Delete School</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on Delete School<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View School Information</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click School tab in the sidebar<br>2. Click on View School button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help4">
+	            		<br>
+
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add Department</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Add Department<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Edit Department</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Edit Department<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Delete Department</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Delete Department<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Certify Department</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on Certify Department as Center of Development or Center of Excellence depending on level of certification desired<br>3. Click on "+" icon aligned with the department you desire to certify<br>4. Confirm Action</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Remove Department Certification</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on trash icon aligned with the department you desire to remove certification<br>4. Confirm Action</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View Department Information</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Department tab in the sidebar<br>2. Click on View Department button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+
+	            		</div>
+
+	            		<div class="tab-pane fade help" id="help5">
+	            		<br>
+	            			<div class="container-fluid">
+	            				<div class='row'>
+	            					<div class='col-lg-12'>
+	            						<div class='jumbotron help'>
+	            							<h3>Add Program</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on Add Program<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Edit School</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on Edit Program<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>Delete School</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on Delete Program<br>3. Input necessary information<br>4. Submit Form</p>
+	            						</div>
+
+	            						<div class='jumbotron help'>
+	            							<h3>View Program Information</h3>
+	            							<hr class='my-4'>
+	            							<p>1. Click Program tab in the sidebar<br>2. Click on View Program button</p>
+	            						</div>
+	            					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+
+
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					
+				</div>
+			</div>
+	</div>
+</div>
+
+<!---VIEW pending PUBLICATION----!>
+
+<div id="viewBook" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">View Books</h4>
+			</div>
+			<div class="modal-body">
+
+				<table id='bookpendingTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>ISBN</th>
+							<th>Edition</th>
+							<th>Year</th>
+							<th>Category</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% pendbooks.forEach(function(data){ %>
+						<tr>
+							<td><%= data.title %></td>
+							<td><%= data.ISBN %></td>
+							<td><%= data.edition %></td>
+							<td><%= data.year %></td>
+							<td><%= data.category %></td>
+							<td>
+								<% if( data.bookVerificationLevel == '1' && data.denyStatus == '0'){ %>
+									Approved
+								<% }else if(data.bookVerificationLevel == '0' && data.denyStatus == '1'){ %>
+									Denied
+								<% }else if(data.bookVerificationLevel == '0' && data.denyStatus == '0'){ %>
+									Pending
+								<% }else if(data.bookVerificationLevel == '1' && data.denyStatus == '1'){ %>
+									Deleted
+								<% } %>
+							</td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!----View pending Journal----!>
+
+<div id="viewJournal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">View Journal</h4>
+			</div>
+			<div class="modal-body">
+				<table id='journalpendingTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Title</th>
+							<th>Link</th>
+							<th>Year</th>
+							<th>Volume</th>
+							<th>Category</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% pendjournals.forEach(function(data){ %>
+						<tr>
+							<td><%= data.journalId %></td>
+							<td><%= data.title %></td>
+							<td><%= data.link %></td>
+							<td><%= data.year %></td>
+							<td><%= data.volume %></td>
+							<td><%= data.category %></td>
+							<td>
+								<% if( data.journalVerificationLevel == '1' && data.journalDenyStatus == '0'){ %>
+									Approved
+								<% }else if(data.journalVerificationLevel == '0' && data.journalDenyStatus == '1'){ %>
+									Denied
+								<% }else if(data.journalVerificationLevel == '0' && data.journalDenyStatus == '0'){ %>
+									Pending
+								<% }else if(data.journalVerificationLevel == '1' && data.journalDenyStatus == '1'){ %>
+									Deleted
+								<% } %>
+							</td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!----view Research----!>
+
+<div id="viewResearch" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">View Research</h4>
+			</div>
+			<div class="modal-body">
+				<table id='researchpendingTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Status</th>
+							<th>Collaborations</th>
+							<th>Description</th>
+							<th>Coresearchers</th>
+							<th>Category</th>
+							<th>Year</th>
+							<th> Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% pendresearch.forEach(function(data){ %>
+						<tr>
+							<td><%= data.name %></td>
+							<td><%= data.status %></td>
+							<td><%= data.collaborations %></td>
+							<td><%= data.description %></td>
+							<td><%= data.coresearchers %></td>
+							<td><%= data.category %></td>
+							<td><%= data.year %></td>
+							<td>
+								<% if( data.researchVerificationLevel == '1' && data.reserchDenyStatus == '0'){ %>
+									Approved
+								<% }else if(data.researchVerificationLevel == '0' && data.reserchDenyStatus == '1'){ %>
+									Denied
+								<% }else if(data.researchVerificationLevel == '0' && data.reserchDenyStatus == '0'){ %>
+									Pending
+								<% }else if(data.researchVerificationLevel == '1' && data.reserchDenyStatus == '1'){ %>
+									Deleted
+								<% } %>
+							</td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Denied Books ---!>
+
+<div id="denybooks" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<tr>
+						<th>Author</th>
+						<th>Title</th>
+						<th>ISBN</th>
+						<th>Edition</th>
+						<th>Year</th>
+						<th>Category</th>
+						<th>Reapprove</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% denybooks.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.title %></td>
+								<td><%= data.ISBN %></td>
+								<td><%= data.edition %></td>
+								<td><%= data.year %></td>
+								<td><%= data.category %></td>
+								<td><a href='/reapproveBooks?bookId=<%= data.bookId %>'><span class='glyphicon glyphicon-ok btn btn-success'></span/a></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Denied Journals---!>
+
+<div id="denyjournals" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<th>Author</th>
+						<th>Title</th>
+						<th>Link</th>
+						<th>Year</th>
+						<th>Volume</th>
+						<th>Category</th>
+						<th>Reapprove</th>
+					</thead>
+					<tbody>
+						<% denyjournals.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.title %></td>
+								<td><%= data.link %></td>
+								<td><%= data.year %></td>
+								<td><%= data.volume %></td>
+								<td><%= data.category %></td>
+								<td><a href='/reapproveJournals?journalId=<%= data.journalId %>'><span class='glyphicon glyphicon-ok btn btn-success'></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Denied Reseacrch ---!>
+
+<div id="denyresearch" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<th>Author</th>
+						<th>Name</th>
+						<th>Status</th>
+						<th>Collaborations</th>
+						<th>Description</th>
+						<th>Coreseachers</th>
+						<th>Category</th>
+						<th>Year</th>
+						<th>Reapprove</th>
+					</thead>
+					<tbody>
+						<% denyresearch.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.name %></td>
+								<td><%= data.status %></td>
+								<td><%= data.collaborations %></td>
+								<td><%= data.description %></td>
+								<td><%= data.coresearchers %></td>
+								<td><%= data.category %></td>
+								<td><%= data.year %></td>
+								<td><a href='/reapproveResearches?researchId=<%= data.researchId %>'><span class='glyphicon glyphicon-ok btn btn-success'></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---Unverified Reseacrch ---!>
+
+<div id="unverifiedPres" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Verifications</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class='table table-striped'>
+					<thead>
+						<th>Faculty</th>
+						<th>Presentation Name</th>
+						<th>Paper Name</th>
+						<th>Date</th>
+						<th>Options</th>
+					</thead>
+					<tbody>
+						<% unverifiedPres.forEach(function(data){ %>
+							<tr>
+								<td><%= data.lname %>, <%= data.fname %></td>
+								<td><%= data.presentationName %></td>
+								<td><%= data.paperName %></td>
+								<td><%= data.date %></td>
+								<td><a href='/deptChairVerifyPres?presentationId=<%= data.presentationId %>'><span class='glyphicon glyphicon-ok btn btn-success'> <a href='/deptChairDenyPres?presentationId=<%= data.presentationId %>'><span class='glyphicon glyphicon-remove btn btn-danger'></span/a></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!----ADD PRESENTATION----!>
+
+<div id="addPresentation" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Presentation</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" action="/addPresentationDept" method="POST">
+					<div class="form-group">
+
+						<div class="col-lg-9">
+							<input type='hidden' value='<%= data[0].departmentId %>' name='departmentId' >
+							<input type='hidden' value='<%= data[0].schoolId %>' name='schoolId' >
+							<input type='hidden' value='<%= data[0].institutionId %>' name='institutionId' >
+							<input type='hidden' value='<%= data[0].facultyId %>' name='facultyId' >
+						</div><br><br>
+						<label class="control-label col-lg-3">Presentation Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="presentation" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Paper Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control"  name="paper" required>
+							</div><br><br>
+						<label class="control-label col-lg-3">Conference Date:</label>
+							<div class="col-lg-9">
+								<input type="date" class="form-control" name="confdate" required>
+							</div><br><br>
+					</div>
+					
+				
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+
+<!---EDIT PRESENTATION----!>
+
+<div id="editPresentation" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Presentation</h4>
+			</div>
+			<div class="modal-body">
+
+				<table id='presTable' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Presentation ID</th>
+							<th>Presentation Name</th>
+							<th>Paper Name</th>
+							<th>Date</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% presentation.forEach(function(data){ %>
+						<tr>
+							<td><%= data.presentationId %></td>
+							<td><%= data.presentationName %></td>
+							<td><%= data.paperName %></td>
+							<td><%= data.date %></td>
+							<td><span class='glyphicon glyphicon-cog btn btn-warning' data-toggle="modal" data-target="#editPres<%= data.value1 %><%= data.value2 %>"></span><a href='/deletePres?presentationId=<%= data.presentationId %>'><span class='glyphicon glyphicon-trash btn btn-danger'></span/a></td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---edit pres ----!>
+
+<% presentation.forEach(function(data){ %>
+<div id="editPres<%= data.value1 %><%= data.value2 %>" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Presentation Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class='row'>
+					<form encType="multipart/form-data" class="form-horizontal" action="/editPresDept" method="POST">
+						<div class="form-group">
+							<input type='hidden' name='value1' value='<%= data.value1 %>'>
+							<input type='hidden' name='value2' value='<%= data.value2 %>'>
+
+							<label class="control-label col-lg-4 text-center">Presentation:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control"  value="<%= data.presentationName %>" name="presentationName" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Paper Name:</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" value="<%= data.paperName %>" name="paperName" required>
+							</div><br><br>
+
+							<label class="control-label col-lg-4 text-center">Date:</label>
+							<div class="col-lg-8">
+								<input type="date" class="form-control" value="<%= data.date %>" name="confdate" required>
+							</div><br><br>
+						</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</form></div>
+		</div>
+	</div>
+</div>
+<% }); %>
+
+<!----view presentation----!>
+
+<div id="viewPresentation" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class='close glyphicon glyphicon-remove' data-dismiss="modal"></span>
+				<h4 class="modal-title">View Presentation</h4>
+			</div>
+			<div class="modal-body">
+				<table id='resall' class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Presentation Name</th>
+							<th>Paper Name</th>
+							<th>Date</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% pendingpres.forEach(function(data){ %>
+						<tr>
+							<td><%= data.presentationName %></td>
+							<td><%= data.paperName %></td>
+							<td><%= data.date %></td>
+							<td>
+								<% if( data.presentVerificationLevel == '1' && data.presentDenyStatus == '0'){ %>
+									Approved
+								<% }else if(data.presentVerificationLevel == '0' && data.presentDenyStatus == '1'){ %>
+									Denied
+								<% }else if(data.presentVerificationLevel == '0' && data.presentDenyStatus == '0'){ %>
+									Pending
+								<% }else if(data.presentVerificationLevel == '1' && data.presentDenyStatus == '1'){ %>
+									Deleted
+								<% } %>
+							</td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

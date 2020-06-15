@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://localhost:3000/ched# -->
+<html class="gr__localhost"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./The STEAM Cloud_ Data Analytics and Research Module_files/bootstrap.min.css">
+	<link rel="stylesheet" href="./The STEAM Cloud_ Data Analytics and Research Module_files/design.css">
+	<link rel="stylesheet" type="text/css" href="./The STEAM Cloud_ Data Analytics and Research Module_files/jquery.dataTables.min.css">
+	<script src="./The STEAM Cloud_ Data Analytics and Research Module_files/jquery.min.js.download"></script>
+	<script src="./The STEAM Cloud_ Data Analytics and Research Module_files/bootstrap.min.js.download"></script>
+	<script src="./The STEAM Cloud_ Data Analytics and Research Module_files/Chart.js.download" charset="utf-8"></script><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style>
+	<script type="text/javascript" src="./The STEAM Cloud_ Data Analytics and Research Module_files/jquery.dataTables.min.js.download"></script>
+
+	
+		<title>The STEAM Cloud: Data Analytics and Research Module</title>
+		<link rel="icon" href="./The STEAM Cloud_ Data Analytics and Research Module_files/logo2.png">
+	</head>
+	<body data-gr-c-s-loaded="true">
+		<!-- INSTITUTION -->
+
+<div id="addInstitution" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Add Institution</h4>
+			</div>
+			<div class="modal-body">
+			 <ul id="myTab" class="nav nav-tabs">
+                <li><a href="http://localhost:3000/ched#basicInfo" data-toggle="tab" role="tab" id="tab1">Basic Information</a></li>
+                <li><a href="http://localhost:3000/ched#adminInfo" data-toggle="tab">Institution Admin Information</a></li>
+            </ul>
+			
+			
+            	<div id="myTabContent" class="tab-content">
+             	 <div class="tab-pane fade" id="basicInfo">
+					<form enctype="multipart/form-data" class="form-horizontal" action="http://localhost:3000/addInstitution" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-4">Institution Logo:</label>
+						<div class="col-lg-8">
+							<input type="file" class="form-control" name="institutionLogo" accept=".jpg" title="Only .jpg files" required="">
+						</div><br><br>
+					
+						<label class="control-label col-lg-4">Name:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" placeholder="Enter name" name="institutionName" required="">
+						</div><br><br>
+						<label class="control-label col-lg-4">Address:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" placeholder="Enter address" name="institutionAddress" required="">
+						</div><br><br>
+						<label class="control-label col-lg-4 text-center">Island Group:</label>
+						<div class="col-lg-8">
+							<select class="form-control" name="institutionRegion">
+								<option value="Luzon">Luzon</option>
+								<option value="Visayas">Visayas</option>
+								<option value="Mindanao">Mindanao</option>
+							</select>
+						</div>
+					</div>
+						
+					
+			  	 </form></div>
+			  	 <div class="tab-pane fade" id="adminInfo">
+			  	 	<label class="control-label col-lg-3">Profile Image:</label>
+						<div class="col-lg-9">
+						<input type="file" class="form-control" name="profileImage" accept=".jpg" title="Only .jpg files" required="">
+						</div><br><br>
+
+						<label class="control-label col-lg-3">First Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3">Last Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required="">
+							</div><br><br>
+						<label class="control-label col-lg-3">Middle Name:</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" id="mname" name="mname" placeholder="Middle Name" required="">
+							</div><br><br>
+						<label class="control-label col-lg-3 text-center">Position:</label>
+						<div class="col-lg-9">
+            				<select class="form-control" name="position">
+              						
+					              <option value="Registrar">Registrar</option>
+					           		
+				            </select>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Degree:</label>
+						<div class="col-lg-9">
+							<select class="form-control" name="educationalAttainment">
+								<option value="Associate">Associate</option>
+								<option value="Bachelor">Bachelor</option>
+								<option value="Master">Master</option>
+								<option value="Doctorate">Doctorate</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Program:</label>
+						<div class="col-lg-9">
+							<input list="programList" class="form-control" name="programGraduated" placeholder="Program Graduated" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">School Graduated:</label>
+						<div class="col-lg-9">
+							<input list="schoolList" class="form-control" name="schoolGraduated" placeholder="School Graduated" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Year Graduated:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="yearGraduated" name="yearGraduated" placeholder="Year Graduated" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Gender:</label>
+						<div class="col-lg-9">
+							<select class="form-control" name="gender">
+								<option value="Male">Male</option>
+								<option value="Female">Female</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">Date of Birth:</label>
+						<div class="col-lg-9">
+								<input type="date" id="dob" name="dob" class="form-control" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Faculty Type:</label>
+						<div class="col-lg-9">
+							<select class="form-control" name="facultyType">
+								<option value="Full-time">Full-time</option>
+								<option value="Part-time">Part-time</option>
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">Date Hired:</label>
+						<div class="col-lg-9">
+								<input type="date" id="DateHired" name="dateHired" class="form-control" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3">Email:</label>
+						<div class="col-lg-9">
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email" required="">
+						</div><br><br>
+						<label class="control-label col-lg-3">Password:</label>
+						<div class="col-lg-9">
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern=".{8,}" required="" title="Minimum of 8 characters">
+						</div><br><br>
+					</div>
+			  	 </div>
+			    
+
+			</div>
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editInstitution" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Institution</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:3000/editInstitution" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Old Name:</label>
+						<div class="col-lg-9">
+							<select class="form-control" name="institutionId">
+								
+									<option value="4">University of San Carlos</option>
+								
+									<option value="13">Cebu Doctors University</option>
+								
+									<option value="14">University of the Philippines</option>
+								
+									<option value="15">Mindanao State University</option>
+								
+									<option value="16">Ateneo de Davao University</option>
+								
+							</select>
+						</div><br><br>
+						<label class="control-label col-lg-3">New Name:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter name" name="institutionName">
+						</div><br><br>
+						<label class="control-label col-lg-3">Address:</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" placeholder="Enter address" name="institutionAddress">
+						</div><br><br>
+						<label class="control-label col-lg-3 text-center">Island Group:</label>
+						<div class="col-lg-9">
+							<select class="form-control" name="institutionRegion">
+								<option value="Luzon">Luzon</option>
+								<option value="Visayas">Visayas</option>
+								<option value="Mindanao">Mindanao</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">        
+						<div class="col-lg-12 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteInstitution" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Delete Institution</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:3000/deleteInstitution" method="POST">
+					<div class="form-group">
+						<label class="control-label col-lg-3">Name:</label>
+						<div class="col-lg-9">
+							<select class="form-control" name="institutionId">
+								
+									<option value="4">University of San Carlos</option>
+								
+									<option value="13">Cebu Doctors University</option>
+								
+									<option value="14">University of the Philippines</option>
+								
+									<option value="15">Mindanao State University</option>
+								
+									<option value="16">Ateneo de Davao University</option>
+								
+							</select>
+						</div><br><br>
+					</div>
+					<div class="form-group">        
+						<div class="col-lg-12 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--LIST OF INSTITUTIONS MODALS-->
+
+
+<div id="institution4" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Institution Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row picbg">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/institution4.jpg">
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName-->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Institution Name:
+					</div>
+					<div class="col-lg-8">
+						University of San Carlos 
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Address:
+					</div>
+					<div class="col-lg-8">
+						P. del Rosario Street, Cebu CIty, Philippines 6000
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Institution Admin:
+					</div>
+					<div class="col-lg-8">
+						Romeo - Yap
+					</div><br><br>
+
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="institution13" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Institution Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row picbg">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/institution13.jpg">
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName-->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Institution Name:
+					</div>
+					<div class="col-lg-8">
+						Cebu Doctors University 
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Address:
+					</div>
+					<div class="col-lg-8">
+						North Reclamation Area Mandaue City Cebu
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Institution Admin:
+					</div>
+					<div class="col-lg-8">
+						John - Smith
+					</div><br><br>
+
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="institution14" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Institution Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row picbg">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/institution14.jpg">
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName-->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Institution Name:
+					</div>
+					<div class="col-lg-8">
+						University of the Philippines 
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Address:
+					</div>
+					<div class="col-lg-8">
+						Roxas Ave, Diliman, Quezon City, Metro Manila
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Institution Admin:
+					</div>
+					<div class="col-lg-8">
+						Danilo - Concepcion
+					</div><br><br>
+
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="institution15" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Institution Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row picbg">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/institution15.jpg">
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName-->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Institution Name:
+					</div>
+					<div class="col-lg-8">
+						Mindanao State University 
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Address:
+					</div>
+					<div class="col-lg-8">
+						 Main Campus,, Marawi City, Lanao del Sur
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Institution Admin:
+					</div>
+					<div class="col-lg-8">
+						Mindanao President - Marawo
+					</div><br><br>
+
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="institution16" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Institution Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row picbg">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/institution16.jpg">
+					</div>
+				</div><br><br>
+				<!-- institutionId, fname, lname, address, institutionName-->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Institution Name:
+					</div>
+					<div class="col-lg-8">
+						Ateneo de Davao University 
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Address:
+					</div>
+					<div class="col-lg-8">
+						Roxas Ave, Poblacion District, Davao City, 8000 Davao del Sur
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Institution Admin:
+					</div>
+					<div class="col-lg-8">
+						Joel - Tabora
+					</div><br><br>
+
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- INSTITUTION ADMIN -->
+
+<div id="addInstitutionAdmin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Assign Institution Administrator</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:3000/addInstitutionAdmin" method="POST">
+
+				<label class="control-label" for="institutionName">Select Institution:</label>
+			        <select class="form-control" name="chosenInstitution">
+						
+						 <option value="4">University of San Carlos</option>
+						
+						 <option value="13">Cebu Doctors University</option>
+						
+						 <option value="14">University of the Philippines</option>
+						
+						 <option value="15">Mindanao State University</option>
+						
+						 <option value="16">Ateneo de Davao University</option>
+						
+					</select>
+
+			      <label class="control-label" for="schoolName">Select Faculty:</label>
+			        <select class="form-control" name="facultyIdd">
+						
+						 <option value="26">Godwin Monserate</option>
+						
+					</select>
+			      
+
+			</form></div>
+			<div class="modal-footer">
+			    <button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editInstitutionAdmin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Edit Institution Administrator</h4>
+			</div>
+			<div class="modal-body">
+				EDIT INSTITUTION ADMINISTRATOR
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="viewInstitutionAdmin" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">View Institution Administrators</h4>
+			</div>
+			<div class="modal-body">
+				<table id="adminTable" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Faculty ID</th>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<tr>
+							<td>10</td>
+							<td>Romeo</td>
+							<td>Yap</td>
+							<td>uscregistrar@usc.edu.ph</td>
+							<td><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#admin10"> </span> </td>
+						</tr>
+						
+						<tr>
+							<td>20</td>
+							<td>John</td>
+							<td>Smith</td>
+							<td>renzoaouano@gmail.com</td>
+							<td><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#admin20"> </span> </td>
+						</tr>
+						
+						<tr>
+							<td>21</td>
+							<td>Danilo</td>
+							<td>Concepcion</td>
+							<td>danilo@gmail.com</td>
+							<td><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#admin21"> </span> </td>
+						</tr>
+						
+						<tr>
+							<td>22</td>
+							<td>Mindanao President</td>
+							<td>Marawo</td>
+							<td>mindanao@gmail.com</td>
+							<td><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#admin22"> </span> </td>
+						</tr>
+						
+						<tr>
+							<td>23</td>
+							<td>Joel</td>
+							<td>Tabora</td>
+							<td>joeltabora@gmail.com</td>
+							<td><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#admin23"> </span> </td>
+						</tr>
+						
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Admin Data Modals -->
+
+
+<div id="admin10" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/faculty10.jpg">
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email -->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Name:
+					</div>
+					<div class="col-lg-8">
+						Romeo E Yap
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Email:
+					</div>
+					<div class="col-lg-8">
+						uscregistrar@usc.edu.ph
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Position:
+					</div>
+					<div class="col-lg-8">
+						Registrar - Full-time
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Educational Attainment:
+					</div>
+					<div class="col-lg-8">
+						Doctorate - Clinical Psychology
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						School Graduated:
+					</div>
+					<div class="col-lg-8">
+						University of San Carlos - 1980
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Gender:
+					</div>
+					<div class="col-lg-8">
+						Male
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Date Hired:
+					</div>
+					<div class="col-lg-8">
+						Wed Sep 25 1985 00:00:00 GMT+0800 (China Standard Time)
+					</div><br><br>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="admin20" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/faculty20.jpg">
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email -->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Name:
+					</div>
+					<div class="col-lg-8">
+						John F. Smith
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Email:
+					</div>
+					<div class="col-lg-8">
+						renzoaouano@gmail.com
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Position:
+					</div>
+					<div class="col-lg-8">
+						Registrar - Full-time
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Educational Attainment:
+					</div>
+					<div class="col-lg-8">
+						Bachelor - Law
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						School Graduated:
+					</div>
+					<div class="col-lg-8">
+						University of the Philippines - Diliman - 2008
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Gender:
+					</div>
+					<div class="col-lg-8">
+						Male
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Date Hired:
+					</div>
+					<div class="col-lg-8">
+						Sun Jan 01 2017 00:00:00 GMT+0800 (China Standard Time)
+					</div><br><br>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="admin21" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/faculty21.jpg">
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email -->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Name:
+					</div>
+					<div class="col-lg-8">
+						Danilo M. Concepcion
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Email:
+					</div>
+					<div class="col-lg-8">
+						danilo@gmail.com
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Position:
+					</div>
+					<div class="col-lg-8">
+						Registrar - Full-time
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Educational Attainment:
+					</div>
+					<div class="col-lg-8">
+						Doctorate - Social Psychology
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						School Graduated:
+					</div>
+					<div class="col-lg-8">
+						University of the Philippines - Diliman - 1986
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Gender:
+					</div>
+					<div class="col-lg-8">
+						Male
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Date Hired:
+					</div>
+					<div class="col-lg-8">
+						Sun Nov 11 2001 00:00:00 GMT+0800 (China Standard Time)
+					</div><br><br>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="admin22" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/faculty22.jpg">
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email -->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Name:
+					</div>
+					<div class="col-lg-8">
+						Mindanao President Lanao Marawo
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Email:
+					</div>
+					<div class="col-lg-8">
+						mindanao@gmail.com
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Position:
+					</div>
+					<div class="col-lg-8">
+						Registrar - Full-time
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Educational Attainment:
+					</div>
+					<div class="col-lg-8">
+						Master - Information and Communication Technology
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						School Graduated:
+					</div>
+					<div class="col-lg-8">
+						University of San Carlos - 1985
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Gender:
+					</div>
+					<div class="col-lg-8">
+						Male
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Date Hired:
+					</div>
+					<div class="col-lg-8">
+						Wed May 09 2018 00:00:00 GMT+0800 (China Standard Time)
+					</div><br><br>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="admin23" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Faculty Data</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3 text-center">
+						<img class="face" src="./The STEAM Cloud_ Data Analytics and Research Module_files/faculty23.jpg">
+					</div>
+				</div><br><br>
+				<!-- facultyId, fname, lname, mname, position, educationalAttainment, yearGraduated, schoolGraduated, gender, dateOfBirth, facultyType, specialization, dateHired, email -->
+				<div class="row">
+					<div class="col-lg-4 text-center">
+						Name:
+					</div>
+					<div class="col-lg-8">
+						Joel E. Tabora
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Email:
+					</div>
+					<div class="col-lg-8">
+						joeltabora@gmail.com
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Position:
+					</div>
+					<div class="col-lg-8">
+						Registrar - Full-time
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Educational Attainment:
+					</div>
+					<div class="col-lg-8">
+						Bachelor - Law
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						School Graduated:
+					</div>
+					<div class="col-lg-8">
+						University of Southern Philippines Foundation - 1997
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Gender:
+					</div>
+					<div class="col-lg-8">
+						Male
+					</div><br><br>
+
+					<div class="col-lg-4 text-center">
+						Date Hired:
+					</div>
+					<div class="col-lg-8">
+						Fri May 05 2000 00:00:00 GMT+0800 (China Standard Time)
+					</div><br><br>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<datalist id="schoolList">
+	<option value="University of San Carlos">
+	</option><option value="University of Southern Philippines Foundation">
+	</option><option value="Cebu Doctor&#39;s University">
+	</option><option value="University of the Philippines - Diliman">
+	</option><option value="Southwestern University">
+	</option><option value="Cebu Technological University">
+	</option><option value="Cebu Institute of Technology">
+	</option><option value="University of Cebu">
+	</option><option value="University of the Visayas">
+</option></datalist>
+<datalist id="programList">
+	<option value="Information Technology">
+	</option><option value="Computer Science">
+	</option><option value="Information and Communication Technology">
+	</option><option value="Social Psychology">
+	</option><option value="Clinical Psychology">
+	</option><option value="Counseling Psychology">
+	</option><option value="Law">
+	</option><option value="Accountancy">
+	</option><option value="Computer Engineering">
+	</option><option value="Civil Engineeering">
+	</option><option value="Mechanical Engineering">
+	</option><option value="Chemical Engineering">
+	</option><option value="Industrial Engineering">
+</option></datalist>
+
+<!-- DEPARTMENT -->
+
+
+<div id="certifyDepartmentDev" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Certify Department as Center Of Development</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:3000/certifyDepartmentDev" method="POST">
+
+
+			      <label class="control-label" for="departmentName">Select Department:</label>
+			        <select class="form-control" name="departmentId">
+						
+						 <option value="3"> University of San Carlos - Department of Computer and Information Sciences</option>
+						
+						 <option value="4"> Ateneo de Davao University - Department of Anthropology</option>
+						
+					</select>
+			      
+
+			</form></div>
+			<div class="modal-footer">
+			    <button type="submit" class="btn btn-primary">Certify</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="certifyDepartmentEx" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Certify Department as Center Of Exellence</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:3000/certifyDepartmentEx" method="POST">
+
+
+			      <label class="control-label" for="departmentName">Select Department:</label>
+			        <select class="form-control" name="departmentId">
+						
+					</select>
+			      
+
+			</form></div>
+			<div class="modal-footer">
+			    <button type="submit" class="btn btn-primary">Certify</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteCertification" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close glyphicon glyphicon-remove" data-dismiss="modal"></span>
+				<h4 class="modal-title">Remove Department Certifications</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:3000/deleteDepartmentCertification" method="POST">
+
+
+			      <label class="control-label" for="departmentName">Select Department:</label>
+			        <select class="form-control" name="departmentId">
+						
+					</select>
+			      
+
+			</form></div>
+			<div class="modal-footer">
+			    <button type="submit" class="btn btn-warning">Remove</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-2" id="sidebar">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<img id="chedlogo" src="./The STEAM Cloud_ Data Analytics and Research Module_files/logo2.png">
+						</div>
+						<div id="userInfo" class="col-lg-12">
+							<hr>
+							<div class="col-lg-6 col-lg-offset-3">
+								<img id="profpic" src="./The STEAM Cloud_ Data Analytics and Research Module_files/chedgov.jpg" alt="No image found">
+							</div>
+							<div class="col-lg-12 text-center">
+								<h5>Commission on Higher Education</h5>
+							</div>
+							<a id="logout" href="http://localhost:3000/" class="col-lg-12 text-center icon">
+								<span class="glyphicon glyphicon-log-out"></span>
+							</a>
+						</div>
+						<div class="col-lg-12">
+							<div class="list-group">
+								<a href="http://localhost:3000/ched#" id="institution" class="list-group-item">Institution</a>
+									<div id="subinstitution" class="sublist list-group" style="display: none;">
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#addInstitution" onclick="showInTab()"><span class="glyphicon glyphicon-plus"></span> Add Institution</a>
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#editInstitution"><span class="glyphicon glyphicon-pencil"></span> Edit Institution</a>
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#deleteInstitution"><span class="glyphicon glyphicon-trash"></span> Delete Institution</a>
+										<a href="http://localhost:3000/ched#viewinstitution" class="list-group-item"><span class="glyphicon glyphicon-search"></span> View Institutions Graphs</a>
+										
+									</div>
+								<a href="http://localhost:3000/ched#" id="institutionAdmin" class="list-group-item">Institution Administrator</a>
+									<div id="subinstitutionadmin" class="sublist list-group" style="display: none;">
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#addInstitutionAdmin"><span class="glyphicon glyphicon-plus"></span> Assign Institution Administrator</a>
+										
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#viewInstitutionAdmin"><span class="glyphicon glyphicon-search"></span> View Institution Administrator</a>
+									</div>
+								<a href="http://localhost:3000/ched#" id="school" class="list-group-item">School</a>
+									<div id="subSchool" class="sublist list-group" style="display: none;">
+										<a href="http://localhost:3000/ched#viewschool" class="list-group-item"><span class="glyphicon glyphicon-search"></span> View Schools</a>
+									</div>
+								<a href="http://localhost:3000/ched#" id="department" class="list-group-item">Department</a>
+									<div id="subDepartment" class="sublist list-group" style="display: none;">
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#certifyDepartmentDev"><span class="glyphicon glyphicon-bookmark"></span> Certify Department as Center of Development</a>
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#certifyDepartmentEx"><span class="glyphicon glyphicon-bookmark"></span> Certify Department as Center of Excellence</a>
+										<a href="http://localhost:3000/ched#" class="list-group-item" data-toggle="modal" data-target="#deleteCertification"><span class="glyphicon glyphicon-remove"></span> Remove Department Certifications</a>
+										<a href="http://localhost:3000/ched#viewdepartment" class="list-group-item"><span class="glyphicon glyphicon-search"></span> View Departments</a>
+									</div>
+								<a id="program" class="list-group-item">Program</a>
+									<div id="subProgram" class="sublist list-group" style="display: none;">
+										<a href="http://localhost:3000/ched#viewprogram" class="list-group-item"><span class="glyphicon glyphicon-search"></span> View Programs</a>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10 row" id="content">
+								<div class="col-lg-12 text-center" id="contentTitle">
+										<h4>Data Visualizations</h4>
+								</div>
+								<div class="col-lg-10 col-lg-offset-1 row" id="contentBody">
+										<div class="col-lg-12">
+												<h3 class="text-center" id="viewinstitution">INSTITUTION</h3>
+												 Institutions: 5<br>
+										 </div>
+										<div class="col-lg-12 graphContainer">
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="InstitutionChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-3 chart text-center">
+													<div class="rawNumber">
+														<h6>Raw Number:</h6><br>
+														<h1>40</h1>
+													</div>
+												</div>
+												<div class="col-lg-3 chart text-center">
+													<div class="rawNumber">
+														<h6>Average per Region:</h6><br>
+														<h1>5.6</h1>
+													</div>
+												</div>
+
+												<div class="col-lg-12 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="RegionChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-12 piechart1">
+													<h3 class="text-center" style="margin-bottom: 3%;">LIST OF INSTITUTIONS</h3><div id="institutionList_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="institutionList_length"><label>Show <select name="institutionList_length" aria-controls="institutionList" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="institutionList_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="institutionList"></label></div><table id="institutionList" class="table table-striped dataTable no-footer" role="grid" aria-describedby="institutionList_info">
+														
+									                    <thead>
+									                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="institutionList" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Institution Name: activate to sort column descending" style="width: 328px;">Institution Name</th><th class="sorting" tabindex="0" aria-controls="institutionList" rowspan="1" colspan="1" aria-label="Region: activate to sort column ascending" style="width: 120px;">Region</th><th class="sorting" tabindex="0" aria-controls="institutionList" rowspan="1" colspan="1" aria-label="More Details: activate to sort column ascending" style="width: 194px;">More Details</th></tr>
+									                    </thead>
+									                    <tbody>
+									                        
+									                        
+									                        
+									                        
+									                        
+									                        
+									                        
+									                        
+									                        
+									                        
+									                        
+									                    <tr role="row" class="odd">
+									                            <td class="sorting_1">Ateneo de Davao University</td>
+									                            <td>Mindanao</td>
+									                            <td class="text-center"><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#institution16"> </span></td>
+									                        </tr><tr role="row" class="even">
+									                            <td class="sorting_1">Cebu Doctors University</td>
+									                            <td>Visayas</td>
+									                            <td class="text-center"><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#institution13"> </span></td>
+									                        </tr><tr role="row" class="odd">
+									                            <td class="sorting_1">Mindanao State University</td>
+									                            <td>Mindanao</td>
+									                            <td class="text-center"><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#institution15"> </span></td>
+									                        </tr><tr role="row" class="even">
+									                            <td class="sorting_1">University of San Carlos</td>
+									                            <td>Visayas</td>
+									                            <td class="text-center"><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#institution4"> </span></td>
+									                        </tr><tr role="row" class="odd">
+									                            <td class="sorting_1">University of the Philippines</td>
+									                            <td>Luzon</td>
+									                            <td class="text-center"><span class="glyphicon glyphicon-search btn btn-success" data-toggle="modal" data-target="#institution14"> </span></td>
+									                        </tr></tbody>
+									                </table><div class="dataTables_info" id="institutionList_info" role="status" aria-live="polite">Showing 1 to 5 of 5 entries</div><div class="dataTables_paginate paging_simple_numbers" id="institutionList_paginate"><a class="paginate_button previous disabled" aria-controls="institutionList" data-dt-idx="0" tabindex="0" id="institutionList_previous">Previous</a><span><a class="paginate_button current" aria-controls="institutionList" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="institutionList" data-dt-idx="2" tabindex="0" id="institutionList_next">Next</a></div></div>
+												</div>
+										</div>
+
+										<div class="col-lg-12 dataContainer">
+												<h3 class="text-center" id="viewschool">SCHOOL</h3>
+												Number of Schools : 2<br>
+										</div>
+										<div class="col-lg-12 graphContainer">
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="SchoolChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="SchoolaveChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="box">
+
+												</div>
+										</div>
+										<div class="col-lg-12 dataContainer">
+												<h3 class="text-center" id="viewdepartment">DEPARTMENT</h3>
+												Number of Department : 2<br>
+												Number of students :<br>
+										</div>
+										<div class="col-lg-12 graphContainer">
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="departmentChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="certificationchart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="avedeptChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="avedeptschChart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												
+												<div class="box">
+
+												 </div>
+										</div>
+										<div class="col-lg-12 dataContainer">
+												<h3 class="text-center" id="viewprogram">FACULTY</h3>
+														Number of Faculty : 12<br>
+														Number of Program : 2<br>
+										</div>
+										<div class="col-lg-12 graphContainer">
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultychart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultygenderchart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-12 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultyaveragechart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-12 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultylevelchart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultydegreechart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-6 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultyagechart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-12 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultyspecializationchart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="col-lg-12 piechart1"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+													<canvas id="facultygraduatechart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+												</div>
+												<div class="box">
+
+												</div>
+										</div>
+										<div class="col-lg-12 dataContainer">
+											<h3 class="text-center" id="viewprogram">STUDENT</h3>
+										</div>
+										<div class="col-lg-12 graphContainer">
+											<div class="col-lg-12 chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+												<canvas id="studentbarchart" width="552" height="276" class="chartjs-render-monitor" style="display: block; width: 552px; height: 276px;"></canvas>
+											</div>
+										</div>
+										
+								</div>
+							</div>
+			</div>
+		</div>
+	
+
+<script>
+
+	
+
+	$(document).ready(function(){
+		$(".sublist").hide();
+
+
+
+		function clean(){
+			$(".sublist").slideUp();
+		}
+
+
+		$("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+
+		$("#institution").on("click", function(){
+			if($("#subinstitution").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subinstitution").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#institutionAdmin").on("click", function(){
+			if($("#subinstitutionadmin").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subinstitutionadmin").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#school").on("click", function(){
+			if($("#subSchool").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subSchool").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#department").on("click", function(){
+			if($("#subDepartment").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subDepartment").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#program").on("click", function(){
+			if($("#subProgram").is(":hidden")){
+				$(".sublist").slideUp();
+				$("#subProgram").slideDown();
+			}else{
+				$(".sublist").slideUp();
+			}
+		});
+
+		$("#logout").on("click", function(){
+			var ret = confirm("Would you like to log out?");
+
+			if( ret == true ){
+				return true;
+			}else{
+				return false;
+			}
+
+
+		});
+
+
+
+
+
+		var faculty = "12";
+		var school = "2";
+		var department = "2";
+		var program = "2";
+		var institution = "5";
+
+
+ // INSTITUTION
+		var instiChart = document.getElementById('InstitutionChart').getContext('2d');
+
+
+		var sampleChart = new Chart(instiChart, {
+			type: 'bar',
+			data: {
+				labels: ['Institution'],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+							'5',
+						 
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(26, 215, 165)'
+					],
+						borderWidth:1,
+						hoverBorderWidth:3,
+						hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total Number of Institution Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+
+				},
+				tooltips: {
+					enabled: true
+				}
+			}
+		});
+
+
+
+
+		var piechart = document.getElementById('RegionChart').getContext('2d');
+
+
+		var sampleChart = new Chart(piechart, {
+			type: 'doughnut',
+			data: {
+				labels:[
+					'Luzon',
+				
+					'Mindanao',
+				
+					'Visayas',
+				 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+						'1',
+				
+						'2',
+				
+						'2',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Institution Region Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true
+				}
+			}
+		});
+
+
+
+
+
+
+
+
+
+//SCHOOL
+		var school1 = document.getElementById('SchoolChart').getContext('2d');
+
+
+		var sampleChart = new Chart(school1, {
+			type: 'bar',
+			data: {
+				labels:['School'],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+					'2',
+				 
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'School Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+		//SCHOOL AVERAGE
+
+		var schoolave = document.getElementById('SchoolaveChart').getContext('2d');
+
+
+		var sampleChart = new Chart(schoolave, {
+			type: 'doughnut',
+			data: {
+				labels:[
+							'Ateneo de Davao University',
+						
+							'University of San Carlos',
+						 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+							'4',
+						
+							'3',
+						 
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average School per Institution Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+//DEPARTMENT
+
+
+		var dep = document.getElementById('departmentChart').getContext('2d');
+
+
+		var sampleChart = new Chart(dep, {
+			type: 'bar',
+			data: {
+				labels:['Department'],
+				datasets: [{
+					label: 'Department Number',
+					data:[
+						department,
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Department Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+		//DEPARTMENT CERTIFICATIONS
+
+		var certificationbar = document.getElementById('certificationchart').getContext('2d');
+		
+		var bar = new Chart(certificationbar, {
+			type: 'bar',
+			data: {
+				labels: [],
+				datasets: [{
+					label: 'Center of Development',
+					data: [
+					
+					'0 ',
+				 
+					0
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}, {
+					label: 'Center of Excellence',
+					data: [
+					
+					'0 ',
+				 
+					0
+					],
+					backgroundColor: 'rgb(244, 66, 95)',
+					borderColor: 'rgb(244, 66, 95)',
+					fill: false
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Total number of Certifications Given',
+					fontsize: 10
+				},
+				legend: {
+					position: 'right'
+				}
+			}
+		});
+
+
+		//AVERAGE DEPARTMENT PER INSTITUTION
+
+		var avedeptintchart = document.getElementById('avedeptChart').getContext('2d');
+
+
+		var sampleChart = new Chart(avedeptintchart, {
+			type: 'doughnut',
+			data: {
+				labels:[
+					'Ateneo de Davao University',
+				
+					'University of San Carlos',
+				 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+						'4',
+				
+						'3',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Department per Institution Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+		//AVERAGE DEPARTMENT PER SCHOOL
+
+		var avedeptschoolchart = document.getElementById('avedeptschChart').getContext('2d');
+
+
+		var sampleChart = new Chart(avedeptschoolchart, {
+			type: 'pie',
+			data: {
+				labels:[
+					'School of Arts and Sciences',
+				
+					'School of Pyschology',
+				 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+						'3',
+				
+						'4',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Department per School Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+
+//FACULTY CHART
+
+
+
+		var fac = document.getElementById('facultychart').getContext('2d');
+
+
+		var sampleChart = new Chart(fac, {
+			type: 'bar',
+			data: {
+				labels:['Faculty', 'Program'],
+				datasets: [{
+					label: 'Number',
+					data:[
+						faculty,
+						program,
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(26, 215, 165)'
+					],
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty and Program Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
+
+
+		//POSITION
+
+		var piechart = document.getElementById('facultylevelchart').getContext('2d');
+
+
+		var sampleChart = new Chart(piechart, {
+			type: 'polarArea',
+			data: {
+				labels:[
+					'Registrar',
+				
+					'Institution Director',
+				
+					'School Dean',
+				
+					'Department Chairman',
+				
+					'Regular Faculty',
+				 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+						'5',
+				
+						'2',
+				
+						'2',
+				
+						'2',
+				
+						'1',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)',
+						'rgb(23, 69, 168)',
+						'rgb(75, 149, 175)'
+					],
+					
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Institution Faculty Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+		//GENDER
+
+		var genderpiechart = document.getElementById('facultygenderchart').getContext('2d');
+
+
+		var sampleChart = new Chart(genderpiechart, {
+			type: 'pie',
+			data: {
+				labels:[
+					'Male',
+				
+					'Female',
+				 ],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						
+						'8',
+				
+						'4',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Gender Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true
+				}
+			}
+		});
+
+		
+		//AGE
+
+
+		var agepiechart = document.getElementById('facultyagechart').getContext('2d');
+
+
+		var sampleChart = new Chart(agepiechart, {
+			
+			type: 'doughnut',
+			data: {
+				labels:[
+					'0 yrs old',
+				
+					'15 yrs old',
+				
+					'20 yrs old',
+				
+					'29 yrs old',
+				
+					'38 yrs old',
+				
+					'43 yrs old',
+				
+					'51 yrs old',
+				
+					'52 yrs old',
+				
+					'58 yrs old',
+				
+					'66 yrs old',
+				 ],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						
+						'1',
+				
+						'1',
+				
+						'2',
+				
+						'1',
+				
+						'2',
+				
+						'1',
+				
+						'1',
+				
+						'1',
+				
+						'1',
+				
+						'1',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Age Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+
+			}
+		});
+
+
+
+		//SPECIALIZATION
+
+		var specialpiechart = document.getElementById('facultyspecializationchart').getContext('2d');
+
+
+		var sampleChart = new Chart(specialpiechart, {
+			
+			type: 'polarArea',
+			data: {
+				labels:[
+					'Accountancy ',
+				
+					'Clinical Psychology ',
+				
+					'Computer Engineering ',
+				
+					'Information and Communication Technology ',
+				
+					'Information Technology ',
+				
+					'Law ',
+				
+					'Social Psychology ',
+				 ],
+				datasets: [{
+					label: 'Gender Number',
+					data:[
+						
+						'2',
+				
+						'2',
+				
+						'2',
+				
+						'1',
+				
+						'1',
+				
+						'3',
+				
+						'1',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)'
+					],
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Specialization Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				},
+
+			}
+		});
+				
+
+
+
+
+		//SCHOOL GRADUATED
+
+
+		var schoolgraduatedchart = document.getElementById('facultygraduatechart').getContext('2d');
+
+
+		var sampleChart = new Chart(schoolgraduatedchart, {
+			type: 'polarArea',
+			data: {
+				labels:[
+					'Cebu Doctor&#39;s University',
+				
+					'De La Salle University',
+				
+					'University of San Carlos',
+				
+					'University of Southern Philippines Foundation',
+				
+					'University of the Philippines - Diliman',
+				
+					'Univesity of San Carlos',
+				 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+						'1',
+				
+						'1',
+				
+						'4',
+				
+						'1',
+				
+						'3',
+				
+						'2',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)',
+						'rgb(23, 69, 168)',
+						'rgb(75, 149, 175)'
+					],
+					
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty School Graduated Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+
+		//DEGREE
+
+
+
+		var degreechart = document.getElementById('facultydegreechart').getContext('2d');
+
+
+		var sampleChart = new Chart(degreechart, {
+			type: 'pie',
+			data: {
+				labels:[
+					'Associate',
+				
+					'Bachelor',
+				
+					'Master',
+				
+					'Doctorate',
+				 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+						'2',
+				
+						'4',
+				
+						'3',
+				
+						'3',
+				
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(244, 66, 95)',
+						'rgb(35, 59, 196)',
+						'rgb(23, 69, 168)',
+						'rgb(75, 149, 175)'
+					],
+					
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Faculty Degree Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+
+		//ENROLLEES AND GRADUATED
+
+		var studentbar = document.getElementById('studentbarchart').getContext('2d');
+		
+		var bar = new Chart(studentbar, {
+			type: 'line',
+			data: {
+				labels: [
+					'2015 ',
+				 ],
+				datasets: [{
+					label: 'Enrollees',
+					data: [
+					
+					'500 ',
+				 
+					0
+					],
+					backgroundColor: 'rgb(66, 235, 244)',
+					borderColor: 'rgb(66, 235, 244)',
+					fill: false
+					
+				}, {
+					label: 'Graduated',
+					data: [
+					
+					'350 ',
+				 
+					0
+					],
+					backgroundColor: 'rgb(244, 66, 95)',
+					borderColor: 'rgb(244, 66, 95)',
+					fill: false
+				}
+				]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Student records',
+					fontsize: 10
+				}
+			}
+		});
+
+
+		//AVERAGE FACULTY PER INSTITUTION
+
+		var facavg = document.getElementById('facultyaveragechart').getContext('2d');
+
+
+		var sampleChart = new Chart(facavg, {
+			type: 'doughnut',
+			data: {
+				labels:[
+							'Ateneo de Davao University ',
+						
+							'Cebu Doctors University ',
+						
+							'Mindanao State University ',
+						
+							'University of San Carlos ',
+						
+							'University of the Philippines ',
+						 ],
+				datasets: [{
+					label: 'Number',
+					data:[
+						
+							'26.75 ',
+						
+							'20 ',
+						
+							'22 ',
+						
+							'23 ',
+						
+							'21 ',
+						 
+						0
+					],
+					backgroundColor: [
+						'rgb(66, 235, 244)',
+						'rgb(26, 215, 165)'
+					],
+					fill: false,
+					
+					borderWidth:1,
+					hoverBorderWidth:3,
+					hoverBorderColor:'#000'
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: 'Average Faculty per Institution Structure',
+					fontsize: 10
+				},
+				legend: {
+					display: true,
+					position: 'right'
+				}
+			}
+		});
+
+
+$('#institutionList').DataTable();
+		
+
+
+	});
+
+
+
+function showInTab()
+{
+	$('#tab1').tab('show');
+}
+
+
+</script>
+
+<!-- <script type="text/javascript">
+  $(document).on('click', '#addIn',function(){
+      $('#tab1').tab('show');
+  });
+ </script> --></body></html>
